@@ -1,0 +1,19 @@
+<xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+  <category name="Controle" colour="#9fa55b">
+    <block type="sempre"></block>
+    <block type="delay"></block>
+  </category>
+  <category name="Pinos" colour="#5ba58c">
+    <block type="seta_pino_digital"></block>
+    <block type="saida_digital">
+      <field name="saida_digital">SD0</field>
+    </block>
+  </category>
+  <category name="Variáveis e constantes" colour="#a55b80">
+    <block type="inteiro">
+      <field name="valor">0</field>
+    </block>
+    <block type="high"></block>
+    <block type="low"></block>
+  </category>
+</xml>

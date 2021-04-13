@@ -1,0 +1,17 @@
+export enum MenuAction {
+    NEW,
+    OPEN,
+    SAVE,
+    SAVE_AS,
+    QUIT,
+    UNDO,
+    REDO,
+    CUT,
+    COPY,
+    PASTE,
+    DELETE,
+    ZOOM_IN,
+    ZOOM_OUT,
+    ZOOM_TO_FIT,
+    GENERATE,
+}

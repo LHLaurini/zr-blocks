@@ -1,0 +1,46 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="sempre" id="vIw=7mx5b8gt`6GBJW(5" x="38" y="13">
+    <statement name="instrucoes">
+      <block type="seta_pino_digital" id=".kU`+W@]Ys;l/1AqVcKL">
+        <value name="pino">
+          <block type="saida_digital" id="Xz/*kg`(qhs6UP{Py5@!">
+            <field name="saida_digital">SD0</field>
+          </block>
+        </value>
+        <value name="estado">
+          <block type="high" id="p@)V=i0:-^3@3:8vNnVn"></block>
+        </value>
+        <next>
+          <block type="delay" id="4IM)=_$BCvS!fQmk7eBQ">
+            <value name="millis">
+              <block type="inteiro" id="58p7tF**pW:-?oQju%Ei">
+                <field name="valor">1000</field>
+              </block>
+            </value>
+            <next>
+              <block type="seta_pino_digital" id=":nKr[2-G:OIppeU[HpIc">
+                <value name="pino">
+                  <block type="saida_digital" id="$45Z14ZO9D:XWvC*BeqF">
+                    <field name="saida_digital">SD0</field>
+                  </block>
+                </value>
+                <value name="estado">
+                  <block type="low" id="L[!L;sQvIC;0;YOK@n|Q"></block>
+                </value>
+                <next>
+                  <block type="delay" id="6^s2_UO/21;4*N1nZ_q/">
+                    <value name="millis">
+                      <block type="inteiro" id="4me=qT]/F+B2EZER*Nzq">
+                        <field name="valor">1000</field>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

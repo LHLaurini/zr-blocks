@@ -1,0 +1,138 @@
+[
+    {
+        "type": "sempre",
+        "message0": "sempre faça %1",
+        "args0": [
+            {
+                "type": "input_statement",
+                "name": "instrucoes"
+            }
+        ],
+        "colour": 65,
+        "tooltip": "",
+        "helpUrl": ""
+    },
+    {
+        "type": "high",
+        "message0": "HIGH",
+        "output": "Boolean",
+        "colour": 260,
+        "tooltip": "",
+        "helpUrl": ""
+    },
+    {
+        "type": "low",
+        "message0": "LOW",
+        "output": "Boolean",
+        "colour": 260,
+        "tooltip": "",
+        "helpUrl": ""
+    },
+    {
+        "type": "delay",
+        "message0": "delay MILLIS %1",
+        "args0": [
+            {
+                "type": "input_value",
+                "name": "millis",
+                "check": "Number"
+            }
+        ],
+        "inputsInline": true,
+        "previousStatement": null,
+        "nextStatement": null,
+        "colour": 60,
+        "tooltip": "",
+        "helpUrl": ""
+    },
+    {
+        "type": "seta_pino_digital",
+        "message0": "seta pino digital %1 como %2",
+        "args0": [
+            {
+                "type": "input_value",
+                "name": "pino",
+                "check": "Number",
+                "align": "RIGHT"
+            },
+            {
+                "type": "input_value",
+                "name": "estado",
+                "check": "Boolean",
+                "align": "RIGHT"
+            }
+        ],
+        "inputsInline": true,
+        "previousStatement": null,
+        "nextStatement": null,
+        "colour": 160,
+        "tooltip": "",
+        "helpUrl": ""
+    },
+    {
+        "type": "saida_digital",
+        "message0": "%1",
+        "args0": [
+            {
+                "type": "field_dropdown",
+                "name": "saida_digital",
+                "options": [
+                    [
+                        "SD0",
+                        "SD0"
+                    ],
+                    [
+                        "SD1",
+                        "SD1"
+                    ],
+                    [
+                        "SD2",
+                        "SD2"
+                    ],
+                    [
+                        "SD3",
+                        "SD3"
+                    ],
+                    [
+                        "SD4",
+                        "SD4"
+                    ],
+                    [
+                        "SD5",
+                        "SD5"
+                    ],
+                    [
+                        "SD6",
+                        "SD6"
+                    ],
+                    [
+                        "SD7",
+                        "SD7"
+                    ]
+                ]
+            }
+        ],
+        "output": "Number",
+        "colour": 20,
+        "tooltip": "",
+        "helpUrl": ""
+    },
+    {
+        "type": "inteiro",
+        "message0": "%1",
+        "args0": [
+            {
+                "type": "field_number",
+                "name": "valor",
+                "value": 0,
+                "min": -32768,
+                "max": 32767,
+                "precision": 1
+            }
+        ],
+        "output": "Number",
+        "colour": 330,
+        "tooltip": "",
+        "helpUrl": ""
+    }
+]

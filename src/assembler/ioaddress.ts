@@ -1,0 +1,18 @@
+import { OutOfRangeError } from "../common/error";
+import { Operand } from "./operand";
+
+export class IOAddress extends Operand {
+    public readonly ioAddress: number;
+
+    private constructor(address: number) {
+        super();
+        this.ioAddress = address;
+    }
+
+    public static at(address: number) {
+        if (address < 0 || address > 255) {
+            throw new OutOfRangeError;
+        }
+        return new IOAddress(address);
+    }
+}

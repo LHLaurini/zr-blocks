@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "Programação em blocos para o microcontrolador brasileiro ZR16S08",
   "main": "dist/main.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc -p src",
     "postbuild": "node copyfiles.js",

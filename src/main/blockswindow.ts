@@ -1,7 +1,7 @@
 import { BrowserWindow, dialog, ipcMain, Menu } from "electron";
-import { protect } from "../common/protect.js";
+import { protect } from "../common/protect";
 import { join, basename } from 'path';
-import { MenuAction } from "../common/menuaction.js";
+import { MenuAction } from "../common/menuaction";
 import Settings from 'electron-settings';
 
 type CurrentFile = Readonly<{ changed: boolean, filename: string | null }>;

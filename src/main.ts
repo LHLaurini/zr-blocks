@@ -1,5 +1,5 @@
-import { App } from "./main/app.js";
-import { protect } from "./common/protect.js";
+import { App } from "./main/app";
+import { protect } from "./common/protect";
 
 let app: App;
 

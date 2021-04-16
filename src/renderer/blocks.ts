@@ -3,10 +3,10 @@ import Blockly from 'blockly';
 import { ipcRenderer } from 'electron';
 import { readFile, writeFile } from 'fs/promises';
 import Path from 'path';
-import { IntializationError } from '../common/error.js';
-import { MenuAction } from '../common/menuaction.js';
-import { protect } from '../common/protect.js';
-import { Generator } from './generator.js';
+import { IntializationError } from '../common/error';
+import { MenuAction } from '../common/menuaction';
+import { protect } from '../common/protect';
+import { Generator } from './generator';
 
 export class Blocks {
     private static _instance: Blocks | undefined;
@@ -31,7 +31,7 @@ export class Blocks {
         const toolbox = Blocks.loadXml('blockly/toolbox.xml');
 
         if (blocklyArea == null) {
-            throw IntializationError;
+            throw new IntializationError;
         }
 
         Blockly.defineBlocksWithJsonArray(JSON.parse(await blocks));

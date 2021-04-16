@@ -1,7 +1,7 @@
 
 import { app, BrowserWindow, ipcMain } from 'electron';
-import { BlocksWindow } from './blockswindow.js';
-import { appErrorHandler } from '../common/protect.js';
+import { BlocksWindow } from './blockswindow';
+import { appErrorHandler } from '../common/protect';
 
 export class App {
     private static _instance: App | undefined;

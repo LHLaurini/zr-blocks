@@ -1,3 +1,3 @@
-import { Blocks } from "./blocks.js";
+import { Blocks } from "./blocks";
 
 Blocks.instance.setupEventListeners();

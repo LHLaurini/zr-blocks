@@ -21,5 +21,19 @@ describe('IOAddress', () => {
             expect(() => IOAddress.at(-129)).toThrow();
             expect(() => IOAddress.at(-Infinity)).toThrow();
         });
+        it('throws when not a number', () => {
+            expect(() => IOAddress.at(undefined as unknown as number)).toThrow();
+            expect(() => IOAddress.at(null as unknown as number)).toThrow();
+            expect(() => IOAddress.at(NaN)).toThrow();
+            expect(() => IOAddress.at({} as unknown as number)).toThrow();
+            expect(() => IOAddress.at([] as unknown as number)).toThrow();
+            expect(() => IOAddress.at("" as unknown as number)).toThrow();
+            expect(() => IOAddress.at("0" as unknown as number)).toThrow();
+            expect(() => IOAddress.at("1" as unknown as number)).toThrow();
+            expect(() => IOAddress.at("2" as unknown as number)).toThrow();
+            expect(() => IOAddress.at(true as unknown as number)).toThrow();
+            expect(() => IOAddress.at(false as unknown as number)).toThrow();
+            expect(() => IOAddress.at((() => { }) as unknown as number)).toThrow();
+        });
     });
 });

@@ -1,4 +1,4 @@
-import { OutOfRangeError } from "../common/error";
+import { NotANumberError, OutOfRangeError } from "../common/error";
 import { Operand } from "./operand";
 
 export class Immediate7 extends Operand {
@@ -10,6 +10,9 @@ export class Immediate7 extends Operand {
     }
 
     public static from(value: number) {
+        if (typeof value != 'number' || isNaN(value)) {
+            throw new NotANumberError;
+        }
         if (value < 0 || value > 127) {
             throw new OutOfRangeError;
         }

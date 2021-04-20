@@ -169,4 +169,22 @@ describe('DoubleIndirectProg', () => {
         test(Register.R15.memory.prog3, 15, 3);
         test(Register.R15.memory.prog(3), 15, 3);
     });
+    it('throws when out of range', () => {
+        expect(() => Register.R0.memory.prog(-1 as 0)).toThrow();
+        expect(() => Register.R0.memory.prog(4 as 0)).toThrow();
+    });
+    it('throws when not a number', () => {
+        expect(() => Register.R0.memory.prog(undefined as unknown as 0)).toThrow();
+        expect(() => Register.R0.memory.prog(null as unknown as 0)).toThrow();
+        expect(() => Register.R0.memory.prog(NaN as 0)).toThrow();
+        expect(() => Register.R0.memory.prog({} as unknown as 0)).toThrow();
+        expect(() => Register.R0.memory.prog([] as unknown as 0)).toThrow();
+        expect(() => Register.R0.memory.prog("" as unknown as 0)).toThrow();
+        expect(() => Register.R0.memory.prog("0" as unknown as 0)).toThrow();
+        expect(() => Register.R0.memory.prog("1" as unknown as 0)).toThrow();
+        expect(() => Register.R0.memory.prog("2" as unknown as 0)).toThrow();
+        expect(() => Register.R0.memory.prog(true as unknown as 0)).toThrow();
+        expect(() => Register.R0.memory.prog(false as unknown as 0)).toThrow();
+        expect(() => Register.R0.memory.prog((() => { }) as unknown as 0)).toThrow();
+    });
 });

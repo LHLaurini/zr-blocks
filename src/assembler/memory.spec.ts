@@ -21,5 +21,19 @@ describe('Memory', () => {
             expect(() => Memory.at(-129)).toThrow();
             expect(() => Memory.at(-Infinity)).toThrow();
         });
+        it('throws when not a number', () => {
+            expect(() => Memory.at(undefined as unknown as number)).toThrow();
+            expect(() => Memory.at(null as unknown as number)).toThrow();
+            expect(() => Memory.at(NaN)).toThrow();
+            expect(() => Memory.at({} as unknown as number)).toThrow();
+            expect(() => Memory.at([] as unknown as number)).toThrow();
+            expect(() => Memory.at("" as unknown as number)).toThrow();
+            expect(() => Memory.at("0" as unknown as number)).toThrow();
+            expect(() => Memory.at("1" as unknown as number)).toThrow();
+            expect(() => Memory.at("2" as unknown as number)).toThrow();
+            expect(() => Memory.at(true as unknown as number)).toThrow();
+            expect(() => Memory.at(false as unknown as number)).toThrow();
+            expect(() => Memory.at((() => { }) as unknown as number)).toThrow();
+        });
     });
 });

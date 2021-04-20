@@ -1,4 +1,4 @@
-import { OutOfRangeError } from "../common/error";
+import { NotANumberError, OutOfRangeError } from "../common/error";
 import { Operand } from "./operand";
 
 export class Memory extends Operand {
@@ -10,6 +10,9 @@ export class Memory extends Operand {
     }
 
     public static at(address: number) {
+        if (typeof address != 'number' || isNaN(address)) {
+            throw new NotANumberError;
+        }
         if (address < 0 || address > 255) {
             throw new OutOfRangeError;
         }

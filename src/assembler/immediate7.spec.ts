@@ -21,5 +21,19 @@ describe('Immediate7', () => {
             expect(() => Immediate7.from(-129)).toThrow();
             expect(() => Immediate7.from(-Infinity)).toThrow();
         });
+        it('throws when not a number', () => {
+            expect(() => Immediate7.from(undefined as unknown as number)).toThrow();
+            expect(() => Immediate7.from(null as unknown as number)).toThrow();
+            expect(() => Immediate7.from(NaN)).toThrow();
+            expect(() => Immediate7.from({} as unknown as number)).toThrow();
+            expect(() => Immediate7.from([] as unknown as number)).toThrow();
+            expect(() => Immediate7.from("" as unknown as number)).toThrow();
+            expect(() => Immediate7.from("0" as unknown as number)).toThrow();
+            expect(() => Immediate7.from("1" as unknown as number)).toThrow();
+            expect(() => Immediate7.from("2" as unknown as number)).toThrow();
+            expect(() => Immediate7.from(true as unknown as number)).toThrow();
+            expect(() => Immediate7.from(false as unknown as number)).toThrow();
+            expect(() => Immediate7.from((() => { }) as unknown as number)).toThrow();
+        });
     });
 });

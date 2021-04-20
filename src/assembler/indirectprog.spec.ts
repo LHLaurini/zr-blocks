@@ -169,4 +169,22 @@ describe('IndirectProg', () => {
         test(Register.R15.prog3, 15, 3);
         test(Register.R15.prog(3), 15, 3);
     });
+    it('throws when out of range', () => {
+        expect(() => Register.R0.prog(-1 as 0)).toThrow();
+        expect(() => Register.R0.prog(4 as 0)).toThrow();
+    });
+    it('throws when not a number', () => {
+        expect(() => Register.R0.prog(undefined as unknown as 0)).toThrow();
+        expect(() => Register.R0.prog(null as unknown as 0)).toThrow();
+        expect(() => Register.R0.prog(NaN as 0)).toThrow();
+        expect(() => Register.R0.prog({} as unknown as 0)).toThrow();
+        expect(() => Register.R0.prog([] as unknown as 0)).toThrow();
+        expect(() => Register.R0.prog("" as unknown as 0)).toThrow();
+        expect(() => Register.R0.prog("0" as unknown as 0)).toThrow();
+        expect(() => Register.R0.prog("1" as unknown as 0)).toThrow();
+        expect(() => Register.R0.prog("2" as unknown as 0)).toThrow();
+        expect(() => Register.R0.prog(true as unknown as 0)).toThrow();
+        expect(() => Register.R0.prog(false as unknown as 0)).toThrow();
+        expect(() => Register.R0.prog((() => { }) as unknown as 0)).toThrow();
+    });
 });

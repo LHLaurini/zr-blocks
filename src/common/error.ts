@@ -29,6 +29,12 @@ export class InvalidOperandsError extends AssemblerError {
     }
 }
 
+export class NotANumberError extends AssemblerError {
+    constructor() {
+        super("valor literal deve ser um número");
+    }
+}
+
 export class OutOfRangeError extends AssemblerError {
     constructor() {
         super("valor literal fora do permitido");

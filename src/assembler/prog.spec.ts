@@ -26,5 +26,19 @@ describe('Prog', () => {
             expect(() => Prog.at(-1025)).toThrow();
             expect(() => Prog.at(-Infinity)).toThrow();
         });
+        it('throws when not a number', () => {
+            expect(() => Prog.at(undefined as unknown as number)).toThrow();
+            expect(() => Prog.at(null as unknown as number)).toThrow();
+            expect(() => Prog.at(NaN)).toThrow();
+            expect(() => Prog.at({} as unknown as number)).toThrow();
+            expect(() => Prog.at([] as unknown as number)).toThrow();
+            expect(() => Prog.at("" as unknown as number)).toThrow();
+            expect(() => Prog.at("0" as unknown as number)).toThrow();
+            expect(() => Prog.at("1" as unknown as number)).toThrow();
+            expect(() => Prog.at("2" as unknown as number)).toThrow();
+            expect(() => Prog.at(true as unknown as number)).toThrow();
+            expect(() => Prog.at(false as unknown as number)).toThrow();
+            expect(() => Prog.at((() => { }) as unknown as number)).toThrow();
+        });
     });
 });

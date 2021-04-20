@@ -1,4 +1,4 @@
-import { AlreadyResolvedError, OutOfRangeError, UndefinedLabelError } from "../common/error";
+import { AlreadyResolvedError, NotANumberError, OutOfRangeError, UndefinedLabelError } from "../common/error";
 import { Block } from "./block";
 import { Operand } from "./operand";
 
@@ -43,6 +43,9 @@ export class Prog extends Operand {
     }
 
     public static at(address: number) {
+        if (typeof address != 'number' || isNaN(address)) {
+            throw new NotANumberError;
+        }
         if (address < 0 || address > 1023) {
             throw new OutOfRangeError;
         }

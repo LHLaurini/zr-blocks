@@ -245,6 +245,7 @@ export class BlocksWindow {
             message: "Deseja salvar as alterações feitas?",
             buttons: ["Sim", "Não", "Cancelar"],
             normalizeAccessKeys: true,
+            noLink: true,
             type: "question",
             defaultId: 0,
             cancelId: 2

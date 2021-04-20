@@ -1,6 +1,12 @@
 
 import Blockly from 'blockly';
 
+const HEADER = '\
+defineBlocks();\n\
+\n';
+
+const FOOTER = '\nmainLoop;'
+
 export class Generator extends Blockly.Generator {
     // Blockly uses this=block when calling the block functions, so we have to fix it
     public high = (block: Blockly.Block) => this._high(block);
@@ -36,17 +42,17 @@ export class Generator extends Blockly.Generator {
     private _seta_pino_digital(block: Blockly.Block) {
         let pino = this.valueToCode(block, 'pino', this.ORDER_NORMAL);
         let estado = this.valueToCode(block, 'estado', this.ORDER_NORMAL);
-        return `SET_DIGITAL_OUTPUT ${pino}, ${estado}`;
+        return `setDigitalOutput(mainLoop, ${pino}, ${estado});`;
     }
 
     private _delay(block: Blockly.Block) {
         let millis = this.valueToCode(block, 'millis', this.ORDER_NORMAL);
-        return `DELAY_MS ${millis}`;
+        return `delayMs(mainLoop, ${millis});`;
     }
 
     private _sempre(block: Blockly.Block) {
         let instrucoes = this.statementToCode(block, 'instrucoes');
-        return `BEGIN_SEMPRE\n${instrucoes}\nEND_SEMPRE`;
+        return `const mainLoop = new Block();\nconst start = mainLoop.label();\n${instrucoes}\nmainLoop.jmp(start);`;
     }
 
     scrub_(block: Blockly.Block, code: string, thisOnly: boolean): string {
@@ -58,5 +64,9 @@ export class Generator extends Blockly.Generator {
             nextCode = "";
         }
         return code + nextCode;
+    }
+
+    finish(code: string): string {
+        return HEADER + code + FOOTER;
     }
 }

@@ -23,7 +23,7 @@ function handleException(e: unknown) {
     }
 }
 
-export function protect(func: () => void | Promise<void>) {
+export function protect<T>(func: () => T | Promise<T>) {
     try {
         let result = func();
         if (result instanceof Promise) {

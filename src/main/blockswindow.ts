@@ -2,7 +2,14 @@ import { BrowserWindow, dialog, ipcMain, Menu } from "electron";
 import { protect } from "../common/protect";
 import { join, basename } from 'path';
 import { MenuAction } from "../common/menuaction";
+import { writeFile } from 'fs/promises';
 import Settings from 'electron-settings';
+import { VM } from "vm2";
+import { exceptionToString } from "../common/error";
+import * as assembler from "../assembler/assembler";
+import * as stdlib from "../stdlib/stdlib";
+import { Block } from "../assembler/assembler";
+import { Linker } from "../assembler/linker";
 
 type CurrentFile = Readonly<{ changed: boolean, filename: string | null }>;
 type WindowState = { x: number | undefined, y: number | undefined, width: number, height: number };
@@ -138,8 +145,12 @@ export class BlocksWindow {
                 submenu: [
                     {
                         label: "&Gerar código",
-                        accelerator: "F7",
                         click: () => protect(() => this.generate())
+                    },
+                    {
+                        label: "&Compilar",
+                        accelerator: "F7",
+                        click: () => protect(() => this.compile())
                     }
                 ]
             },
@@ -401,9 +412,48 @@ export class BlocksWindow {
         this.sendToRenderer("menu", MenuAction.ZOOM_TO_FIT);
     }
 
+    private async error(msg: string, detail?: string) {
+        await dialog.showMessageBox(this.browserWindow, {
+            type: "error",
+            title: "Erro",
+            message: msg,
+            detail: detail,
+        });
+    }
+
     private async generate() {
         let [output, error]: string[] = await this.doMenuAction(MenuAction.GENERATE);
-        console.log(output);
-        console.error(error);
+        if (error == null) {
+            if (this.currentFile.filename != null) {
+                let filename = this.currentFile.filename + ".js";
+                await writeFile(filename, output);
+                return [output, filename];
+            } else {
+                dialog.showMessageBox(this.browserWindow, {
+                    type: "info",
+                    message: "O arquivo precisa ser salvo primeiro",
+                });
+            }
+        } else {
+            await this.error(error);
+        }
+    }
+
+    private async compile() {
+        let generated = await this.generate();
+        if (generated != undefined && this.currentFile.filename != null) {
+            try {
+                const vm = new VM({
+                    sandbox: { ...assembler, ...stdlib },
+                });
+                const mainLoop: Block = vm.run(generated[0], generated[1]);
+                const linker = new Linker;
+                linker.add(mainLoop, 0x000);
+                stdlib.addBlocks(linker);
+                await writeFile(`${generated[1]}.bin`, linker.link());
+            } catch (e: unknown) {
+                await this.error("Ocorreu um erro ao compilar", exceptionToString(e));
+            }
+        }
     }
 }

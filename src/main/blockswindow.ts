@@ -414,6 +414,8 @@ export class BlocksWindow {
     }
 
     private async error(msg: string, detail?: string) {
+        console.error(detail ?? msg);
+
         await dialog.showMessageBox(this.browserWindow, {
             type: "error",
             title: "Erro",

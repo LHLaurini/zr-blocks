@@ -5,6 +5,7 @@
   </category>
   <category name="Pinos" colour="#5ba58c">
     <block type="seta_pino_digital"></block>
+    <block type="pino_digital"></block>
     <block type="saida_digital">
       <field name="saida_digital">SD0</field>
     </block>

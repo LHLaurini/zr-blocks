@@ -134,5 +134,21 @@
         "colour": 330,
         "tooltip": "",
         "helpUrl": ""
+    },
+    {
+        "type": "pino_digital",
+        "message0": "pino digital %1",
+        "args0": [
+            {
+                "type": "input_value",
+                "name": "pino",
+                "check": "Number"
+            }
+        ],
+        "inputsInline": true,
+        "output": "Boolean",
+        "colour": 160,
+        "tooltip": "",
+        "helpUrl": ""
     }
 ]

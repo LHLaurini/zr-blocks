@@ -5,7 +5,7 @@
     <field name="CONNECTIONS">NONE</field>
     <statement name="INPUTS">
       <block type="input_statement" id="7f,.~mJyL:HxxJg}1^h/">
-        <field name="INPUTNAME">NAME</field>
+        <field name="INPUTNAME">instrucoes</field>
         <field name="ALIGN">LEFT</field>
         <statement name="FIELDS">
           <block type="field_static" id="#~BN~0_|VE^QnC[HM%oM">
@@ -110,7 +110,7 @@
     <field name="CONNECTIONS">BOTH</field>
     <statement name="INPUTS">
       <block type="input_value" id="8r2tp!P,}-?1}P@I6V0K">
-        <field name="INPUTNAME">NAME</field>
+        <field name="INPUTNAME">millis</field>
         <field name="ALIGN">LEFT</field>
         <statement name="FIELDS">
           <block type="field_static" id="BSYwo?CF5[#!.WhBKDUX">
@@ -152,7 +152,7 @@
     <field name="CONNECTIONS">BOTH</field>
     <statement name="INPUTS">
       <block type="input_value" id="aTL`EUOB,9p*S8zpUIBs">
-        <field name="INPUTNAME">numero</field>
+        <field name="INPUTNAME">pino</field>
         <field name="ALIGN">RIGHT</field>
         <statement name="FIELDS">
           <block type="field_static" id="I()hR_,SE5!!N^:S+OPU">
@@ -291,6 +291,46 @@
       <block type="colour_hue" id="qEJSMTG#ECN$E/s[7gw+">
         <mutation colour="#a55b80"></mutation>
         <field name="HUE">330</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="R(YlXFS%NT%~VTmROqN{" deletable="false" movable="false" x="10" y="10">
+    <mutation connections="LEFT"></mutation>
+    <field name="NAME">pino_digital</field>
+    <field name="INLINE">INT</field>
+    <field name="CONNECTIONS">LEFT</field>
+    <statement name="INPUTS">
+      <block type="input_value" id="S^[^ZF`9(#Kr,+91#ilu">
+        <field name="INPUTNAME">pino</field>
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="KMt!hP#z#W%{W%v0nS)b">
+            <field name="TEXT">pino digital</field>
+          </block>
+        </statement>
+        <value name="TYPE">
+          <shadow type="type_null" id="`hiD{E|Uw.@OjA((Rg;q"></shadow>
+          <block type="type_number" id=":EJ:r?{#r?f|ed6D)tpP"></block>
+        </value>
+      </block>
+    </statement>
+    <value name="TOOLTIP">
+      <block type="text" id="!3Ch.7vdi_.K=K^2K1_#" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="HELPURL">
+      <block type="text" id="G{{jx72~RAbQBBWrjA75" deletable="false" movable="false">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+    <value name="OUTPUTTYPE">
+      <shadow type="type_null" id="P*h3L!ArkP2:|a4)~qL,"></shadow>
+      <block type="type_boolean" id="$cx`zJnfT_t)(081!-=W"></block>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="F`2-iJC]^0hPE)/H3vT4">
+        <mutation colour="#5ba58c"></mutation>
+        <field name="HUE">160</field>
       </block>
     </value>
   </block></xml>

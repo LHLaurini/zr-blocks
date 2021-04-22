@@ -13,6 +13,7 @@ export class Generator extends Blockly.Generator {
     public low = (block: Blockly.Block) => this._low(block);
     public inteiro = (block: Blockly.Block) => this._inteiro(block);
     public saida_digital = (block: Blockly.Block) => this._saida_digital(block);
+    public pino_digital = (block: Blockly.Block) => this._pino_digital(block);
     public seta_pino_digital = (block: Blockly.Block) => this._seta_pino_digital(block);
     public delay = (block: Blockly.Block) => this._delay(block);
     public sempre = (block: Blockly.Block) => this._sempre(block);
@@ -32,11 +33,23 @@ export class Generator extends Blockly.Generator {
     }
 
     private _inteiro(block: Blockly.Block) {
-        return [block.getFieldValue('valor').toString(), this.ORDER_NORMAL];
+        const valor = block.getFieldValue('valor') & 0xFFFF;
+        let valorStr: string;
+        if (valor > 255) {
+            valorStr = `Immediate.from(${valor & 0xff}), Immediate.from(${valor >> 8})`
+        } else {
+            valorStr = `Immediate.from(${valor})`
+        }
+        return [`() => [${valorStr}]`, this.ORDER_NORMAL];
     }
 
     private _saida_digital(block: Blockly.Block) {
         return [block.getFieldValue('saida_digital'), this.ORDER_NORMAL];
+    }
+
+    private _pino_digital(block: Blockly.Block) {
+        let pino = this.valueToCode(block, 'pino', this.ORDER_NORMAL);
+        return [`() => getDigitalInput(mainLoop, ${pino})`, this.ORDER_NORMAL];
     }
 
     private _seta_pino_digital(block: Blockly.Block) {

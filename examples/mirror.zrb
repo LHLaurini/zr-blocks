@@ -3,15 +3,24 @@
     <statement name="instrucoes">
       <block type="seta_pino_digital" id="^FLQ%T*1UJOg9j/0,w#/">
         <value name="pino">
+          <shadow type="saida_digital" id="{PS:eJ$N8hj+O?rGu0TP">
+            <field name="saida_digital">SD0</field>
+          </shadow>
           <block type="saida_digital" id="LONleGyHy`np}!4Hu,$?">
             <field name="saida_digital">SD0</field>
           </block>
         </value>
         <value name="estado">
+          <shadow type="estado" id="90{]~vF~HdT-;%[A!@I]">
+            <field name="estado">LOW</field>
+          </shadow>
           <block type="pino_digital" id="`t.|6^+bf$/VN30x07Pj">
             <value name="pino">
-              <block type="saida_digital" id="fJb3DHLEEfD2Vawo*E=@">
-                <field name="saida_digital">SD1</field>
+              <shadow type="entrada_digital" id="!__k1!(/m1CVE]76{KIS">
+                <field name="entrada_digital">ED0</field>
+              </shadow>
+              <block type="entrada_digital" id="fJb3DHLEEfD2Vawo*E=@">
+                <field name="entrada_digital">ED0</field>
               </block>
             </value>
           </block>

@@ -1,11 +1,40 @@
 <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
   <category name="Controle" categorystyle="control_category">
-    <block type="delay"></block>
+    <block type="delay">
+      <value name="millis">
+        <shadow type="inteiro">
+          <field name="valor">1000</field>
+        </shadow>
+      </value>
+    </block>
     <block type="controls_if"></block>
   </category>
   <category name="Entrada e saída" categorystyle="io_category">
-    <block type="seta_pino_digital"></block>
-    <block type="pino_digital"></block>
+    <block type="seta_pino_digital">
+      <value name="pino">
+        <shadow type="saida_digital">
+          <field name="saida_digital">SD0</field>
+        </shadow>
+      </value>
+      <value name="estado">
+        <shadow type="estado">
+          <field name="estado">LOW</field>
+        </shadow>
+      </value>
+    </block>
+    <sep gap="8"></sep>
+    <block type="pino_digital">
+      <value name="pino">
+        <shadow type="entrada_digital">
+          <field name="entrada_digital">ED0</field>
+        </shadow>
+      </value>
+    </block>
+    <sep gap="8"></sep>
+    <block type="entrada_digital">
+      <field name="saida_digital">ED0</field>
+    </block>
+    <sep gap="8"></sep>
     <block type="saida_digital">
       <field name="saida_digital">SD0</field>
     </block>

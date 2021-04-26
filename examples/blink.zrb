@@ -3,11 +3,17 @@
     <statement name="instrucoes">
       <block type="seta_pino_digital" id=".kU`+W@]Ys;l/1AqVcKL">
         <value name="pino">
+          <shadow type="saida_digital" id="1,_y?(XcsS;UuH5hC~-M">
+            <field name="saida_digital">SD0</field>
+          </shadow>
           <block type="saida_digital" id="Xz/*kg`(qhs6UP{Py5@!">
             <field name="saida_digital">SD0</field>
           </block>
         </value>
         <value name="estado">
+          <shadow type="estado" id="mDqy~1_ar)S_:;O~goJ8">
+            <field name="estado">LOW</field>
+          </shadow>
           <block type="estado" id="p@)V=i0:-^3@3:8vNnVn">
             <field name="estado">HIGH</field>
           </block>
@@ -15,6 +21,9 @@
         <next>
           <block type="delay" id="4IM)=_$BCvS!fQmk7eBQ">
             <value name="millis">
+              <shadow type="inteiro" id="D+82gY6H:FjpzQ{DWRiV">
+                <field name="valor">1000</field>
+              </shadow>
               <block type="inteiro" id="58p7tF**pW:-?oQju%Ei">
                 <field name="valor">1000</field>
               </block>
@@ -22,11 +31,17 @@
             <next>
               <block type="seta_pino_digital" id=":nKr[2-G:OIppeU[HpIc">
                 <value name="pino">
+                  <shadow type="saida_digital">
+                    <field name="saida_digital">SD0</field>
+                  </shadow>
                   <block type="saida_digital" id="$45Z14ZO9D:XWvC*BeqF">
                     <field name="saida_digital">SD0</field>
                   </block>
                 </value>
                 <value name="estado">
+                  <shadow type="estado">
+                    <field name="estado">LOW</field>
+                  </shadow>
                   <block type="estado" id="L[!L;sQvIC;0;YOK@n|Q">
                     <field name="estado">LOW</field>
                   </block>
@@ -34,6 +49,9 @@
                 <next>
                   <block type="delay" id="6^s2_UO/21;4*N1nZ_q/">
                     <value name="millis">
+                      <shadow type="inteiro">
+                        <field name="valor">1000</field>
+                      </shadow>
                       <block type="inteiro" id="4me=qT]/F+B2EZER*Nzq">
                         <field name="valor">1000</field>
                       </block>

@@ -1,20 +1,25 @@
 <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
-  <category name="Controle" colour="#9fa55b">
+  <category name="Controle" categorystyle="control_category">
     <block type="sempre"></block>
     <block type="delay"></block>
+    <block type="controls_if"></block>
   </category>
-  <category name="Pinos" colour="#5ba58c">
+  <category name="Entrada e saída" categorystyle="io_category">
     <block type="seta_pino_digital"></block>
     <block type="pino_digital"></block>
     <block type="saida_digital">
       <field name="saida_digital">SD0</field>
     </block>
   </category>
-  <category name="Variáveis e constantes" colour="#a55b80">
+  <category name="Variáveis e constantes" categorystyle="variable_category">
     <block type="inteiro">
       <field name="valor">0</field>
     </block>
-    <block type="high"></block>
-    <block type="low"></block>
+    <block type="estado">
+      <field name="estado">HIGH</field>
+    </block>
+    <block type="estado">
+      <field name="estado">LOW</field>
+    </block>
   </category>
 </xml>

@@ -8,6 +8,14 @@ import { MenuAction } from '../common/menuaction';
 import { protect } from '../common/protect';
 import { Generator } from './generator';
 
+Blockly.Msg.CONTROLS_IF_MSG_IF = "se";
+Blockly.Msg.CONTROLS_IF_IF_TITLE_IF = "se";
+Blockly.Msg.CONTROLS_IF_MSG_ELSEIF = "senão, se";
+Blockly.Msg.CONTROLS_IF_ELSEIF_TITLE_ELSEIF = "senão, se";
+Blockly.Msg.CONTROLS_IF_MSG_ELSE = "senão";
+Blockly.Msg.CONTROLS_IF_ELSE_TITLE_ELSE = "senão";
+Blockly.Msg.CONTROLS_IF_MSG_THEN = "então";
+
 export class Blocks {
     private static _instance: Blocks | undefined;
 
@@ -27,14 +35,15 @@ export class Blocks {
 
     private async init() {
         const blocklyArea = document.getElementById('blocklyArea');
-        const blocks = Blocks.loadFile('blockly/blocks.json');
+        const blocks = Blocks.loadJson('blockly/blocks.json');
+        const theme = Blocks.loadJson('blockly/theme.json');
         const toolbox = Blocks.loadXml('blockly/toolbox.xml');
 
         if (blocklyArea == null) {
             throw new IntializationError;
         }
 
-        Blockly.defineBlocksWithJsonArray(JSON.parse(await blocks));
+        Blockly.defineBlocksWithJsonArray(await blocks);
 
         const options = {
             toolbox: await toolbox,
@@ -58,7 +67,8 @@ export class Blocks {
                 maxScale: 3,
                 minScale: 0.3,
                 scaleSpeed: 1.1
-            }
+            },
+            theme: Blockly.Theme.defineTheme('default', await theme),
         };
 
         this.workspace = Blockly.inject(blocklyArea, options);
@@ -97,6 +107,10 @@ export class Blocks {
                 throw exception;
             }
         }
+    }
+
+    private static async loadJson(filename: string) {
+        return JSON.parse(await this.loadFile(filename));
     }
 
     private static async loadXml(filename: string) {

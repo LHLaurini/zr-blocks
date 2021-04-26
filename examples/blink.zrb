@@ -8,7 +8,9 @@
           </block>
         </value>
         <value name="estado">
-          <block type="high" id="p@)V=i0:-^3@3:8vNnVn"></block>
+          <block type="estado" id="p@)V=i0:-^3@3:8vNnVn">
+            <field name="estado">HIGH</field>
+          </block>
         </value>
         <next>
           <block type="delay" id="4IM)=_$BCvS!fQmk7eBQ">
@@ -25,7 +27,9 @@
                   </block>
                 </value>
                 <value name="estado">
-                  <block type="low" id="L[!L;sQvIC;0;YOK@n|Q"></block>
+                  <block type="estado" id="L[!L;sQvIC;0;YOK@n|Q">
+                    <field name="estado">LOW</field>
+                  </block>
                 </value>
                 <next>
                   <block type="delay" id="6^s2_UO/21;4*N1nZ_q/">

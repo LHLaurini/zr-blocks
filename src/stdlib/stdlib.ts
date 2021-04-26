@@ -4,8 +4,9 @@ import { addBlocks as addBlocksDelay, defineBlocks as defineBlocksDelay } from '
 import { addBlocks as addBlocksIO, defineBlocks as defineBlocksIO } from './io';
 import { addBlocks as addBlocksHelper, defineBlocks as defineBlocksHelper } from './helper';
 
+export * from './if';
 export * from './io';
-export { delayMs } from './delay';
+export * from './delay';
 
 // R0 can't be used for passing or returning values
 // R0-R5 = caller-saved

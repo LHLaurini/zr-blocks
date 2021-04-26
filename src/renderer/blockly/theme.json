@@ -1,0 +1,28 @@
+{
+    "blockStyles": {
+        "logic_blocks": {
+            "colourPrimary": 65
+        },
+        "control_blocks": {
+            "colourPrimary": 65
+        },
+        "io_blocks": {
+            "colourPrimary": 160
+        },
+        "constant_blocks": {
+            "colourPrimary": 260
+        }
+    },
+    "categoryStyles": {
+        "control_category": {
+            "colour": 65
+        },
+        "io_category": {
+            "colour": 160
+        },
+        "variable_category": {
+            "colour": 330
+        }
+    },
+    "componentStyles": {}
+}

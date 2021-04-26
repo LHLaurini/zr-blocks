@@ -68,3 +68,9 @@ export class UndefinedLabelError extends AssemblerError {
         super("rótulo não definido");
     }
 }
+
+export class UnexpectedError extends AssemblerError {
+    constructor() {
+        super("ocorreu um erro inesperado");
+    }
+}

@@ -1,0 +1,46 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="sempre" id="Ugp}Mzr,U`XT4AOT.$mJ" x="257" y="274">
+    <statement name="instrucoes">
+      <block type="controls_if" id="9+T3p%H/#~@2u3^rYkTo">
+        <mutation else="1"></mutation>
+        <value name="IF0">
+          <block type="pino_digital" id="`t.|6^+bf$/VN30x07Pj">
+            <value name="pino">
+              <block type="saida_digital" id="fJb3DHLEEfD2Vawo*E=@">
+                <field name="saida_digital">SD1</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="seta_pino_digital" id="^FLQ%T*1UJOg9j/0,w#/">
+            <value name="pino">
+              <block type="saida_digital" id="LONleGyHy`np}!4Hu,$?">
+                <field name="saida_digital">SD0</field>
+              </block>
+            </value>
+            <value name="estado">
+              <block type="estado" id="/y9kLnR7@OFQuB,4m{;{">
+                <field name="estado">HIGH</field>
+              </block>
+            </value>
+          </block>
+        </statement>
+        <statement name="ELSE">
+          <block type="seta_pino_digital" id="d3@iVvFP45t0L*el#fz9">
+            <value name="pino">
+              <block type="saida_digital" id="iYl++JWD7ckfsV3~gOI^">
+                <field name="saida_digital">SD0</field>
+              </block>
+            </value>
+            <value name="estado">
+              <block type="estado" id="+f)`*bL}5q9l4QCJ*CU)">
+                <field name="estado">LOW</field>
+              </block>
+            </value>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+</xml>

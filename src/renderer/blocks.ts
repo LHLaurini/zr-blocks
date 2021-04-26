@@ -132,14 +132,14 @@ export class Blocks {
         switch (action) {
             case MenuAction.NEW:
                 Blockly.Events.disable();
-                this.workspace.clear();
+                Blockly.Xml.clearWorkspaceAndLoadFromXml(await Blocks.loadXml("blockly/new.xml"), this.workspace);
                 Blockly.Events.enable();
                 break;
 
             case MenuAction.OPEN:
                 try {
                     Blockly.Events.disable();
-                    Blockly.Xml.clearWorkspaceAndLoadFromXml(Blockly.Xml.textToDom(await readFile(file, 'utf8')), this.workspace);
+                    Blockly.Xml.clearWorkspaceAndLoadFromXml(await Blocks.loadXml(file), this.workspace);
                     Blockly.Events.enable();
                 } catch (exception) {
                     error = exception.toString();

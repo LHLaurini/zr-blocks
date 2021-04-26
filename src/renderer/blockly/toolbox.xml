@@ -1,6 +1,5 @@
 <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
   <category name="Controle" categorystyle="control_category">
-    <block type="sempre"></block>
     <block type="delay"></block>
     <block type="controls_if"></block>
   </category>

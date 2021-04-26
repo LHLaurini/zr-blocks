@@ -1,5 +1,5 @@
 <xml xmlns="https://developers.google.com/blockly/xml">
-  <block type="sempre" id="Ugp}Mzr,U`XT4AOT.$mJ" x="143" y="165">
+  <block type="sempre" id="Ugp}Mzr,U`XT4AOT.$mJ" deletable="false" x="20" y="20">
     <statement name="instrucoes">
       <block type="seta_pino_digital" id="^FLQ%T*1UJOg9j/0,w#/">
         <value name="pino">

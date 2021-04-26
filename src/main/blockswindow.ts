@@ -196,6 +196,8 @@ export class BlocksWindow {
         ipcMain.on('ready', () => {
             if (file != undefined) {
                 this.actuallyOpenFile(file);
+            } else {
+                this.doMenuAction(MenuAction.NEW);
             }
         });
 

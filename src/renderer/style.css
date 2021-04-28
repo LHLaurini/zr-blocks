@@ -5,3 +5,9 @@
     right: 0;
     bottom: 0;
 }
+
+.subcategory>.blocklyFlyoutLabelText {
+    fill: darkgray !important;
+    font-weight: bold !important;
+    font-size: 9pt !important;
+}

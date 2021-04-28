@@ -1,0 +1,6 @@
+- [ ] Proper localization
+- [ ] Rename blocks to use only English
+- [ ] Implement functions
+- [ ] Implement ADC
+- [ ] Implement timer?
+- [ ] Improve error messages

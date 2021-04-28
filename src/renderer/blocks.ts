@@ -7,6 +7,7 @@ import { IntializationError } from '../common/error';
 import { MenuAction } from '../common/menuaction';
 import { protect } from '../common/protect';
 import { Generator } from './generator';
+import { prompt, promptCallback } from './dialogs';
 
 Blockly.Msg.CONTROLS_IF_MSG_IF = "se";
 Blockly.Msg.CONTROLS_IF_IF_TITLE_IF = "se";
@@ -15,6 +16,8 @@ Blockly.Msg.CONTROLS_IF_ELSEIF_TITLE_ELSEIF = "senão, se";
 Blockly.Msg.CONTROLS_IF_MSG_ELSE = "senão";
 Blockly.Msg.CONTROLS_IF_ELSE_TITLE_ELSE = "senão";
 Blockly.Msg.CONTROLS_IF_MSG_THEN = "então";
+
+Blockly.prompt = promptCallback;
 
 export class Blocks {
     private static _instance: Blocks | undefined;
@@ -30,7 +33,7 @@ export class Blocks {
     }
 
     private constructor() {
-        this.generator = new Generator();
+        this.generator = new Generator;
     }
 
     private async init() {
@@ -38,6 +41,7 @@ export class Blocks {
         const blocks = Blocks.loadJson('blockly/blocks.json');
         const theme = Blocks.loadJson('blockly/theme.json');
         const toolbox = Blocks.loadXml('blockly/toolbox.xml');
+        const variables = Blocks.loadXml('blockly/variables.xml');
 
         if (blocklyArea == null) {
             throw new IntializationError;
@@ -80,6 +84,73 @@ export class Blocks {
                 } else {
                     ipcRenderer.send('undo_all');
                 }
+            }
+        });
+
+        const variableDom = await variables;
+
+        this.workspace.registerToolboxCategoryCallback('VARIABLES', () => {
+            if (this.workspace != undefined) {
+                const buttons = variableDom.getElementsByTagName('buttons')[0].children;
+                let getters = Array.from(variableDom.getElementsByTagName('getters')[0].children);
+                let setters = Array.from(variableDom.getElementsByTagName('setters')[0].children);
+
+                let elements: Element[] = [];
+
+                elements.push(buttons[0]);
+
+                const populateVars = (getterTypes: { [type: string]: string }, setterType?: string) => {
+                    if (this.workspace != undefined && getters != undefined) {
+                        const findByType = (where: Element[], type?: string) => where.find((getter) => getter.getAttribute('type') === type);
+                        const variables = this.workspace.getAllVariables();
+                        const firstMatch = variables.find(variable => variable.type in getterTypes);
+                        if (firstMatch != undefined) {
+                            const block = findByType(setters, setterType);
+                            if (block != undefined) {
+                                block.getElementsByTagName('field')[0].textContent = firstMatch.name;
+                                elements.push(block.cloneNode(true) as Element);
+                            }
+                        }
+                        for (let variable of variables) {
+                            const block = findByType(getters, getterTypes[variable.type]);
+                            if (block != undefined) {
+                                let field = block.getElementsByTagName('field')[0];
+                                field.setAttribute("variabletype", variable.type);
+                                field.textContent = variable.name;
+                                elements.push(block.cloneNode(true) as Element);
+                                elements.push(variableDom.getElementsByTagName('sep')[0]);
+                            }
+                        }
+                        if (firstMatch != undefined) {
+                            elements.pop();
+                        }
+                    }
+                };
+
+                populateVars({ u16: "variaveis_obter_inteiro", }, "variaveis_setar_inteiro");
+
+                elements.push(buttons[1]);
+
+                populateVars({ u16c: "variaveis_obter_inteiro", }, "constante_definir_inteiro");
+
+                elements.push(...variableDom.getElementsByTagName('constants')[0].children)
+
+                return elements;
+            }
+            else {
+                return [];
+            }
+        })
+
+        this.workspace.registerButtonCallback('newVariablePressed', async () => {
+            if (this.workspace != undefined) {
+                Blockly.Variables.createVariableButtonHandler(this.workspace, undefined, 'u16');
+            }
+        });
+
+        this.workspace.registerButtonCallback('newConstantPressed', async () => {
+            if (this.workspace != undefined) {
+                Blockly.Variables.createVariableButtonHandler(this.workspace, undefined, 'u16c');
             }
         });
 

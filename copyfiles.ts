@@ -13,3 +13,5 @@ function copy(...args: string[]) {
 copy("src/renderer/*.css", "dist");
 copy("src/renderer/*.html", "dist");
 copy("src/renderer/blockly/*", "dist");
+copy("node_modules/vex-js/dist/css/vex.css", "dist");
+copy("node_modules/vex-js/dist/css/vex-theme-top.css", "dist");

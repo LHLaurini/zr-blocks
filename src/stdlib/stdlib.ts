@@ -7,6 +7,7 @@ import { addBlocks as addBlocksHelper, defineBlocks as defineBlocksHelper } from
 export * from './if';
 export * from './io';
 export * from './delay';
+export * from './variable';
 
 // R0 can't be used for passing or returning values
 // R0-R5 = caller-saved

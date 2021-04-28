@@ -4,6 +4,7 @@ import { UnexpectedError } from '../common/error';
 
 const HEADER = '\
 defineBlocks();\n\
+memInfo = new MemInfo;\n\
 \n';
 
 const FOOTER = '\nmainLoop;'
@@ -18,6 +19,11 @@ export class Generator extends Blockly.Generator {
     public delay = (block: Blockly.Block) => this._delay(block);
     public sempre = (block: Blockly.Block) => this._sempre(block);
     public controls_if = (block: Blockly.Block) => this._controls_if(block);
+    public variaveis_obter_inteiro = (block: Blockly.Block) => this._variaveis_obter_inteiro(block);
+    public variaveis_setar_inteiro = (block: Blockly.Block) => this._variaveis_setar_inteiro(block);
+    public constante_definir_inteiro = (block: Blockly.Block) => this._constante_definir_inteiro(block);
+
+    public definitions_!: { variables: string };
 
     constructor() {
         super("ASM");
@@ -25,19 +31,19 @@ export class Generator extends Blockly.Generator {
 
     ORDER_NORMAL = 0;
 
+    public init(workspace: Blockly.Workspace) {
+        this.definitions_ = {
+            variables: workspace.getAllVariables().filter(variable => !variable.type.endsWith('c')).reduce((accum, variable) => `${accum}const ${variable.name} = memInfo.allocVar(2);\n`, '// Variables\n') + '\n'
+        };
+    }
+
     private _estado(block: Blockly.Block) {
         return [block.getFieldValue('estado'), this.ORDER_NORMAL];
     }
 
     private _inteiro(block: Blockly.Block) {
         const valor = block.getFieldValue('valor') & 0xFFFF;
-        let valorStr: string;
-        if (valor > 255) {
-            valorStr = `Immediate.from(${valor & 0xff}), Immediate.from(${valor >> 8})`
-        } else {
-            valorStr = `Immediate.from(${valor})`
-        }
-        return [`() => [${valorStr}]`, this.ORDER_NORMAL];
+        return [Generator.makeImmediate(valor), this.ORDER_NORMAL];
     }
 
     private _saida_digital(block: Blockly.Block) {
@@ -96,6 +102,23 @@ export class Generator extends Blockly.Generator {
         return `${output.join('.')};`;
     }
 
+    private _variaveis_obter_inteiro(block: Blockly.Block) {
+        let variavel = block.workspace.getVariableById(block.getFieldValue('variavel')).name;
+        return [`() => ${variavel}`, this.ORDER_NORMAL];
+    }
+
+    private _variaveis_setar_inteiro(block: Blockly.Block) {
+        let variavel = block.workspace.getVariableById(block.getFieldValue('variavel')).name;
+        let valor = this.valueToCode(block, 'valor', this.ORDER_NORMAL);
+        return `setVar(mainLoop, ${variavel}, ${valor});`;
+    }
+
+    private _constante_definir_inteiro(block: Blockly.Block) {
+        let constante = block.workspace.getVariableById(block.getFieldValue('constante')).name;
+        let valor = this.valueToCode(block, 'valor', this.ORDER_NORMAL);
+        return `const ${constante} = (${valor})();`;
+    }
+
     scrub_(block: Blockly.Block, code: string, thisOnly: boolean): string {
         const nextBlock = block.nextConnection && block.nextConnection.targetBlock();
         let nextCode: string;
@@ -108,6 +131,14 @@ export class Generator extends Blockly.Generator {
     }
 
     finish(code: string): string {
-        return HEADER + code + FOOTER;
+        const result = HEADER + this.definitions_.variables + code + FOOTER
+        delete (this as any).definitions_;
+        return result;
+    }
+
+    private static makeImmediate(value: number) {
+        const numBytes = Math.max(Math.ceil(Math.log2(value + 1) / 8), 1);
+        const bytes = [...Array(numBytes)].map((_, i) => `Immediate.from(${value >> (8 * i) & 0xff})`);
+        return `() => [${bytes.join(", ")}]`;
     }
 }

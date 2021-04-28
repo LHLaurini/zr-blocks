@@ -5,9 +5,11 @@
         "args0": [
             {
                 "type": "input_statement",
-                "name": "instrucoes"
+                "name": "instrucoes",
+                "check": "code"
             }
         ],
+        "previousStatement": "main",
         "style": "control_blocks",
         "tooltip": "",
         "helpUrl": ""
@@ -31,7 +33,7 @@
                 ]
             }
         ],
-        "output": "Boolean",
+        "output": "bool",
         "style": "constant_blocks",
         "tooltip": "",
         "helpUrl": ""
@@ -43,12 +45,12 @@
             {
                 "type": "input_value",
                 "name": "millis",
-                "check": "Number"
+                "check": "int"
             }
         ],
         "inputsInline": true,
-        "previousStatement": null,
-        "nextStatement": null,
+        "previousStatement": "code",
+        "nextStatement": "code",
         "style": "control_blocks",
         "tooltip": "",
         "helpUrl": ""
@@ -60,19 +62,19 @@
             {
                 "type": "input_value",
                 "name": "pino",
-                "check": "Number",
+                "check": "int",
                 "align": "RIGHT"
             },
             {
                 "type": "input_value",
                 "name": "estado",
-                "check": "Boolean",
+                "check": "bool",
                 "align": "RIGHT"
             }
         ],
         "inputsInline": true,
-        "previousStatement": null,
-        "nextStatement": null,
+        "previousStatement": "code",
+        "nextStatement": "code",
         "style": "io_blocks",
         "tooltip": "",
         "helpUrl": ""
@@ -112,7 +114,7 @@
                 ]
             }
         ],
-        "output": "Number",
+        "output": "int",
         "colour": 20,
         "tooltip": "",
         "helpUrl": ""
@@ -160,7 +162,7 @@
                 ]
             }
         ],
-        "output": "Number",
+        "output": "int",
         "colour": 20,
         "tooltip": "",
         "helpUrl": ""
@@ -173,12 +175,12 @@
                 "type": "field_number",
                 "name": "valor",
                 "value": 0,
-                "min": -32768,
-                "max": 32767,
+                "min": 0,
+                "max": 65535,
                 "precision": 1
             }
         ],
-        "output": "Number",
+        "output": "int",
         "colour": 330,
         "tooltip": "",
         "helpUrl": ""
@@ -190,12 +192,83 @@
             {
                 "type": "input_value",
                 "name": "pino",
-                "check": "Number"
+                "check": "int"
             }
         ],
         "inputsInline": true,
-        "output": "Boolean",
+        "output": "bool",
         "style": "io_blocks",
+        "tooltip": "",
+        "helpUrl": ""
+    },
+    {
+        "type": "variaveis_obter_inteiro",
+        "message0": "%1",
+        "args0": [
+            {
+                "type": "field_variable",
+                "name": "variavel",
+                "variable": "i",
+                "variableTypes": [
+                    "u16",
+                    "u16c"
+                ],
+                "defaultType": "u16"
+            }
+        ],
+        "output": "int",
+        "style": "variable_blocks",
+        "tooltip": "",
+        "helpUrl": ""
+    },
+    {
+        "type": "variaveis_setar_inteiro",
+        "message0": "seta %1 como %2",
+        "args0": [
+            {
+                "type": "field_variable",
+                "name": "variavel",
+                "variable": "%{BKY_VARIABLES_DEFAULT_NAME}",
+                "variableTypes": [
+                    "u16"
+                ],
+                "defaultType": "u16"
+            },
+            {
+                "type": "input_value",
+                "name": "valor",
+                "check": "int"
+            }
+        ],
+        "previousStatement": "code",
+        "nextStatement": "code",
+        "style": "variable_blocks",
+        "tooltip": "",
+        "helpUrl": ""
+    },
+    {
+        "type": "constante_definir_inteiro",
+        "message0": "%1 é %2",
+        "args0": [
+            {
+                "type": "field_variable",
+                "name": "constante",
+                "variable": "%{BKY_VARIABLES_DEFAULT_NAME}",
+                "variableTypes": [
+                    "u16c"
+                ],
+                "defaultType": "u16c"
+            },
+            {
+                "type": "input_value",
+                "name": "valor",
+                "check": "int"
+            }
+        ],
+        "previousStatement": "main",
+        "nextStatement": "main",
+        "inputsInline": true,
+        "style": "variable_blocks",
         "tooltip": "",
         "helpUrl": ""
     }

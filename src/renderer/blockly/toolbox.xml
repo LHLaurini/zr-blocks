@@ -7,6 +7,7 @@
         </shadow>
       </value>
     </block>
+    <sep gap="8"></sep>
     <block type="controls_if"></block>
   </category>
   <category name="Entrada e saída" categorystyle="io_category">
@@ -32,22 +33,12 @@
     </block>
     <sep gap="8"></sep>
     <block type="entrada_digital">
-      <field name="saida_digital">ED0</field>
+      <field name="entrada_digital">ED0</field>
     </block>
     <sep gap="8"></sep>
     <block type="saida_digital">
       <field name="saida_digital">SD0</field>
     </block>
   </category>
-  <category name="Variáveis e constantes" categorystyle="variable_category">
-    <block type="inteiro">
-      <field name="valor">0</field>
-    </block>
-    <block type="estado">
-      <field name="estado">HIGH</field>
-    </block>
-    <block type="estado">
-      <field name="estado">LOW</field>
-    </block>
-  </category>
+  <category name="Variáveis e constantes" categorystyle="variable_category" custom="VARIABLES"></category>
 </xml>

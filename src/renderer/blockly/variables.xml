@@ -1,0 +1,44 @@
+<variables>
+    <buttons>
+        <button text="Nova variável" callbackKey="newVariablePressed"></button>
+        <button text="Nova constante" callbackKey="newConstantPressed"></button>
+    </buttons>
+    <constants>
+        <label text="PREDEFINIDAS" web-class="subcategory"></label>
+        <sep gap="8"></sep>
+        <block type="inteiro">
+            <field name="valor">0</field>
+        </block>
+        <sep gap="8"></sep>
+        <block type="estado">
+            <field name="estado">HIGH</field>
+        </block>
+        <sep gap="8"></sep>
+        <block type="estado">
+            <field name="estado">LOW</field>
+        </block>
+    </constants>
+    <getters>
+        <block type="variaveis_obter_inteiro">
+            <field name="variavel"></field>
+        </block>
+    </getters>
+    <setters>
+        <block type="variaveis_setar_inteiro">
+            <field name="variavel" variabletype="u16"></field>
+            <value name="valor">
+                <shadow type="inteiro">
+                    <field name="valor">0</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="constante_definir_inteiro">
+            <field name="constante" variabletype="u16c"></field>
+            <value name="valor">
+                <shadow type="inteiro">
+                    <field name="valor">0</field>
+                </shadow>
+            </value>
+        </block>
+    </setters>
+</variables>

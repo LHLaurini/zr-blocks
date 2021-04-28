@@ -11,6 +11,9 @@
         },
         "constant_blocks": {
             "colourPrimary": 260
+        },
+        "variable_blocks": {
+            "colourPrimary": 330
         }
     },
     "categoryStyles": {

@@ -14,6 +14,7 @@ export function testInstruction0(name: string, instruction: (block: Block) => vo
         instruction(block);
         let actual = block.assemble().toString('hex');
         expect(actual).toBe(expected)
+        expect(block.toString()).toBe(`${name}\n`);
     });
 }
 
@@ -26,6 +27,7 @@ export function testInstruction1(name: string, instruction: (block: Block, arg1:
             instruction(block, operand.arg1);
             let actual = block.assemble().toString('hex');
             expect(actual).toBe(expected)
+            expect(block.toString()).toBe(`${name} ${operand.opsStr}\n`);
         });
     });
 
@@ -47,6 +49,7 @@ export function testInstruction2(name: string, instruction: (block: Block, arg1:
             instruction(block, operand.arg1, operand.arg2);
             let actual = block.assemble().toString('hex');
             expect(actual).toBe(expected)
+            expect(block.toString()).toBe(`${name} ${operand.opsStr}\n`);
         });
     });
 

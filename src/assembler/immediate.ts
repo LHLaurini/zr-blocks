@@ -9,6 +9,10 @@ export class Immediate extends Operand {
         this.immediate = value;
     }
 
+    toString() {
+        return '0x' + ('0' + this.immediate.toString(16)).substr(-2);
+    }
+
     public static from(value: number) {
         if (typeof value != 'number' || isNaN(value)) {
             throw new NotANumberError;

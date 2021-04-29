@@ -25,6 +25,10 @@ export class IndirectMemory extends Operand {
         }
     }
 
+    toString() {
+        return `[${this.indirectMemory}]`;
+    }
+
     private constructor(register: Register) {
         super();
         this.indirectMemory = register;

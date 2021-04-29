@@ -12,6 +12,10 @@ export class DoubleIndirectProg extends Operand {
         this.doubleIndirectProg = memory;
     }
 
+    toString() {
+        return `p${this.pair} ${this.doubleIndirectProg}`;
+    }
+
     public static _def(pair: number, memory: IndirectMemory) {
         if (pair < 0 || pair > 3) {
             throw new OutOfRangeError;

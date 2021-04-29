@@ -17,7 +17,7 @@ const allowed = [
     Operands.REGISTER__INDIRECT_IO,
 ];
 
-export class ShiftInstruction extends Instruction {
+abstract class ShiftInstruction extends Instruction {
     private op: number;
     private dest: Operand;
     private src: Operand;
@@ -31,7 +31,46 @@ export class ShiftInstruction extends Instruction {
         this.src.addBlockRef(block);
     }
 
+
+    get operand1() {
+        return this.dest;
+    }
+
+    get operand2() {
+        return this.src;
+    }
+
     assemble(): number {
-        return this.op << 12 | this.encodeOperands(allowed, this.dest, this.src);
+        return this.op << 12 | Instruction.encodeOperands(allowed, this.dest, this.src);
+    }
+}
+
+export class RotInstruction extends ShiftInstruction {
+    constructor(block: Block, dest: Operand, src: Operand) {
+        super(block, 0b1010, dest, src);
+    }
+
+    get mnemonic() {
+        return "rot";
+    }
+}
+
+export class ShlInstruction extends ShiftInstruction {
+    constructor(block: Block, dest: Operand, src: Operand) {
+        super(block, 0b1011, dest, src);
+    }
+
+    get mnemonic() {
+        return "shl";
+    }
+}
+
+export class ShaInstruction extends ShiftInstruction {
+    constructor(block: Block, dest: Operand, src: Operand) {
+        super(block, 0b1100, dest, src);
+    }
+
+    get mnemonic() {
+        return "sha";
     }
 }

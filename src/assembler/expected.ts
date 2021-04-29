@@ -85,6 +85,649 @@ export const EXPECTED_BYTES = asBuffer('\
     fd 12 fd 34 fd 56 fd 78  ff 00 ff 10 ff 20 ff 30 \
     ')
 
+export const EXPECTED_MNE = "\
+jmp 0x000\n\
+jmp 0x00f\n\
+jmp 0x0ff\n\
+jmp 0x3ff\n\
+jmp p0 r0\n\
+jmp p1 r1\n\
+jmp p2 r2\n\
+jmp p3 r3\n\
+jmp p0 [r0]\n\
+jmp p1 [r1]\n\
+jmp p2 [r2]\n\
+jmp p3 [r3]\n\
+jz 0x000\n\
+jz 0x00f\n\
+jz 0x0ff\n\
+jz 0x3ff\n\
+jnz 0x000\n\
+jnz 0x00f\n\
+jnz 0x0ff\n\
+jnz 0x3ff\n\
+jc 0x000\n\
+jc 0x00f\n\
+jc 0x0ff\n\
+jc 0x3ff\n\
+jvp 0x000\n\
+jvp 0x00f\n\
+jvp 0x0ff\n\
+jvp 0x3ff\n\
+call 0x000\n\
+call 0x00f\n\
+call 0x0ff\n\
+call 0x3ff\n\
+call p0 r0\n\
+call p1 r1\n\
+call p2 r2\n\
+call p3 r3\n\
+call p0 [r0]\n\
+call p1 [r1]\n\
+call p2 [r2]\n\
+call p3 [r3]\n\
+ret\n\
+retc\n\
+rets\n\
+retz\n\
+mvs r0, 0x7f\n\
+mvs r1, 0x7f\n\
+mvs r2, 0x7f\n\
+mvs r3, 0x7f\n\
+and r0, r0\n\
+and r0, r1\n\
+and r1, r0\n\
+and r1, r2\n\
+and r0, 0x12\n\
+and r0, 0x34\n\
+and r0, 0x56\n\
+and r0, 0x78\n\
+and r0, [r0]\n\
+and r0, [r1]\n\
+and r1, [r0]\n\
+and r1, [r2]\n\
+and [r0], r0\n\
+and [r0], r1\n\
+and [r1], r0\n\
+and [r1], r2\n\
+and [r0], [r0]\n\
+and [r0], [r1]\n\
+and [r1], [r0]\n\
+and [r1], [r2]\n\
+and r0, [0x12]\n\
+and r0, [0x34]\n\
+and r0, [0x56]\n\
+and r0, [0x78]\n\
+and [r0], 0x12\n\
+and [r0], 0x34\n\
+and [r0], 0x56\n\
+and [r0], 0x78\n\
+and [0x12], r0\n\
+and [0x34], r0\n\
+and [0x56], r0\n\
+and [0x78], r0\n\
+and [0x12], [r0]\n\
+and [0x34], [r0]\n\
+and [0x56], [r0]\n\
+and [0x78], [r0]\n\
+and [r0], [0x12]\n\
+and [r0], [0x34]\n\
+and [r0], [0x56]\n\
+and [r0], [0x78]\n\
+and io [0x12], r0\n\
+and io [0x34], r0\n\
+and io [0x56], r0\n\
+and io [0x78], r0\n\
+and io r0, [0x12]\n\
+and io r0, [0x34]\n\
+and io r0, [0x56]\n\
+and io r0, [0x78]\n\
+and io [r0], r0\n\
+and io [r0], r1\n\
+and io [r1], r0\n\
+and io [r1], r2\n\
+and io r0, [r0]\n\
+and io r0, [r1]\n\
+and io r1, [r0]\n\
+and io r1, [r2]\n\
+or r0, r0\n\
+or r0, r1\n\
+or r1, r0\n\
+or r1, r2\n\
+or r0, 0x12\n\
+or r0, 0x34\n\
+or r0, 0x56\n\
+or r0, 0x78\n\
+or r0, [r0]\n\
+or r0, [r1]\n\
+or r1, [r0]\n\
+or r1, [r2]\n\
+or [r0], r0\n\
+or [r0], r1\n\
+or [r1], r0\n\
+or [r1], r2\n\
+or [r0], [r0]\n\
+or [r0], [r1]\n\
+or [r1], [r0]\n\
+or [r1], [r2]\n\
+or r0, [0x12]\n\
+or r0, [0x34]\n\
+or r0, [0x56]\n\
+or r0, [0x78]\n\
+or [r0], 0x12\n\
+or [r0], 0x34\n\
+or [r0], 0x56\n\
+or [r0], 0x78\n\
+or [0x12], r0\n\
+or [0x34], r0\n\
+or [0x56], r0\n\
+or [0x78], r0\n\
+or [0x12], [r0]\n\
+or [0x34], [r0]\n\
+or [0x56], [r0]\n\
+or [0x78], [r0]\n\
+or [r0], [0x12]\n\
+or [r0], [0x34]\n\
+or [r0], [0x56]\n\
+or [r0], [0x78]\n\
+or io [0x12], r0\n\
+or io [0x34], r0\n\
+or io [0x56], r0\n\
+or io [0x78], r0\n\
+or io r0, [0x12]\n\
+or io r0, [0x34]\n\
+or io r0, [0x56]\n\
+or io r0, [0x78]\n\
+or io [r0], r0\n\
+or io [r0], r1\n\
+or io [r1], r0\n\
+or io [r1], r2\n\
+or io r0, [r0]\n\
+or io r0, [r1]\n\
+or io r1, [r0]\n\
+or io r1, [r2]\n\
+xor r0, r0\n\
+xor r0, r1\n\
+xor r1, r0\n\
+xor r1, r2\n\
+xor r0, 0x12\n\
+xor r0, 0x34\n\
+xor r0, 0x56\n\
+xor r0, 0x78\n\
+xor r0, [r0]\n\
+xor r0, [r1]\n\
+xor r1, [r0]\n\
+xor r1, [r2]\n\
+xor [r0], r0\n\
+xor [r0], r1\n\
+xor [r1], r0\n\
+xor [r1], r2\n\
+xor [r0], [r0]\n\
+xor [r0], [r1]\n\
+xor [r1], [r0]\n\
+xor [r1], [r2]\n\
+xor r0, [0x12]\n\
+xor r0, [0x34]\n\
+xor r0, [0x56]\n\
+xor r0, [0x78]\n\
+xor [r0], 0x12\n\
+xor [r0], 0x34\n\
+xor [r0], 0x56\n\
+xor [r0], 0x78\n\
+xor [0x12], r0\n\
+xor [0x34], r0\n\
+xor [0x56], r0\n\
+xor [0x78], r0\n\
+xor [0x12], [r0]\n\
+xor [0x34], [r0]\n\
+xor [0x56], [r0]\n\
+xor [0x78], [r0]\n\
+xor [r0], [0x12]\n\
+xor [r0], [0x34]\n\
+xor [r0], [0x56]\n\
+xor [r0], [0x78]\n\
+xor io [0x12], r0\n\
+xor io [0x34], r0\n\
+xor io [0x56], r0\n\
+xor io [0x78], r0\n\
+xor io r0, [0x12]\n\
+xor io r0, [0x34]\n\
+xor io r0, [0x56]\n\
+xor io r0, [0x78]\n\
+xor io [r0], r0\n\
+xor io [r0], r1\n\
+xor io [r1], r0\n\
+xor io [r1], r2\n\
+xor io r0, [r0]\n\
+xor io r0, [r1]\n\
+xor io r1, [r0]\n\
+xor io r1, [r2]\n\
+cmp r0, r0\n\
+cmp r0, r1\n\
+cmp r1, r0\n\
+cmp r1, r2\n\
+cmp r0, 0x12\n\
+cmp r0, 0x34\n\
+cmp r0, 0x56\n\
+cmp r0, 0x78\n\
+cmp r0, [r0]\n\
+cmp r0, [r1]\n\
+cmp r1, [r0]\n\
+cmp r1, [r2]\n\
+cmp [r0], r0\n\
+cmp [r0], r1\n\
+cmp [r1], r0\n\
+cmp [r1], r2\n\
+cmp [r0], [r0]\n\
+cmp [r0], [r1]\n\
+cmp [r1], [r0]\n\
+cmp [r1], [r2]\n\
+cmp r0, [0x12]\n\
+cmp r0, [0x34]\n\
+cmp r0, [0x56]\n\
+cmp r0, [0x78]\n\
+cmp [r0], 0x12\n\
+cmp [r0], 0x34\n\
+cmp [r0], 0x56\n\
+cmp [r0], 0x78\n\
+cmp [0x12], r0\n\
+cmp [0x34], r0\n\
+cmp [0x56], r0\n\
+cmp [0x78], r0\n\
+cmp [0x12], [r0]\n\
+cmp [0x34], [r0]\n\
+cmp [0x56], [r0]\n\
+cmp [0x78], [r0]\n\
+cmp [r0], [0x12]\n\
+cmp [r0], [0x34]\n\
+cmp [r0], [0x56]\n\
+cmp [r0], [0x78]\n\
+cmp io [0x12], r0\n\
+cmp io [0x34], r0\n\
+cmp io [0x56], r0\n\
+cmp io [0x78], r0\n\
+cmp io r0, [0x12]\n\
+cmp io r0, [0x34]\n\
+cmp io r0, [0x56]\n\
+cmp io r0, [0x78]\n\
+cmp io [r0], r0\n\
+cmp io [r0], r1\n\
+cmp io [r1], r0\n\
+cmp io [r1], r2\n\
+cmp io r0, [r0]\n\
+cmp io r0, [r1]\n\
+cmp io r1, [r0]\n\
+cmp io r1, [r2]\n\
+add r0, r0\n\
+add r0, r1\n\
+add r1, r0\n\
+add r1, r2\n\
+add r0, 0x12\n\
+add r0, 0x34\n\
+add r0, 0x56\n\
+add r0, 0x78\n\
+add r0, [r0]\n\
+add r0, [r1]\n\
+add r1, [r0]\n\
+add r1, [r2]\n\
+add [r0], r0\n\
+add [r0], r1\n\
+add [r1], r0\n\
+add [r1], r2\n\
+add [r0], [r0]\n\
+add [r0], [r1]\n\
+add [r1], [r0]\n\
+add [r1], [r2]\n\
+add r0, [0x12]\n\
+add r0, [0x34]\n\
+add r0, [0x56]\n\
+add r0, [0x78]\n\
+add [r0], 0x12\n\
+add [r0], 0x34\n\
+add [r0], 0x56\n\
+add [r0], 0x78\n\
+add [0x12], r0\n\
+add [0x34], r0\n\
+add [0x56], r0\n\
+add [0x78], r0\n\
+add [0x12], [r0]\n\
+add [0x34], [r0]\n\
+add [0x56], [r0]\n\
+add [0x78], [r0]\n\
+add [r0], [0x12]\n\
+add [r0], [0x34]\n\
+add [r0], [0x56]\n\
+add [r0], [0x78]\n\
+add io [0x12], r0\n\
+add io [0x34], r0\n\
+add io [0x56], r0\n\
+add io [0x78], r0\n\
+add io r0, [0x12]\n\
+add io r0, [0x34]\n\
+add io r0, [0x56]\n\
+add io r0, [0x78]\n\
+add io [r0], r0\n\
+add io [r0], r1\n\
+add io [r1], r0\n\
+add io [r1], r2\n\
+add io r0, [r0]\n\
+add io r0, [r1]\n\
+add io r1, [r0]\n\
+add io r1, [r2]\n\
+sub r0, r0\n\
+sub r0, r1\n\
+sub r1, r0\n\
+sub r1, r2\n\
+sub r0, 0x12\n\
+sub r0, 0x34\n\
+sub r0, 0x56\n\
+sub r0, 0x78\n\
+sub r0, [r0]\n\
+sub r0, [r1]\n\
+sub r1, [r0]\n\
+sub r1, [r2]\n\
+sub [r0], r0\n\
+sub [r0], r1\n\
+sub [r1], r0\n\
+sub [r1], r2\n\
+sub [r0], [r0]\n\
+sub [r0], [r1]\n\
+sub [r1], [r0]\n\
+sub [r1], [r2]\n\
+sub r0, [0x12]\n\
+sub r0, [0x34]\n\
+sub r0, [0x56]\n\
+sub r0, [0x78]\n\
+sub [r0], 0x12\n\
+sub [r0], 0x34\n\
+sub [r0], 0x56\n\
+sub [r0], 0x78\n\
+sub [0x12], r0\n\
+sub [0x34], r0\n\
+sub [0x56], r0\n\
+sub [0x78], r0\n\
+sub [0x12], [r0]\n\
+sub [0x34], [r0]\n\
+sub [0x56], [r0]\n\
+sub [0x78], [r0]\n\
+sub [r0], [0x12]\n\
+sub [r0], [0x34]\n\
+sub [r0], [0x56]\n\
+sub [r0], [0x78]\n\
+sub io [0x12], r0\n\
+sub io [0x34], r0\n\
+sub io [0x56], r0\n\
+sub io [0x78], r0\n\
+sub io r0, [0x12]\n\
+sub io r0, [0x34]\n\
+sub io r0, [0x56]\n\
+sub io r0, [0x78]\n\
+sub io [r0], r0\n\
+sub io [r0], r1\n\
+sub io [r1], r0\n\
+sub io [r1], r2\n\
+sub io r0, [r0]\n\
+sub io r0, [r1]\n\
+sub io r1, [r0]\n\
+sub io r1, [r2]\n\
+rot r0, r0\n\
+rot r0, r1\n\
+rot r1, r0\n\
+rot r1, r2\n\
+rot r0, [r0]\n\
+rot r0, [r1]\n\
+rot r1, [r0]\n\
+rot r1, [r2]\n\
+rot [r0], r0\n\
+rot [r0], r1\n\
+rot [r1], r0\n\
+rot [r1], r2\n\
+rot [r0], [r0]\n\
+rot [r0], [r1]\n\
+rot [r1], [r0]\n\
+rot [r1], [r2]\n\
+rot r0, [0x12]\n\
+rot r0, [0x34]\n\
+rot r0, [0x56]\n\
+rot r0, [0x78]\n\
+rot [0x12], r0\n\
+rot [0x34], r0\n\
+rot [0x56], r0\n\
+rot [0x78], r0\n\
+rot [0x12], [r0]\n\
+rot [0x34], [r0]\n\
+rot [0x56], [r0]\n\
+rot [0x78], [r0]\n\
+rot [r0], [0x12]\n\
+rot [r0], [0x34]\n\
+rot [r0], [0x56]\n\
+rot [r0], [0x78]\n\
+rot io [0x12], r0\n\
+rot io [0x34], r0\n\
+rot io [0x56], r0\n\
+rot io [0x78], r0\n\
+rot io r0, [0x12]\n\
+rot io r0, [0x34]\n\
+rot io r0, [0x56]\n\
+rot io r0, [0x78]\n\
+rot io [r0], r0\n\
+rot io [r0], r1\n\
+rot io [r1], r0\n\
+rot io [r1], r2\n\
+rot io r0, [r0]\n\
+rot io r0, [r1]\n\
+rot io r1, [r0]\n\
+rot io r1, [r2]\n\
+shl r0, r0\n\
+shl r0, r1\n\
+shl r1, r0\n\
+shl r1, r2\n\
+shl r0, [r0]\n\
+shl r0, [r1]\n\
+shl r1, [r0]\n\
+shl r1, [r2]\n\
+shl [r0], r0\n\
+shl [r0], r1\n\
+shl [r1], r0\n\
+shl [r1], r2\n\
+shl [r0], [r0]\n\
+shl [r0], [r1]\n\
+shl [r1], [r0]\n\
+shl [r1], [r2]\n\
+shl r0, [0x12]\n\
+shl r0, [0x34]\n\
+shl r0, [0x56]\n\
+shl r0, [0x78]\n\
+shl [0x12], r0\n\
+shl [0x34], r0\n\
+shl [0x56], r0\n\
+shl [0x78], r0\n\
+shl [0x12], [r0]\n\
+shl [0x34], [r0]\n\
+shl [0x56], [r0]\n\
+shl [0x78], [r0]\n\
+shl [r0], [0x12]\n\
+shl [r0], [0x34]\n\
+shl [r0], [0x56]\n\
+shl [r0], [0x78]\n\
+shl io [0x12], r0\n\
+shl io [0x34], r0\n\
+shl io [0x56], r0\n\
+shl io [0x78], r0\n\
+shl io r0, [0x12]\n\
+shl io r0, [0x34]\n\
+shl io r0, [0x56]\n\
+shl io r0, [0x78]\n\
+shl io [r0], r0\n\
+shl io [r0], r1\n\
+shl io [r1], r0\n\
+shl io [r1], r2\n\
+shl io r0, [r0]\n\
+shl io r0, [r1]\n\
+shl io r1, [r0]\n\
+shl io r1, [r2]\n\
+sha r0, r0\n\
+sha r0, r1\n\
+sha r1, r0\n\
+sha r1, r2\n\
+sha r0, [r0]\n\
+sha r0, [r1]\n\
+sha r1, [r0]\n\
+sha r1, [r2]\n\
+sha [r0], r0\n\
+sha [r0], r1\n\
+sha [r1], r0\n\
+sha [r1], r2\n\
+sha [r0], [r0]\n\
+sha [r0], [r1]\n\
+sha [r1], [r0]\n\
+sha [r1], [r2]\n\
+sha r0, [0x12]\n\
+sha r0, [0x34]\n\
+sha r0, [0x56]\n\
+sha r0, [0x78]\n\
+sha [0x12], r0\n\
+sha [0x34], r0\n\
+sha [0x56], r0\n\
+sha [0x78], r0\n\
+sha [0x12], [r0]\n\
+sha [0x34], [r0]\n\
+sha [0x56], [r0]\n\
+sha [0x78], [r0]\n\
+sha [r0], [0x12]\n\
+sha [r0], [0x34]\n\
+sha [r0], [0x56]\n\
+sha [r0], [0x78]\n\
+sha io [0x12], r0\n\
+sha io [0x34], r0\n\
+sha io [0x56], r0\n\
+sha io [0x78], r0\n\
+sha io r0, [0x12]\n\
+sha io r0, [0x34]\n\
+sha io r0, [0x56]\n\
+sha io r0, [0x78]\n\
+sha io [r0], r0\n\
+sha io [r0], r1\n\
+sha io [r1], r0\n\
+sha io [r1], r2\n\
+sha io r0, [r0]\n\
+sha io r0, [r1]\n\
+sha io r1, [r0]\n\
+sha io r1, [r2]\n\
+mov r0, r0\n\
+mov r0, r1\n\
+mov r1, r0\n\
+mov r1, r2\n\
+mov r0, 0x12\n\
+mov r0, 0x34\n\
+mov r0, 0x56\n\
+mov r0, 0x78\n\
+mov r0, [r0]\n\
+mov r0, [r1]\n\
+mov r1, [r0]\n\
+mov r1, [r2]\n\
+mov [r0], r0\n\
+mov [r0], r1\n\
+mov [r1], r0\n\
+mov [r1], r2\n\
+mov [r0], [r0]\n\
+mov [r0], [r1]\n\
+mov [r1], [r0]\n\
+mov [r1], [r2]\n\
+mov r0, [0x12]\n\
+mov r0, [0x34]\n\
+mov r0, [0x56]\n\
+mov r0, [0x78]\n\
+mov [r0], 0x12\n\
+mov [r0], 0x34\n\
+mov [r0], 0x56\n\
+mov [r0], 0x78\n\
+mov [0x12], r0\n\
+mov [0x34], r0\n\
+mov [0x56], r0\n\
+mov [0x78], r0\n\
+mov [0x12], [r0]\n\
+mov [0x34], [r0]\n\
+mov [0x56], [r0]\n\
+mov [0x78], [r0]\n\
+mov [r0], [0x12]\n\
+mov [r0], [0x34]\n\
+mov [r0], [0x56]\n\
+mov [r0], [0x78]\n\
+mov io [0x12], r0\n\
+mov io [0x34], r0\n\
+mov io [0x56], r0\n\
+mov io [0x78], r0\n\
+mov io r0, [0x12]\n\
+mov io r0, [0x34]\n\
+mov io r0, [0x56]\n\
+mov io r0, [0x78]\n\
+mov io [r0], r0\n\
+mov io [r0], r1\n\
+mov io [r1], r0\n\
+mov io [r1], r2\n\
+mov io r0, [r0]\n\
+mov io r0, [r1]\n\
+mov io r1, [r0]\n\
+mov io r1, [r2]\n\
+djnz r1, 0x000\n\
+djnz r1, 0x00f\n\
+djnz r1, 0x0ff\n\
+djnz r1, 0x3ff\n\
+djnz r2, 0x000\n\
+djnz r2, 0x00f\n\
+djnz r2, 0x0ff\n\
+djnz r2, 0x3ff\n\
+djnz r3, 0x000\n\
+djnz r3, 0x00f\n\
+djnz r3, 0x0ff\n\
+djnz r3, 0x3ff\n\
+djnz r4, 0x000\n\
+djnz r4, 0x00f\n\
+djnz r4, 0x0ff\n\
+djnz r4, 0x3ff\n\
+inc r0\n\
+inc r1\n\
+inc r2\n\
+inc r3\n\
+inc [r0]\n\
+inc [r1]\n\
+inc [r2]\n\
+inc [r3]\n\
+inc [0x12]\n\
+inc [0x34]\n\
+inc [0x56]\n\
+inc [0x78]\n\
+inc io [0x12]\n\
+inc io [0x34]\n\
+inc io [0x56]\n\
+inc io [0x78]\n\
+inc io [r0]\n\
+inc io [r1]\n\
+inc io [r2]\n\
+inc io [r3]\n\
+dec r0\n\
+dec r1\n\
+dec r2\n\
+dec r3\n\
+dec [r0]\n\
+dec [r1]\n\
+dec [r2]\n\
+dec [r3]\n\
+dec [0x12]\n\
+dec [0x34]\n\
+dec [0x56]\n\
+dec [0x78]\n\
+dec io [0x12]\n\
+dec io [0x34]\n\
+dec io [0x56]\n\
+dec io [0x78]\n\
+dec io [r0]\n\
+dec io [r1]\n\
+dec io [r2]\n\
+dec io [r3]\n\
+"
+
 export const EXPECTED_BLOCKS = [
     asBuffer('08 00 08 00 08 03 08 03'),
     asBuffer('08 10 08 10 08 13 08 13'),
@@ -105,4 +748,10 @@ export const EXPECTED_LINKER = {
     start: asBuffer('28 02 08 01 D3 00 30 80'),
     interrupt: asBuffer('30 80'),
     key: asBuffer('FF FF'),
+}
+
+export const EXPECTED_LINKER_MNE = {
+    start: 'call 0x002\njmp 0x001\nmov r0, 0x00\nret\n',
+    interrupt: 'ret\n',
+    key: '\n',
 }

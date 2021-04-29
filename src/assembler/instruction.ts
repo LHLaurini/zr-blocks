@@ -46,12 +46,21 @@ export abstract class Instruction {
         this.block = block;
     }
 
+    public toString(): string {
+        return this.mnemonic + this.getIOPrefix() + this.getOperandsAsString();
+    }
+
     abstract assemble(): number;
+    protected abstract get mnemonic(): string;
+    protected get operand1(): Operand | null {
+        return null;
+    }
+    protected get operand2(): Operand | null {
+        return null;
+    }
 
-    protected encodeOperands(allowed: Operands[], op1: Operand, op2?: Operand): number {
+    protected static encodeOperands(allowed: Operands[], op1: Operand, op2?: Operand): number {
         if (op2 == null) {
-            op1.addBlockRef
-
             if (allowed.includes(Operands.PROG) &&
                 op1 instanceof Prog) {
                 return 0b10 << 10 | op1.prog;
@@ -131,6 +140,27 @@ export abstract class Instruction {
             } else {
                 throw new InvalidOperandsError;
             }
+        }
+    }
+
+    private getOperandsAsString(): string {
+        if (this.operand1 == null) {
+            return ``;
+        }
+        else if (this.operand2 == null) {
+            return ` ${this.operand1}`;
+        }
+        else {
+            return ` ${this.operand1}, ${this.operand2}`;
+        }
+    }
+
+    private getIOPrefix(): string {
+        if (this.operand1?.isIO() || this.operand2?.isIO()) {
+            return " io";
+        }
+        else {
+            return "";
         }
     }
 }

@@ -1,6 +1,6 @@
 import expect from "expect";
 import { Block } from "./block";
-import { EXPECTED_LINKER } from "./expected";
+import { EXPECTED_LINKER, EXPECTED_LINKER_MNE } from "./expected";
 import { Immediate } from "./immediate";
 import { FILL_BYTE, Linker } from "./linker";
 import { Register } from "./register";
@@ -36,11 +36,20 @@ describe('Linker', () => {
         linker.add(unusedBlock);
         linker.add(keyBlock, 0x3ff);
 
-        let binary = linker.link();
-        expect(binary.slice(2 * 0x000, 2 * 0x004)).toStrictEqual(EXPECTED_LINKER.start);
-        expect(binary.slice(2 * 0x004, 2 * 0x3c0)).toStrictEqual(Buffer.alloc(2 * 0x3bc, FILL_BYTE));
-        expect(binary.slice(2 * 0x3c0, 2 * 0x3c1)).toStrictEqual(EXPECTED_LINKER.interrupt);
-        expect(binary.slice(2 * 0x3c1, 2 * 0x3ff)).toStrictEqual(Buffer.alloc(2 * 0x03e, FILL_BYTE));
-        expect(binary.slice(2 * 0x3ff, 2 * 0x400)).toStrictEqual(EXPECTED_LINKER.key);
+        let result = linker.link();
+
+        expect(result.binary.slice(2 * 0x000, 2 * 0x004)).toStrictEqual(EXPECTED_LINKER.start);
+        expect(result.binary.slice(2 * 0x004, 2 * 0x3c0)).toStrictEqual(Buffer.alloc(2 * 0x3bc, FILL_BYTE));
+        expect(result.binary.slice(2 * 0x3c0, 2 * 0x3c1)).toStrictEqual(EXPECTED_LINKER.interrupt);
+        expect(result.binary.slice(2 * 0x3c1, 2 * 0x3ff)).toStrictEqual(Buffer.alloc(2 * 0x03e, FILL_BYTE));
+        expect(result.binary.slice(2 * 0x3ff, 2 * 0x400)).toStrictEqual(EXPECTED_LINKER.key);
+
+        expect(result.mne).toStrictEqual(
+            EXPECTED_LINKER_MNE.start +
+            '\n'.repeat(0x3bc) +
+            EXPECTED_LINKER_MNE.interrupt +
+            '\n'.repeat(0x03e) +
+            EXPECTED_LINKER_MNE.key
+        );
     });
 });

@@ -9,6 +9,14 @@ export class IndirectIO extends Operand {
         this.indirectIO = register;
     }
 
+    toString() {
+        return `[${this.indirectIO}]`;
+    }
+
+    isIO() {
+        return true;
+    }
+
     public static _def(indirectIO: Register) {
         return new IndirectIO(indirectIO);
     }

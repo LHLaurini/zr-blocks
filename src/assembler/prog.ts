@@ -26,6 +26,10 @@ export class Prog extends Operand {
         this._prog = addressOrLabel;
     }
 
+    toString() {
+        return '0x' + ('00' + this.prog.toString(16)).substr(-3);
+    }
+
     public addBlockRef(userBlock: Block) {
         if (typeof this._prog == 'object' && userBlock != this._prog.block) {
             userBlock.addRef(this._prog.block);

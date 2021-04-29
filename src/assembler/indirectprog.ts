@@ -12,6 +12,10 @@ export class IndirectProg extends Operand {
         this.indirectProg = register;
     }
 
+    toString() {
+        return `p${this.pair} ${this.indirectProg}`;
+    }
+
     public static _def(pair: number, register: Register) {
         if (pair < 0 || pair > 3) {
             throw new OutOfRangeError;

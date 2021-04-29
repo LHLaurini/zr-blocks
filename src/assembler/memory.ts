@@ -9,6 +9,10 @@ export class Memory extends Operand {
         this.memory = address;
     }
 
+    toString() {
+        return `[0x${('0' + this.memory.toString(16)).substr(-2)}]`;
+    }
+
     public static at(address: number) {
         if (typeof address != 'number' || isNaN(address)) {
             throw new NotANumberError;

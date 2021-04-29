@@ -17,7 +17,19 @@ export class DJNZInstruction extends Instruction {
         this.target.addBlockRef(block);
     }
 
+    get operand1() {
+        return this.reg;
+    }
+
+    get operand2() {
+        return this.target;
+    }
+
+    get mnemonic() {
+        return "djnz";
+    }
+
     assemble(): number {
-        return 0b1110 << 12 | this.encodeOperands(allowed, this.reg, this.target);
+        return 0b1110 << 12 | Instruction.encodeOperands(allowed, this.reg, this.target);
     }
 }

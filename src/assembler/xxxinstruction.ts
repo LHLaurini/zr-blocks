@@ -19,7 +19,7 @@ const allowed = [
     Operands.REGISTER__INDIRECT_IO,
 ];
 
-export class XXXInstruction extends Instruction {
+abstract class XXXInstruction extends Instruction {
     private op: number;
     private dest: Operand;
     private src: Operand;
@@ -33,7 +33,85 @@ export class XXXInstruction extends Instruction {
         this.src.addBlockRef(block);
     }
 
+    get operand1() {
+        return this.dest;
+    }
+
+    get operand2() {
+        return this.src;
+    }
+
     assemble(): number {
-        return this.op << 12 | this.encodeOperands(allowed, this.dest, this.src);
+        return this.op << 12 | Instruction.encodeOperands(allowed, this.dest, this.src);
+    }
+}
+
+export class AndInstruction extends XXXInstruction {
+    constructor(block: Block, dest: Operand, src: Operand) {
+        super(block, 0b0100, dest, src);
+    }
+
+    get mnemonic() {
+        return "and";
+    }
+}
+
+export class OrInstruction extends XXXInstruction {
+    constructor(block: Block, dest: Operand, src: Operand) {
+        super(block, 0b0101, dest, src);
+    }
+
+    get mnemonic() {
+        return "or";
+    }
+}
+
+export class XorInstruction extends XXXInstruction {
+    constructor(block: Block, dest: Operand, src: Operand) {
+        super(block, 0b0110, dest, src);
+    }
+
+    get mnemonic() {
+        return "xor";
+    }
+}
+
+export class CmpInstruction extends XXXInstruction {
+    constructor(block: Block, dest: Operand, src: Operand) {
+        super(block, 0b0111, dest, src);
+    }
+
+    get mnemonic() {
+        return "cmp";
+    }
+}
+
+export class AddInstruction extends XXXInstruction {
+    constructor(block: Block, dest: Operand, src: Operand) {
+        super(block, 0b1000, dest, src);
+    }
+
+    get mnemonic() {
+        return "add";
+    }
+}
+
+export class SubInstruction extends XXXInstruction {
+    constructor(block: Block, dest: Operand, src: Operand) {
+        super(block, 0b1001, dest, src);
+    }
+
+    get mnemonic() {
+        return "sub";
+    }
+}
+
+export class MovInstruction extends XXXInstruction {
+    constructor(block: Block, dest: Operand, src: Operand) {
+        super(block, 0b1101, dest, src);
+    }
+
+    get mnemonic() {
+        return "mov";
     }
 }

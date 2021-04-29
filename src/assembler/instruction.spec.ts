@@ -1,13 +1,8 @@
 
-import expect from 'expect';
-import { Block } from './block';
-import { EXPECTED_BYTES } from './expected';
 import { Immediate } from './immediate';
 import { Immediate7 } from './immediate7';
-import { Instruction } from './instruction';
 import { IOAddress } from './ioaddress';
 import { Memory } from './memory';
-import { Operand } from './operand';
 import { Prog } from './prog';
 import { Register } from './register';
 import { Operands1, Operands2, testInstruction0, testInstruction1, testInstruction2 } from './testhelpers';

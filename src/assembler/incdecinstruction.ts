@@ -10,7 +10,7 @@ const allowed = [
     Operands.INDIRECT_IO,
 ];
 
-export class IncDecInstruction extends Instruction {
+abstract class IncDecInstruction extends Instruction {
     private op: number;
     private dest: Operand;
 
@@ -21,7 +21,31 @@ export class IncDecInstruction extends Instruction {
         this.dest.addBlockRef(block);
     }
 
+    get operand1() {
+        return this.dest;
+    }
+
     assemble(): number {
-        return 0b1111 << 12 | this.op << 8 | this.encodeOperands(allowed, this.dest);
+        return 0b1111 << 12 | this.op << 8 | Instruction.encodeOperands(allowed, this.dest);
+    }
+}
+
+export class IncInstruction extends IncDecInstruction {
+    constructor(block: Block, dest: Operand) {
+        super(block, 0b0, dest);
+    }
+
+    get mnemonic() {
+        return "inc";
+    }
+}
+
+export class DecInstruction extends IncDecInstruction {
+    constructor(block: Block, dest: Operand) {
+        super(block, 0b1, dest);
+    }
+
+    get mnemonic() {
+        return "dec";
     }
 }

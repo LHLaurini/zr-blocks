@@ -1,6 +1,6 @@
 import expect from "expect";
 import { Block } from "./block";
-import { EXPECTED_BLOCKS, EXPECTED_BYTES, EXPECTED_RECURSIVE } from "./expected";
+import { EXPECTED_BLOCKS, EXPECTED_BYTES, EXPECTED_MNE, EXPECTED_RECURSIVE } from "./expected";
 import { Immediate } from "./immediate";
 import { Immediate7 } from "./immediate7";
 import { IOAddress } from "./ioaddress";
@@ -223,6 +223,7 @@ describe('Block', () => {
         incDecOperands.forEach((x) => block.dec(x.arg1));
 
         expect(block.assemble()).toStrictEqual(EXPECTED_BYTES);
+        expect(block.toString()).toBe(EXPECTED_MNE);
     });
 
     describe('label', () => {

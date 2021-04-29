@@ -9,6 +9,14 @@ export class IOAddress extends Operand {
         this.ioAddress = address;
     }
 
+    toString() {
+        return `[0x${('0' + this.ioAddress.toString(16)).substr(-2)}]`;
+    }
+
+    isIO() {
+        return true;
+    }
+
     public static at(address: number) {
         if (typeof address != 'number' || isNaN(address)) {
             throw new NotANumberError;

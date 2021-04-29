@@ -39,6 +39,10 @@ export class Register extends Operand {
         this.prog3 = IndirectProg._def(3, this);
     }
 
+    toString() {
+        return `r${this.number}`;
+    }
+
     public static readonly R0 = new Register(0);
     public static readonly R1 = new Register(1);
     public static readonly R2 = new Register(2);

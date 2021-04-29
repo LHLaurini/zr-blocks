@@ -18,7 +18,19 @@ export class MVSInstruction extends Instruction {
         this.src.addBlockRef(block);
     }
 
+    get operand1() {
+        return this.dest;
+    }
+
+    get operand2() {
+        return this.src;
+    }
+
     assemble(): number {
-        return 0b0011 << 12 | this.encodeOperands(allowed, this.dest, this.src);
+        return 0b0011 << 12 | Instruction.encodeOperands(allowed, this.dest, this.src);
+    }
+
+    get mnemonic() {
+        return "mvs";
     }
 }

@@ -455,7 +455,9 @@ export class BlocksWindow {
                 const linker = new Linker;
                 linker.add(mainLoop, 0x000);
                 stdlib.addBlocks(linker);
-                await writeFile(`${generated[1]}.bin`, linker.link());
+                const result = linker.link();
+                await writeFile(`${generated[1]}.bin`, result.binary);
+                await writeFile(`${generated[1]}.mne`, result.mne);
             } catch (e: unknown) {
                 await this.error("Ocorreu um erro ao compilar", exceptionToString(e));
             }

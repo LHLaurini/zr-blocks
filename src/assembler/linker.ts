@@ -12,7 +12,7 @@ export class Linker {
         this.blocks.push({ block: block, address: address });
     }
 
-    public link(): { binary: Buffer, mne: string } {
+    public link(): { asm: string, binary: Buffer, mne: string } {
         let binarySpace = new Packer<Block | Uint16Array>(BINARY_LENGTH);
 
         let dynamicBlocks = this.blocks.filter(x => x.address == undefined);
@@ -65,6 +65,6 @@ export class Linker {
             }
         }
 
-        return { binary: buffer, mne: mne.join('\n') + '\n' };
+        return { asm: mne.filter(x => x.length > 0).join('\n') + '\n', binary: buffer, mne: mne.join('\n') + '\n' };
     }
 }

@@ -5,6 +5,7 @@ import { UnexpectedError } from '../common/error';
 const HEADER = '\
 defineBlocks();\n\
 memInfo = new MemInfo;\n\
+let block;\n\
 \n';
 
 const FOOTER = '\nmainLoop;'
@@ -22,6 +23,7 @@ export class Generator extends Blockly.Generator {
     public variaveis_obter_inteiro = (block: Blockly.Block) => this._variaveis_obter_inteiro(block);
     public variaveis_setar_inteiro = (block: Blockly.Block) => this._variaveis_setar_inteiro(block);
     public constante_definir_inteiro = (block: Blockly.Block) => this._constante_definir_inteiro(block);
+    public operacao_binaria = (block: Blockly.Block) => this._operacao_binaria(block);
 
     public definitions_!: { variables: string };
 
@@ -52,23 +54,23 @@ export class Generator extends Blockly.Generator {
 
     private _pino_digital(block: Blockly.Block) {
         let pino = this.valueToCode(block, 'pino', this.ORDER_NORMAL);
-        return [`() => getDigitalInput(mainLoop, ${pino})`, this.ORDER_NORMAL];
+        return [`() => getDigitalInput(block, ${pino})`, this.ORDER_NORMAL];
     }
 
     private _seta_pino_digital(block: Blockly.Block) {
         let pino = this.valueToCode(block, 'pino', this.ORDER_NORMAL);
         let estado = this.valueToCode(block, 'estado', this.ORDER_NORMAL);
-        return `setDigitalOutput(mainLoop, ${pino}, ${estado});`;
+        return `setDigitalOutput(block, ${pino}, ${estado});`;
     }
 
     private _delay(block: Blockly.Block) {
         let millis = this.valueToCode(block, 'millis', this.ORDER_NORMAL);
-        return `delayMs(mainLoop, ${millis});`;
+        return `delayMs(block, ${millis});`;
     }
 
     private _sempre(block: Blockly.Block) {
         let instrucoes = this.statementToCode(block, 'instrucoes');
-        return `const mainLoop = new Block();\nconst start = mainLoop.label();\n${instrucoes}\nmainLoop.jmp(start);`;
+        return `const mainLoop = new Block();\nblock = mainLoop;\nsetup(block);\nconst start = block.label();\n${instrucoes}\nblock.jmp(start);`;
     }
 
     private _controls_if(block: Blockly.Block) {
@@ -92,7 +94,7 @@ export class Generator extends Blockly.Generator {
             else_ = this.statementToCode(block, "ELSE");
         }
 
-        const output = ["beginIf(mainLoop)"];
+        const output = ["beginIf(block)"];
         output.push(...ifs.map((if_, i) => `if_(${if_}, () => {\n${dos[i]}\n})`));
         if (else_ != null) {
             output.push(`else_(() => {\n${else_}\n})`);
@@ -110,13 +112,20 @@ export class Generator extends Blockly.Generator {
     private _variaveis_setar_inteiro(block: Blockly.Block) {
         let variavel = block.workspace.getVariableById(block.getFieldValue('variavel')).name;
         let valor = this.valueToCode(block, 'valor', this.ORDER_NORMAL);
-        return `setVar(mainLoop, ${variavel}, ${valor});`;
+        return `setVar(block, ${variavel}, ${valor});`;
     }
 
     private _constante_definir_inteiro(block: Blockly.Block) {
         let constante = block.workspace.getVariableById(block.getFieldValue('constante')).name;
         let valor = this.valueToCode(block, 'valor', this.ORDER_NORMAL);
         return `const ${constante} = (${valor})();`;
+    }
+
+    private _operacao_binaria(block: Blockly.Block) {
+        let operando1 = this.valueToCode(block, 'operando1', this.ORDER_NORMAL);
+        let operacao = block.getFieldValue('operacao');
+        let operando2 = this.valueToCode(block, 'operando2', this.ORDER_NORMAL);
+        return [`() => ${operacao}(block, ${operando1}, ${operando2})`, this.ORDER_NORMAL];
     }
 
     scrub_(block: Blockly.Block, code: string, thisOnly: boolean): string {

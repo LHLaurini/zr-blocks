@@ -41,4 +41,71 @@
     </block>
   </category>
   <category name="Variáveis e constantes" categorystyle="variable_category" custom="VARIABLES"></category>
+  <category name="Operações" categorystyle="operation_category">
+    <block type="operacao_binaria">
+      <value name="operando1">
+        <shadow type="inteiro">
+          <field name="valor">0</field>
+        </shadow>
+      </value>
+      <field name="operacao">soma</field>
+      <value name="operando2">
+        <shadow type="inteiro">
+          <field name="valor">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="operacao_binaria">
+      <value name="operando1">
+        <shadow type="inteiro">
+          <field name="valor">0</field>
+        </shadow>
+      </value>
+      <field name="operacao">subtracao</field>
+      <value name="operando2">
+        <shadow type="inteiro">
+          <field name="valor">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="operacao_binaria">
+      <value name="operando1">
+        <shadow type="inteiro">
+          <field name="valor">0</field>
+        </shadow>
+      </value>
+      <field name="operacao">and</field>
+      <value name="operando2">
+        <shadow type="inteiro">
+          <field name="valor">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="operacao_binaria">
+      <value name="operando1">
+        <shadow type="inteiro">
+          <field name="valor">0</field>
+        </shadow>
+      </value>
+      <field name="operacao">or</field>
+      <value name="operando2">
+        <shadow type="inteiro">
+          <field name="valor">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="operacao_binaria">
+      <value name="operando1">
+        <shadow type="inteiro">
+          <field name="valor">0</field>
+        </shadow>
+      </value>
+      <field name="operacao">xor</field>
+      <value name="operando2">
+        <shadow type="inteiro">
+          <field name="valor">0</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
 </xml>

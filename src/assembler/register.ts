@@ -43,6 +43,28 @@ export class Register extends Operand {
         return `r${this.number}`;
     }
 
+    public static r(n: number) {
+        switch (n) {
+            case 0: return this.R0;
+            case 1: return this.R1;
+            case 2: return this.R2;
+            case 3: return this.R3;
+            case 4: return this.R4;
+            case 5: return this.R5;
+            case 6: return this.R6;
+            case 7: return this.R7;
+            case 8: return this.R8;
+            case 9: return this.R9;
+            case 10: return this.R10;
+            case 11: return this.R11;
+            case 12: return this.R12;
+            case 13: return this.R13;
+            case 14: return this.R14;
+            case 15: return this.R15;
+            default: throw new OutOfRangeError;
+        }
+    }
+
     public static readonly R0 = new Register(0);
     public static readonly R1 = new Register(1);
     public static readonly R2 = new Register(2);

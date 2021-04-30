@@ -271,5 +271,52 @@
         "style": "variable_blocks",
         "tooltip": "",
         "helpUrl": ""
+    },
+    {
+        "type": "operacao_binaria",
+        "message0": "%1 %2 %3",
+        "args0": [
+            {
+                "type": "input_value",
+                "name": "operando1",
+                "check": "int"
+            },
+            {
+                "type": "field_dropdown",
+                "name": "operacao",
+                "options": [
+                    [
+                        "+",
+                        "add"
+                    ],
+                    [
+                        "−",
+                        "sub"
+                    ],
+                    [
+                        "&",
+                        "and"
+                    ],
+                    [
+                        "|",
+                        "or"
+                    ],
+                    [
+                        "∧",
+                        "xor"
+                    ]
+                ]
+            },
+            {
+                "type": "input_value",
+                "name": "operando2",
+                "check": "int"
+            }
+        ],
+        "inputsInline": true,
+        "output": "int",
+        "style": "operation_blocks",
+        "tooltip": "",
+        "helpUrl": ""
     }
 ]

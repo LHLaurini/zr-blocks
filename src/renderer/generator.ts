@@ -24,6 +24,8 @@ export class Generator extends Blockly.Generator {
     public variaveis_setar_inteiro = (block: Blockly.Block) => this._variaveis_setar_inteiro(block);
     public constante_definir_inteiro = (block: Blockly.Block) => this._constante_definir_inteiro(block);
     public operacao_binaria = (block: Blockly.Block) => this._operacao_binaria(block);
+    public comparacao = (block: Blockly.Block) => this._operacao_binaria(block);
+    public operacao_logica = (block: Blockly.Block) => this._operacao_binaria(block);
 
     public definitions_!: { variables: string };
 

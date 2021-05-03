@@ -33,7 +33,5 @@ export function defineBlocks() {
     defineBlocksOps();
 }
 
-export function setup(block: Block) {
-    // FIXME: Maybe set shift direction here too?
-    block.mvs(Register.R15, Immediate7.from(0b00100));
+export function setup(_block: Block) {
 }

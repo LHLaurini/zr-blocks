@@ -78,12 +78,27 @@ export class Block {
         return this;
     }
 
+    public je(target: Operand): Block {
+        this.instructions.push(new JzInstruction(this, target));
+        return this;
+    }
+
     public jnz(target: Operand): Block {
         this.instructions.push(new JnzInstruction(this, target));
         return this;
     }
 
+    public jne(target: Operand): Block {
+        this.instructions.push(new JnzInstruction(this, target));
+        return this;
+    }
+
     public jc(target: Operand): Block {
+        this.instructions.push(new JcInstruction(this, target));
+        return this;
+    }
+
+    public jl(target: Operand): Block {
         this.instructions.push(new JcInstruction(this, target));
         return this;
     }

@@ -48,7 +48,7 @@
           <field name="valor">0</field>
         </shadow>
       </value>
-      <field name="operacao">soma</field>
+      <field name="operacao">add</field>
       <value name="operando2">
         <shadow type="inteiro">
           <field name="valor">0</field>
@@ -61,7 +61,7 @@
           <field name="valor">0</field>
         </shadow>
       </value>
-      <field name="operacao">subtracao</field>
+      <field name="operacao">sub</field>
       <value name="operando2">
         <shadow type="inteiro">
           <field name="valor">0</field>
@@ -101,6 +101,125 @@
         </shadow>
       </value>
       <field name="operacao">xor</field>
+      <value name="operando2">
+        <shadow type="inteiro">
+          <field name="valor">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="operacao_logica">
+      <value name="operando1">
+        <shadow type="booleano">
+          <field name="valor">FALSO</field>
+        </shadow>
+      </value>
+      <field name="operacao">and2</field>
+      <value name="operando2">
+        <shadow type="booleano">
+          <field name="valor">FALSO</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="operacao_logica">
+      <value name="operando1">
+        <shadow type="booleano">
+          <field name="valor">FALSO</field>
+        </shadow>
+      </value>
+      <field name="operacao">or2</field>
+      <value name="operando2">
+        <shadow type="booleano">
+          <field name="valor">FALSO</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="operacao_logica">
+      <value name="operando1">
+        <shadow type="booleano">
+          <field name="valor">FALSO</field>
+        </shadow>
+      </value>
+      <field name="operacao">xor2</field>
+      <value name="operando2">
+        <shadow type="booleano">
+          <field name="valor">FALSO</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
+  <category name="Comparações" categorystyle="comparison_category">
+    <block type="comparacao">
+      <value name="operando1">
+        <shadow type="inteiro">
+          <field name="valor">0</field>
+        </shadow>
+      </value>
+      <field name="operacao">eq</field>
+      <value name="operando2">
+        <shadow type="inteiro">
+          <field name="valor">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="comparacao">
+      <value name="operando1">
+        <shadow type="inteiro">
+          <field name="valor">0</field>
+        </shadow>
+      </value>
+      <field name="operacao">ne</field>
+      <value name="operando2">
+        <shadow type="inteiro">
+          <field name="valor">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="comparacao">
+      <value name="operando1">
+        <shadow type="inteiro">
+          <field name="valor">0</field>
+        </shadow>
+      </value>
+      <field name="operacao">lt</field>
+      <value name="operando2">
+        <shadow type="inteiro">
+          <field name="valor">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="comparacao">
+      <value name="operando1">
+        <shadow type="inteiro">
+          <field name="valor">0</field>
+        </shadow>
+      </value>
+      <field name="operacao">le</field>
+      <value name="operando2">
+        <shadow type="inteiro">
+          <field name="valor">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="comparacao">
+      <value name="operando1">
+        <shadow type="inteiro">
+          <field name="valor">0</field>
+        </shadow>
+      </value>
+      <field name="operacao">gt</field>
+      <value name="operando2">
+        <shadow type="inteiro">
+          <field name="valor">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="comparacao">
+      <value name="operando1">
+        <shadow type="inteiro">
+          <field name="valor">0</field>
+        </shadow>
+      </value>
+      <field name="operacao">ge</field>
       <value name="operando2">
         <shadow type="inteiro">
           <field name="valor">0</field>

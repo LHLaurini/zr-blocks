@@ -33,7 +33,7 @@
                 ]
             }
         ],
-        "output": "bool",
+        "output": "Boolean",
         "style": "constant_blocks",
         "tooltip": "",
         "helpUrl": ""
@@ -68,7 +68,7 @@
             {
                 "type": "input_value",
                 "name": "estado",
-                "check": "bool",
+                "check": "Boolean",
                 "align": "RIGHT"
             }
         ],
@@ -196,7 +196,7 @@
             }
         ],
         "inputsInline": true,
-        "output": "bool",
+        "output": "Boolean",
         "style": "io_blocks",
         "tooltip": "",
         "helpUrl": ""

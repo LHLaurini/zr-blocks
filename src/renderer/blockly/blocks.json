@@ -168,6 +168,38 @@
         "helpUrl": ""
     },
     {
+        "type": "entrada_analogica",
+        "message0": "%1",
+        "args0": [
+            {
+                "type": "field_dropdown",
+                "name": "entrada_analogica",
+                "options": [
+                    [
+                        "EA0",
+                        "EA0"
+                    ],
+                    [
+                        "EA1",
+                        "EA1"
+                    ],
+                    [
+                        "EA2",
+                        "EA2"
+                    ],
+                    [
+                        "EA3",
+                        "EA3"
+                    ]
+                ]
+            }
+        ],
+        "output": "int",
+        "colour": 20,
+        "tooltip": "",
+        "helpUrl": ""
+    },
+    {
         "type": "inteiro",
         "message0": "%1",
         "args0": [
@@ -197,6 +229,22 @@
         ],
         "inputsInline": true,
         "output": "Boolean",
+        "style": "io_blocks",
+        "tooltip": "",
+        "helpUrl": ""
+    },
+    {
+        "type": "pino_analogico",
+        "message0": "pino analógico %1",
+        "args0": [
+            {
+                "type": "input_value",
+                "name": "pino",
+                "check": "int"
+            }
+        ],
+        "inputsInline": true,
+        "output": "int",
         "style": "io_blocks",
         "tooltip": "",
         "helpUrl": ""

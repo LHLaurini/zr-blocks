@@ -24,12 +24,24 @@
       </value>
     </block>
     <sep gap="8"></sep>
+    <block type="pino_analogico">
+      <value name="pino">
+        <shadow type="entrada_analogica">
+          <field name="entrada_analogica">EA0</field>
+        </shadow>
+      </value>
+    </block>
+    <sep gap="8"></sep>
     <block type="pino_digital">
       <value name="pino">
         <shadow type="entrada_digital">
           <field name="entrada_digital">ED0</field>
         </shadow>
       </value>
+    </block>
+    <sep gap="8"></sep>
+    <block type="entrada_analogica">
+      <field name="entrada_analogica">EA0</field>
     </block>
     <sep gap="8"></sep>
     <block type="entrada_digital">

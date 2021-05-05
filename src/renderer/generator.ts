@@ -14,7 +14,10 @@ export class Generator extends Blockly.Generator {
     // Blockly uses this=block when calling the block functions, so we have to fix it
     public estado = (block: Blockly.Block) => this._estado(block);
     public inteiro = (block: Blockly.Block) => this._inteiro(block);
+    public entrada_analogica = (block: Blockly.Block) => this._entrada_analogica(block);
+    public entrada_digital = (block: Blockly.Block) => this._entrada_digital(block);
     public saida_digital = (block: Blockly.Block) => this._saida_digital(block);
+    public pino_analogico = (block: Blockly.Block) => this._pino_analogico(block);
     public pino_digital = (block: Blockly.Block) => this._pino_digital(block);
     public seta_pino_digital = (block: Blockly.Block) => this._seta_pino_digital(block);
     public delay = (block: Blockly.Block) => this._delay(block);
@@ -50,6 +53,14 @@ export class Generator extends Blockly.Generator {
         return [Generator.makeImmediate(valor), this.ORDER_NORMAL];
     }
 
+    private _entrada_analogica(block: Blockly.Block) {
+        return [block.getFieldValue('entrada_analogica'), this.ORDER_NORMAL];
+    }
+
+    private _entrada_digital(block: Blockly.Block) {
+        return [block.getFieldValue('entrada_digital'), this.ORDER_NORMAL];
+    }
+
     private _saida_digital(block: Blockly.Block) {
         return [block.getFieldValue('saida_digital'), this.ORDER_NORMAL];
     }
@@ -57,6 +68,11 @@ export class Generator extends Blockly.Generator {
     private _pino_digital(block: Blockly.Block) {
         let pino = this.valueToCode(block, 'pino', this.ORDER_NORMAL);
         return [`() => getDigitalInput(block, ${pino})`, this.ORDER_NORMAL];
+    }
+
+    private _pino_analogico(block: Blockly.Block) {
+        let pino = this.valueToCode(block, 'pino', this.ORDER_NORMAL);
+        return [`() => getAnalogInput(block, ${pino})`, this.ORDER_NORMAL];
     }
 
     private _seta_pino_digital(block: Blockly.Block) {

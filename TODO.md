@@ -1,6 +1,8 @@
 - [ ] Proper localization
 - [ ] Rename blocks to use only English
 - [ ] Implement functions
-- [ ] Implement ADC
+- [x] Implement ADC
 - [ ] Implement timer?
 - [ ] Improve error messages
+- [ ] See about getting rid of shiftLeft (maybe use a table?)
+- [ ] Implement loops

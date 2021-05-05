@@ -10,6 +10,14 @@
             <field name="valor">0</field>
         </block>
         <sep gap="8"></sep>
+        <block type="booleano">
+            <field name="valor">VERDADEIRO</field>
+        </block>
+        <sep gap="8"></sep>
+        <block type="booleano">
+            <field name="valor">FALSO</field>
+        </block>
+        <sep gap="8"></sep>
         <block type="estado">
             <field name="estado">HIGH</field>
         </block>

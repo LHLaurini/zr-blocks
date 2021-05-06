@@ -2,69 +2,69 @@
   <variables>
     <variable type="u16c" id="`1UV6P(?ywU;6lvI1[[i">DELAY</variable>
   </variables>
-  <block type="constante_definir_inteiro" id="]3CO_B7CI7I*A+vG@au3" x="20" y="20">
-    <field name="constante" id="`1UV6P(?ywU;6lvI1[[i" variabletype="u16c">DELAY</field>
-    <value name="valor">
-      <shadow type="inteiro" id="~EPT,h@@2BBt(/O+.hG8">
-        <field name="valor">1000</field>
+  <block type="constant_define_integer" id="]3CO_B7CI7I*A+vG@au3" x="20" y="20">
+    <field name="constant" id="`1UV6P(?ywU;6lvI1[[i" variabletype="u16c">DELAY</field>
+    <value name="value">
+      <shadow type="integer" id="~EPT,h@@2BBt(/O+.hG8">
+        <field name="value">1000</field>
       </shadow>
     </value>
     <next>
-      <block type="sempre" id="vIw=7mx5b8gt`6GBJW(5" deletable="false">
-        <statement name="instrucoes">
-          <block type="seta_pino_digital" id=".kU`+W@]Ys;l/1AqVcKL">
-            <value name="pino">
-              <shadow type="saida_digital" id="1,_y?(XcsS;UuH5hC~-M">
-                <field name="saida_digital">SD0</field>
+      <block type="always" id="vIw=7mx5b8gt`6GBJW(5" deletable="false">
+        <statement name="statements">
+          <block type="set_digital_pin" id=".kU`+W@]Ys;l/1AqVcKL">
+            <value name="pin">
+              <shadow type="digital_output" id="1,_y?(XcsS;UuH5hC~-M">
+                <field name="digital_output">SD0</field>
               </shadow>
-              <block type="saida_digital" id="Xz/*kg`(qhs6UP{Py5@!">
-                <field name="saida_digital">SD0</field>
+              <block type="digital_output" id="Xz/*kg`(qhs6UP{Py5@!">
+                <field name="digital_output">SD0</field>
               </block>
             </value>
-            <value name="estado">
-              <shadow type="estado" id="mDqy~1_ar)S_:;O~goJ8">
-                <field name="estado">LOW</field>
+            <value name="state">
+              <shadow type="state" id="mDqy~1_ar)S_:;O~goJ8">
+                <field name="state">LOW</field>
               </shadow>
-              <block type="estado" id="p@)V=i0:-^3@3:8vNnVn">
-                <field name="estado">HIGH</field>
+              <block type="state" id="p@)V=i0:-^3@3:8vNnVn">
+                <field name="state">HIGH</field>
               </block>
             </value>
             <next>
               <block type="delay" id="4IM)=_$BCvS!fQmk7eBQ">
-                <value name="millis">
-                  <shadow type="inteiro" id="D+82gY6H:FjpzQ{DWRiV">
-                    <field name="valor">1000</field>
+                <value name="milliseconds">
+                  <shadow type="integer" id="D+82gY6H:FjpzQ{DWRiV">
+                    <field name="value">1000</field>
                   </shadow>
-                  <block type="variaveis_obter_inteiro" id="Ei8L?MQO_Hy^#x^Hi[3{">
-                    <field name="variavel" id="`1UV6P(?ywU;6lvI1[[i" variabletype="u16c">DELAY</field>
+                  <block type="variables_get_integer" id="Ei8L?MQO_Hy^#x^Hi[3{">
+                    <field name="variable" id="`1UV6P(?ywU;6lvI1[[i" variabletype="u16c">DELAY</field>
                   </block>
                 </value>
                 <next>
-                  <block type="seta_pino_digital" id=":nKr[2-G:OIppeU[HpIc">
-                    <value name="pino">
-                      <shadow type="saida_digital">
-                        <field name="saida_digital">SD0</field>
+                  <block type="set_digital_pin" id=":nKr[2-G:OIppeU[HpIc">
+                    <value name="pin">
+                      <shadow type="digital_output">
+                        <field name="digital_output">SD0</field>
                       </shadow>
-                      <block type="saida_digital" id="$45Z14ZO9D:XWvC*BeqF">
-                        <field name="saida_digital">SD0</field>
+                      <block type="digital_output" id="$45Z14ZO9D:XWvC*BeqF">
+                        <field name="digital_output">SD0</field>
                       </block>
                     </value>
-                    <value name="estado">
-                      <shadow type="estado">
-                        <field name="estado">LOW</field>
+                    <value name="state">
+                      <shadow type="state">
+                        <field name="state">LOW</field>
                       </shadow>
-                      <block type="estado" id="L[!L;sQvIC;0;YOK@n|Q">
-                        <field name="estado">LOW</field>
+                      <block type="state" id="L[!L;sQvIC;0;YOK@n|Q">
+                        <field name="state">LOW</field>
                       </block>
                     </value>
                     <next>
                       <block type="delay" id="6^s2_UO/21;4*N1nZ_q/">
-                        <value name="millis">
-                          <shadow type="inteiro" id="b(+ig{_`cBc@.J[Ekxfr">
-                            <field name="valor">1000</field>
+                        <value name="milliseconds">
+                          <shadow type="integer" id="b(+ig{_`cBc@.J[Ekxfr">
+                            <field name="value">1000</field>
                           </shadow>
-                          <block type="variaveis_obter_inteiro" id="Tqw?]vCjIe),kkfwBH}$">
-                            <field name="variavel" id="`1UV6P(?ywU;6lvI1[[i" variabletype="u16c">DELAY</field>
+                          <block type="variables_get_integer" id="Tqw?]vCjIe),kkfwBH}$">
+                            <field name="variable" id="`1UV6P(?ywU;6lvI1[[i" variabletype="u16c">DELAY</field>
                           </block>
                         </value>
                       </block>

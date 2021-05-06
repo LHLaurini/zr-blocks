@@ -1,11 +1,11 @@
 [
     {
-        "type": "sempre",
+        "type": "always",
         "message0": "sempre faça %1",
         "args0": [
             {
                 "type": "input_statement",
-                "name": "instrucoes",
+                "name": "statements",
                 "check": "code"
             }
         ],
@@ -15,12 +15,12 @@
         "helpUrl": ""
     },
     {
-        "type": "estado",
+        "type": "state",
         "message0": "%1",
         "args0": [
             {
                 "type": "field_dropdown",
-                "name": "estado",
+                "name": "state",
                 "options": [
                     [
                         "HIGH",
@@ -44,7 +44,7 @@
         "args0": [
             {
                 "type": "input_value",
-                "name": "millis",
+                "name": "milliseconds",
                 "check": "int"
             }
         ],
@@ -56,18 +56,18 @@
         "helpUrl": ""
     },
     {
-        "type": "seta_pino_digital",
+        "type": "set_digital_pin",
         "message0": "seta pino digital %1 como %2",
         "args0": [
             {
                 "type": "input_value",
-                "name": "pino",
+                "name": "pin",
                 "check": "int",
                 "align": "RIGHT"
             },
             {
                 "type": "input_value",
-                "name": "estado",
+                "name": "state",
                 "check": "Boolean",
                 "align": "RIGHT"
             }
@@ -80,12 +80,12 @@
         "helpUrl": ""
     },
     {
-        "type": "entrada_digital",
+        "type": "digital_input",
         "message0": "%1",
         "args0": [
             {
                 "type": "field_dropdown",
-                "name": "entrada_digital",
+                "name": "digital_input",
                 "options": [
                     [
                         "ED0",
@@ -120,12 +120,12 @@
         "helpUrl": ""
     },
     {
-        "type": "saida_digital",
+        "type": "digital_output",
         "message0": "%1",
         "args0": [
             {
                 "type": "field_dropdown",
-                "name": "saida_digital",
+                "name": "digital_output",
                 "options": [
                     [
                         "SD0",
@@ -168,12 +168,12 @@
         "helpUrl": ""
     },
     {
-        "type": "entrada_analogica",
+        "type": "analog_input",
         "message0": "%1",
         "args0": [
             {
                 "type": "field_dropdown",
-                "name": "entrada_analogica",
+                "name": "analog_input",
                 "options": [
                     [
                         "EA0",
@@ -200,12 +200,12 @@
         "helpUrl": ""
     },
     {
-        "type": "inteiro",
+        "type": "integer",
         "message0": "%1",
         "args0": [
             {
                 "type": "field_number",
-                "name": "valor",
+                "name": "value",
                 "value": 0,
                 "min": 0,
                 "max": 65535,
@@ -218,12 +218,12 @@
         "helpUrl": ""
     },
     {
-        "type": "pino_digital",
+        "type": "digital_pin",
         "message0": "pino digital %1",
         "args0": [
             {
                 "type": "input_value",
-                "name": "pino",
+                "name": "pin",
                 "check": "int"
             }
         ],
@@ -234,12 +234,12 @@
         "helpUrl": ""
     },
     {
-        "type": "pino_analogico",
+        "type": "analog_pin",
         "message0": "pino analógico %1",
         "args0": [
             {
                 "type": "input_value",
-                "name": "pino",
+                "name": "pin",
                 "check": "int"
             }
         ],
@@ -250,12 +250,12 @@
         "helpUrl": ""
     },
     {
-        "type": "variaveis_obter_inteiro",
+        "type": "variables_get_integer",
         "message0": "%1",
         "args0": [
             {
                 "type": "field_variable",
-                "name": "variavel",
+                "name": "variable",
                 "variable": "i",
                 "variableTypes": [
                     "u16",
@@ -270,12 +270,12 @@
         "helpUrl": ""
     },
     {
-        "type": "variaveis_setar_inteiro",
+        "type": "variables_set_integer",
         "message0": "seta %1 como %2",
         "args0": [
             {
                 "type": "field_variable",
-                "name": "variavel",
+                "name": "variable",
                 "variable": "%{BKY_VARIABLES_DEFAULT_NAME}",
                 "variableTypes": [
                     "u16"
@@ -284,7 +284,7 @@
             },
             {
                 "type": "input_value",
-                "name": "valor",
+                "name": "value",
                 "check": "int"
             }
         ],
@@ -295,12 +295,12 @@
         "helpUrl": ""
     },
     {
-        "type": "constante_definir_inteiro",
+        "type": "constant_define_integer",
         "message0": "%1 é %2",
         "args0": [
             {
                 "type": "field_variable",
-                "name": "constante",
+                "name": "constant",
                 "variable": "%{BKY_VARIABLES_DEFAULT_NAME}",
                 "variableTypes": [
                     "u16c"
@@ -309,7 +309,7 @@
             },
             {
                 "type": "input_value",
-                "name": "valor",
+                "name": "value",
                 "check": "int"
             }
         ],
@@ -321,17 +321,17 @@
         "helpUrl": ""
     },
     {
-        "type": "operacao_binaria",
+        "type": "binary_operation",
         "message0": "%1 %2 %3",
         "args0": [
             {
                 "type": "input_value",
-                "name": "operando1",
+                "name": "operand1",
                 "check": "int"
             },
             {
                 "type": "field_dropdown",
-                "name": "operacao",
+                "name": "operation",
                 "options": [
                     [
                         "+",
@@ -357,7 +357,7 @@
             },
             {
                 "type": "input_value",
-                "name": "operando2",
+                "name": "operand2",
                 "check": "int"
             }
         ],
@@ -368,17 +368,17 @@
         "helpUrl": ""
     },
     {
-        "type": "comparacao",
+        "type": "comparison",
         "message0": "%1 %2 %3",
         "args0": [
             {
                 "type": "input_value",
-                "name": "operando1",
+                "name": "operand1",
                 "check": "int"
             },
             {
                 "type": "field_dropdown",
-                "name": "operacao",
+                "name": "operation",
                 "options": [
                     [
                         "=",
@@ -408,7 +408,7 @@
             },
             {
                 "type": "input_value",
-                "name": "operando2",
+                "name": "operand2",
                 "check": "int"
             }
         ],
@@ -419,17 +419,17 @@
         "helpUrl": ""
     },
     {
-        "type": "operacao_logica",
+        "type": "logic_operation",
         "message0": "%1 %2 %3",
         "args0": [
             {
                 "type": "input_value",
-                "name": "operando1",
+                "name": "operand1",
                 "check": "Boolean"
             },
             {
                 "type": "field_dropdown",
-                "name": "operacao",
+                "name": "operation",
                 "options": [
                     [
                         "&",
@@ -447,7 +447,7 @@
             },
             {
                 "type": "input_value",
-                "name": "operando2",
+                "name": "operand2",
                 "check": "Boolean"
             }
         ],
@@ -458,20 +458,20 @@
         "helpUrl": ""
     },
     {
-        "type": "booleano",
+        "type": "boolean",
         "message0": "%1",
         "args0": [
             {
                 "type": "field_dropdown",
-                "name": "valor",
+                "name": "value",
                 "options": [
                     [
                         "VERDADEIRO",
-                        "VERDADEIRO"
+                        "TRUE"
                     ],
                     [
                         "FALSO",
-                        "FALSO"
+                        "FALSE"
                     ]
                 ]
             }

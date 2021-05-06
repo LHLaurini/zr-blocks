@@ -1,26 +1,26 @@
 <xml xmlns="https://developers.google.com/blockly/xml">
-  <block type="sempre" id="Ugp}Mzr,U`XT4AOT.$mJ" deletable="false" x="20" y="20">
-    <statement name="instrucoes">
-      <block type="seta_pino_digital" id="^FLQ%T*1UJOg9j/0,w#/">
-        <value name="pino">
-          <shadow type="saida_digital" id="{PS:eJ$N8hj+O?rGu0TP">
-            <field name="saida_digital">SD0</field>
+  <block type="always" id="Ugp}Mzr,U`XT4AOT.$mJ" deletable="false" x="20" y="20">
+    <statement name="statements">
+      <block type="set_digital_pin" id="^FLQ%T*1UJOg9j/0,w#/">
+        <value name="pin">
+          <shadow type="digital_output" id="{PS:eJ$N8hj+O?rGu0TP">
+            <field name="digital_output">SD0</field>
           </shadow>
-          <block type="saida_digital" id="LONleGyHy`np}!4Hu,$?">
-            <field name="saida_digital">SD0</field>
+          <block type="digital_output" id="LONleGyHy`np}!4Hu,$?">
+            <field name="digital_output">SD0</field>
           </block>
         </value>
-        <value name="estado">
-          <shadow type="estado" id="90{]~vF~HdT-;%[A!@I]">
-            <field name="estado">LOW</field>
+        <value name="state">
+          <shadow type="state" id="90{]~vF~HdT-;%[A!@I]">
+            <field name="state">LOW</field>
           </shadow>
-          <block type="pino_digital" id="`t.|6^+bf$/VN30x07Pj">
-            <value name="pino">
-              <shadow type="entrada_digital" id="!__k1!(/m1CVE]76{KIS">
-                <field name="entrada_digital">ED0</field>
+          <block type="digital_pin" id="`t.|6^+bf$/VN30x07Pj">
+            <value name="pin">
+              <shadow type="digital_input" id="!__k1!(/m1CVE]76{KIS">
+                <field name="digital_input">ED0</field>
               </shadow>
-              <block type="entrada_digital" id="fJb3DHLEEfD2Vawo*E=@">
-                <field name="entrada_digital">ED0</field>
+              <block type="digital_input" id="fJb3DHLEEfD2Vawo*E=@">
+                <field name="digital_input">ED0</field>
               </block>
             </value>
           </block>

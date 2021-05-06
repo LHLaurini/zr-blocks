@@ -127,11 +127,11 @@ export class Blocks {
                     }
                 };
 
-                populateVars({ u16: "variaveis_obter_inteiro", }, "variaveis_setar_inteiro");
+                populateVars({ u16: "variables_get_integer", }, "variables_set_integer");
 
                 elements.push(buttons[1]);
 
-                populateVars({ u16c: "variaveis_obter_inteiro", }, "constante_definir_inteiro");
+                populateVars({ u16c: "variables_get_integer", }, "constant_define_integer");
 
                 elements.push(...variableDom.getElementsByTagName('constants')[0].children)
 

@@ -1,5 +1,5 @@
 - [ ] Proper localization
-- [ ] Rename blocks to use only English
+- [x] Rename blocks to use only English
 - [ ] Implement functions
 - [x] Implement ADC
 - [ ] Implement timer?

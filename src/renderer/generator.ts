@@ -12,23 +12,23 @@ const FOOTER = '\nmainLoop;'
 
 export class Generator extends Blockly.Generator {
     // Blockly uses this=block when calling the block functions, so we have to fix it
-    public estado = (block: Blockly.Block) => this._estado(block);
-    public inteiro = (block: Blockly.Block) => this._inteiro(block);
-    public entrada_analogica = (block: Blockly.Block) => this._entrada_analogica(block);
-    public entrada_digital = (block: Blockly.Block) => this._entrada_digital(block);
-    public saida_digital = (block: Blockly.Block) => this._saida_digital(block);
-    public pino_analogico = (block: Blockly.Block) => this._pino_analogico(block);
-    public pino_digital = (block: Blockly.Block) => this._pino_digital(block);
-    public seta_pino_digital = (block: Blockly.Block) => this._seta_pino_digital(block);
+    public state = (block: Blockly.Block) => this._state(block);
+    public integer = (block: Blockly.Block) => this._integer(block);
+    public analog_input = (block: Blockly.Block) => this._analog_input(block);
+    public digital_input = (block: Blockly.Block) => this._digital_input(block);
+    public digital_output = (block: Blockly.Block) => this._digital_output(block);
+    public analog_pin = (block: Blockly.Block) => this._analog_pin(block);
+    public digital_pin = (block: Blockly.Block) => this._digital_pin(block);
+    public set_digital_pin = (block: Blockly.Block) => this._set_digital_pin(block);
     public delay = (block: Blockly.Block) => this._delay(block);
-    public sempre = (block: Blockly.Block) => this._sempre(block);
+    public always = (block: Blockly.Block) => this._always(block);
     public controls_if = (block: Blockly.Block) => this._controls_if(block);
-    public variaveis_obter_inteiro = (block: Blockly.Block) => this._variaveis_obter_inteiro(block);
-    public variaveis_setar_inteiro = (block: Blockly.Block) => this._variaveis_setar_inteiro(block);
-    public constante_definir_inteiro = (block: Blockly.Block) => this._constante_definir_inteiro(block);
-    public operacao_binaria = (block: Blockly.Block) => this._operacao_binaria(block);
-    public comparacao = (block: Blockly.Block) => this._operacao_binaria(block);
-    public operacao_logica = (block: Blockly.Block) => this._operacao_binaria(block);
+    public variables_get_integer = (block: Blockly.Block) => this._variables_get_integer(block);
+    public variables_set_integer = (block: Blockly.Block) => this._variables_set_integer(block);
+    public constant_define_integer = (block: Blockly.Block) => this._constant_define_integer(block);
+    public binary_operation = (block: Blockly.Block) => this._binary_operation(block);
+    public comparison = (block: Blockly.Block) => this._binary_operation(block);
+    public logic_operation = (block: Blockly.Block) => this._binary_operation(block);
 
     public definitions_!: { variables: string };
 
@@ -44,51 +44,51 @@ export class Generator extends Blockly.Generator {
         };
     }
 
-    private _estado(block: Blockly.Block) {
-        return [block.getFieldValue('estado'), this.ORDER_NORMAL];
+    private _state(block: Blockly.Block) {
+        return [block.getFieldValue('state'), this.ORDER_NORMAL];
     }
 
-    private _inteiro(block: Blockly.Block) {
-        const valor = block.getFieldValue('valor') & 0xFFFF;
-        return [Generator.makeImmediate(valor), this.ORDER_NORMAL];
+    private _integer(block: Blockly.Block) {
+        const value = block.getFieldValue('value') & 0xFFFF;
+        return [Generator.makeImmediate(value), this.ORDER_NORMAL];
     }
 
-    private _entrada_analogica(block: Blockly.Block) {
-        return [block.getFieldValue('entrada_analogica'), this.ORDER_NORMAL];
+    private _analog_input(block: Blockly.Block) {
+        return [block.getFieldValue('analog_input'), this.ORDER_NORMAL];
     }
 
-    private _entrada_digital(block: Blockly.Block) {
-        return [block.getFieldValue('entrada_digital'), this.ORDER_NORMAL];
+    private _digital_input(block: Blockly.Block) {
+        return [block.getFieldValue('digital_input'), this.ORDER_NORMAL];
     }
 
-    private _saida_digital(block: Blockly.Block) {
-        return [block.getFieldValue('saida_digital'), this.ORDER_NORMAL];
+    private _digital_output(block: Blockly.Block) {
+        return [block.getFieldValue('digital_output'), this.ORDER_NORMAL];
     }
 
-    private _pino_digital(block: Blockly.Block) {
-        let pino = this.valueToCode(block, 'pino', this.ORDER_NORMAL);
-        return [`() => getDigitalInput(block, ${pino})`, this.ORDER_NORMAL];
+    private _digital_pin(block: Blockly.Block) {
+        let pin = this.valueToCode(block, 'pin', this.ORDER_NORMAL);
+        return [`() => getDigitalInput(block, ${pin})`, this.ORDER_NORMAL];
     }
 
-    private _pino_analogico(block: Blockly.Block) {
-        let pino = this.valueToCode(block, 'pino', this.ORDER_NORMAL);
-        return [`() => getAnalogInput(block, ${pino})`, this.ORDER_NORMAL];
+    private _analog_pin(block: Blockly.Block) {
+        let pin = this.valueToCode(block, 'pin', this.ORDER_NORMAL);
+        return [`() => getAnalogInput(block, ${pin})`, this.ORDER_NORMAL];
     }
 
-    private _seta_pino_digital(block: Blockly.Block) {
-        let pino = this.valueToCode(block, 'pino', this.ORDER_NORMAL);
-        let estado = this.valueToCode(block, 'estado', this.ORDER_NORMAL);
-        return `setDigitalOutput(block, ${pino}, ${estado});`;
+    private _set_digital_pin(block: Blockly.Block) {
+        let pin = this.valueToCode(block, 'pin', this.ORDER_NORMAL);
+        let state = this.valueToCode(block, 'state', this.ORDER_NORMAL);
+        return `setDigitalOutput(block, ${pin}, ${state});`;
     }
 
     private _delay(block: Blockly.Block) {
-        let millis = this.valueToCode(block, 'millis', this.ORDER_NORMAL);
-        return `delayMs(block, ${millis});`;
+        let milliseconds = this.valueToCode(block, 'milliseconds', this.ORDER_NORMAL);
+        return `delayMs(block, ${milliseconds});`;
     }
 
-    private _sempre(block: Blockly.Block) {
-        let instrucoes = this.statementToCode(block, 'instrucoes');
-        return `const mainLoop = new Block();\nblock = mainLoop;\nsetup(block);\nconst start = block.label();\n${instrucoes}\nblock.jmp(start);`;
+    private _always(block: Blockly.Block) {
+        let statements = this.statementToCode(block, 'statements');
+        return `const mainLoop = new Block();\nblock = mainLoop;\nsetup(block);\nconst start = block.label();\n${statements}\nblock.jmp(start);`;
     }
 
     private _controls_if(block: Blockly.Block) {
@@ -122,28 +122,28 @@ export class Generator extends Blockly.Generator {
         return `${output.join('.')};`;
     }
 
-    private _variaveis_obter_inteiro(block: Blockly.Block) {
-        let variavel = block.workspace.getVariableById(block.getFieldValue('variavel')).name;
-        return [`() => ${variavel}`, this.ORDER_NORMAL];
+    private _variables_get_integer(block: Blockly.Block) {
+        let variable = block.workspace.getVariableById(block.getFieldValue('variable')).name;
+        return [`() => ${variable}`, this.ORDER_NORMAL];
     }
 
-    private _variaveis_setar_inteiro(block: Blockly.Block) {
-        let variavel = block.workspace.getVariableById(block.getFieldValue('variavel')).name;
-        let valor = this.valueToCode(block, 'valor', this.ORDER_NORMAL);
-        return `setVar(block, ${variavel}, ${valor});`;
+    private _variables_set_integer(block: Blockly.Block) {
+        let variable = block.workspace.getVariableById(block.getFieldValue('variable')).name;
+        let value = this.valueToCode(block, 'value', this.ORDER_NORMAL);
+        return `setVar(block, ${variable}, ${value});`;
     }
 
-    private _constante_definir_inteiro(block: Blockly.Block) {
-        let constante = block.workspace.getVariableById(block.getFieldValue('constante')).name;
-        let valor = this.valueToCode(block, 'valor', this.ORDER_NORMAL);
-        return `const ${constante} = (${valor})();`;
+    private _constant_define_integer(block: Blockly.Block) {
+        let constant = block.workspace.getVariableById(block.getFieldValue('constant')).name;
+        let value = this.valueToCode(block, 'value', this.ORDER_NORMAL);
+        return `const ${constant} = (${value})();`;
     }
 
-    private _operacao_binaria(block: Blockly.Block) {
-        let operando1 = this.valueToCode(block, 'operando1', this.ORDER_NORMAL);
-        let operacao = block.getFieldValue('operacao');
-        let operando2 = this.valueToCode(block, 'operando2', this.ORDER_NORMAL);
-        return [`() => ${operacao}(block, ${operando1}, ${operando2})`, this.ORDER_NORMAL];
+    private _binary_operation(block: Blockly.Block) {
+        let operand1 = this.valueToCode(block, 'operand1', this.ORDER_NORMAL);
+        let operation = block.getFieldValue('operation');
+        let operand2 = this.valueToCode(block, 'operand2', this.ORDER_NORMAL);
+        return [`() => ${operation}(block, ${operand1}, ${operand2})`, this.ORDER_NORMAL];
     }
 
     scrub_(block: Blockly.Block, code: string, thisOnly: boolean): string {

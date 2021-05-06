@@ -1,56 +1,56 @@
 <xml xmlns="https://developers.google.com/blockly/xml">
-  <block type="sempre" id="Ugp}Mzr,U`XT4AOT.$mJ" deletable="false" x="20" y="20">
-    <statement name="instrucoes">
+  <block type="always" id="Ugp}Mzr,U`XT4AOT.$mJ" deletable="false" x="20" y="20">
+    <statement name="statements">
       <block type="controls_if" id="9+T3p%H/#~@2u3^rYkTo">
         <mutation else="1"></mutation>
         <value name="IF0">
-          <block type="pino_digital" id="`t.|6^+bf$/VN30x07Pj">
-            <value name="pino">
-              <shadow type="entrada_digital" id="~#xE8%/i_z?=CVG+qnAt">
-                <field name="entrada_digital">ED0</field>
+          <block type="digital_pin" id="`t.|6^+bf$/VN30x07Pj">
+            <value name="pin">
+              <shadow type="digital_input" id="~#xE8%/i_z?=CVG+qnAt">
+                <field name="digital_input">ED0</field>
               </shadow>
-              <block type="entrada_digital" id="fJb3DHLEEfD2Vawo*E=@">
-                <field name="entrada_digital">ED1</field>
+              <block type="digital_input" id="fJb3DHLEEfD2Vawo*E=@">
+                <field name="digital_input">ED1</field>
               </block>
             </value>
           </block>
         </value>
         <statement name="DO0">
-          <block type="seta_pino_digital" id="^FLQ%T*1UJOg9j/0,w#/">
-            <value name="pino">
-              <shadow type="saida_digital" id="7:Ul_|jN/N*-u73A79Tz">
-                <field name="saida_digital">SD0</field>
+          <block type="set_digital_pin" id="^FLQ%T*1UJOg9j/0,w#/">
+            <value name="pin">
+              <shadow type="digital_output" id="7:Ul_|jN/N*-u73A79Tz">
+                <field name="digital_output">SD0</field>
               </shadow>
-              <block type="saida_digital" id="LONleGyHy`np}!4Hu,$?">
-                <field name="saida_digital">SD0</field>
+              <block type="digital_output" id="LONleGyHy`np}!4Hu,$?">
+                <field name="digital_output">SD0</field>
               </block>
             </value>
-            <value name="estado">
-              <shadow type="estado" id="4b}CiWwZB|j4%I.pF?v)">
-                <field name="estado">LOW</field>
+            <value name="state">
+              <shadow type="state" id="4b}CiWwZB|j4%I.pF?v)">
+                <field name="state">LOW</field>
               </shadow>
-              <block type="estado" id="/y9kLnR7@OFQuB,4m{;{">
-                <field name="estado">HIGH</field>
+              <block type="state" id="/y9kLnR7@OFQuB,4m{;{">
+                <field name="state">HIGH</field>
               </block>
             </value>
           </block>
         </statement>
         <statement name="ELSE">
-          <block type="seta_pino_digital" id="d3@iVvFP45t0L*el#fz9">
-            <value name="pino">
-              <shadow type="saida_digital" id="y~9F@Za31NC//4mj?bKr">
-                <field name="saida_digital">SD0</field>
+          <block type="set_digital_pin" id="d3@iVvFP45t0L*el#fz9">
+            <value name="pin">
+              <shadow type="digital_output" id="y~9F@Za31NC//4mj?bKr">
+                <field name="digital_output">SD0</field>
               </shadow>
-              <block type="saida_digital" id="iYl++JWD7ckfsV3~gOI^">
-                <field name="saida_digital">SD0</field>
+              <block type="digital_output" id="iYl++JWD7ckfsV3~gOI^">
+                <field name="digital_output">SD0</field>
               </block>
             </value>
-            <value name="estado">
-              <shadow type="estado">
-                <field name="estado">LOW</field>
+            <value name="state">
+              <shadow type="state">
+                <field name="state">LOW</field>
               </shadow>
-              <block type="estado" id="+f)`*bL}5q9l4QCJ*CU)">
-                <field name="estado">LOW</field>
+              <block type="state" id="+f)`*bL}5q9l4QCJ*CU)">
+                <field name="state">LOW</field>
               </block>
             </value>
           </block>

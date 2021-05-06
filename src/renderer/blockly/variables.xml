@@ -6,45 +6,45 @@
     <constants>
         <label text="PREDEFINIDAS" web-class="subcategory"></label>
         <sep gap="8"></sep>
-        <block type="inteiro">
-            <field name="valor">0</field>
+        <block type="integer">
+            <field name="value">0</field>
         </block>
         <sep gap="8"></sep>
-        <block type="booleano">
-            <field name="valor">VERDADEIRO</field>
+        <block type="boolean">
+            <field name="value">TRUE</field>
         </block>
         <sep gap="8"></sep>
-        <block type="booleano">
-            <field name="valor">FALSO</field>
+        <block type="boolean">
+            <field name="value">FALSE</field>
         </block>
         <sep gap="8"></sep>
-        <block type="estado">
-            <field name="estado">HIGH</field>
+        <block type="state">
+            <field name="state">HIGH</field>
         </block>
         <sep gap="8"></sep>
-        <block type="estado">
-            <field name="estado">LOW</field>
+        <block type="state">
+            <field name="state">LOW</field>
         </block>
     </constants>
     <getters>
-        <block type="variaveis_obter_inteiro">
-            <field name="variavel"></field>
+        <block type="variables_get_integer">
+            <field name="variable"></field>
         </block>
     </getters>
     <setters>
-        <block type="variaveis_setar_inteiro">
-            <field name="variavel" variabletype="u16"></field>
-            <value name="valor">
-                <shadow type="inteiro">
-                    <field name="valor">0</field>
+        <block type="variables_set_integer">
+            <field name="variable" variabletype="u16"></field>
+            <value name="value">
+                <shadow type="integer">
+                    <field name="value">0</field>
                 </shadow>
             </value>
         </block>
-        <block type="constante_definir_inteiro">
-            <field name="constante" variabletype="u16c"></field>
-            <value name="valor">
-                <shadow type="inteiro">
-                    <field name="valor">0</field>
+        <block type="constant_define_integer">
+            <field name="constant" variabletype="u16c"></field>
+            <value name="value">
+                <shadow type="integer">
+                    <field name="value">0</field>
                 </shadow>
             </value>
         </block>

@@ -2,21 +2,21 @@
   <variables>
     <variable type="u16" id="{@?8oPG5P{XBk/@jz/We">resultado</variable>
   </variables>
-  <block type="sempre" id="DGr|aE|F{qQJOSq,pQX$" deletable="false" x="20" y="20">
-    <statement name="instrucoes">
-      <block type="variaveis_setar_inteiro" id="bqP4KEX%28QC#=g[KifQ">
-        <field name="variavel" id="{@?8oPG5P{XBk/@jz/We" variabletype="u16">resultado</field>
-        <value name="valor">
-          <shadow type="inteiro" id="v|a%Q@~?H~ePYdE|Ek!y">
-            <field name="valor">0</field>
+  <block type="always" id="DGr|aE|F{qQJOSq,pQX$" deletable="false" x="20" y="20">
+    <statement name="statements">
+      <block type="variables_set_integer" id="bqP4KEX%28QC#=g[KifQ">
+        <field name="variable" id="{@?8oPG5P{XBk/@jz/We" variabletype="u16">resultado</field>
+        <value name="value">
+          <shadow type="integer" id="v|a%Q@~?H~ePYdE|Ek!y">
+            <field name="value">0</field>
           </shadow>
-          <block type="pino_analogico" id="21!,AP:-fFDEM(2@HVCA">
-            <value name="pino">
-              <shadow type="entrada_analogica" id="U)ECuWatf{=i$q_hiv#]">
-                <field name="entrada_analogica">EA0</field>
+          <block type="analog_pin" id="21!,AP:-fFDEM(2@HVCA">
+            <value name="pin">
+              <shadow type="analog_input" id="U)ECuWatf{=i$q_hiv#]">
+                <field name="analog_input">EA0</field>
               </shadow>
-              <block type="entrada_analogica" id="5Qr?)V/TF7+h^#YAM$+#">
-                <field name="entrada_analogica">EA0</field>
+              <block type="analog_input" id="5Qr?)V/TF7+h^#YAM$+#">
+                <field name="analog_input">EA0</field>
               </block>
             </value>
           </block>

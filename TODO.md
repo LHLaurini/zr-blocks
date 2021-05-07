@@ -6,3 +6,5 @@
 - [ ] Improve error messages
 - [ ] See about getting rid of shiftLeft (maybe use a table?)
 - [ ] Implement loops
+- [ ] Override the if block (needed to enforce some restrictions)
+- [ ] Implement class for values and variables (instead of using Operand[])

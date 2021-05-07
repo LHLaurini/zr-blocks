@@ -8,7 +8,7 @@ import { Block } from '../assembler/block';
 import { Register } from '../assembler/register';
 import { Immediate7 } from '../assembler/immediate7';
 
-export * from './if';
+export * from './control';
 export * from './io';
 export * from './delay';
 export * from './ops';

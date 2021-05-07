@@ -29,6 +29,7 @@ export class Generator extends Blockly.Generator {
     public binary_operation = (block: Blockly.Block) => this._binary_operation(block);
     public comparison = (block: Blockly.Block) => this._binary_operation(block);
     public logic_operation = (block: Blockly.Block) => this._binary_operation(block);
+    public repeat_times = (block: Blockly.Block) => this._repeat_times(block);
 
     public definitions_!: { variables: string };
 
@@ -144,6 +145,12 @@ export class Generator extends Blockly.Generator {
         let operation = block.getFieldValue('operation');
         let operand2 = this.valueToCode(block, 'operand2', this.ORDER_NORMAL);
         return [`() => ${operation}(block, ${operand1}, ${operand2})`, this.ORDER_NORMAL];
+    }
+
+    private _repeat_times(block: Blockly.Block) {
+        let times = this.valueToCode(block, 'times', this.ORDER_NORMAL);
+        let statements = this.statementToCode(block, 'statements');
+        return `{\n  let loopInfo = beginRepeatTimes(block, ${times});\n${statements}\n  endRepeatTimes(block, loopInfo);\n}`;
     }
 
     scrub_(block: Blockly.Block, code: string, thisOnly: boolean): string {

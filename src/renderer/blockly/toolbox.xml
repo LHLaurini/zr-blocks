@@ -9,6 +9,14 @@
     </block>
     <sep gap="8"></sep>
     <block type="controls_if"></block>
+    <sep gap="8"></sep>
+    <block type="repeat_times">
+      <value name="times">
+        <shadow type="integer">
+          <field name="value">0</field>
+        </shadow>
+      </value>
+    </block>
   </category>
   <category name="Entrada e saída" categorystyle="io_category">
     <block type="set_digital_pin">

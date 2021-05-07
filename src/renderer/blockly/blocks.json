@@ -480,5 +480,30 @@
         "style": "constant_blocks",
         "tooltip": "",
         "helpUrl": ""
+    },
+    {
+        "type": "repeat_times",
+        "message0": "repita %1 vezes %2 faça %3",
+        "args0": [
+            {
+                "type": "input_value",
+                "name": "times",
+                "check": "int"
+            },
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "input_statement",
+                "name": "statements",
+                "check": "code"
+            }
+        ],
+        "inputsInline": true,
+        "previousStatement": "code",
+        "nextStatement": "code",
+        "style": "control_blocks",
+        "tooltip": "",
+        "helpUrl": ""
     }
 ]

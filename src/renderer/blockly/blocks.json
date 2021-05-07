@@ -505,5 +505,47 @@
         "style": "control_blocks",
         "tooltip": "",
         "helpUrl": ""
+    },
+    {
+        "type": "repeat_while",
+        "message0": "repita enquanto %1 faça %2",
+        "args0": [
+            {
+                "type": "input_value",
+                "name": "condition",
+                "check": "Boolean"
+            },
+            {
+                "type": "input_statement",
+                "name": "statements",
+                "check": "code"
+            }
+        ],
+        "previousStatement": "code",
+        "nextStatement": "code",
+        "style": "control_blocks",
+        "tooltip": "",
+        "helpUrl": ""
+    },
+    {
+        "type": "repeat_until",
+        "message0": "repita até que %1 faça %2",
+        "args0": [
+            {
+                "type": "input_value",
+                "name": "condition",
+                "check": "Boolean"
+            },
+            {
+                "type": "input_statement",
+                "name": "statements",
+                "check": "code"
+            }
+        ],
+        "previousStatement": "code",
+        "nextStatement": "code",
+        "style": "control_blocks",
+        "tooltip": "",
+        "helpUrl": ""
     }
 ]

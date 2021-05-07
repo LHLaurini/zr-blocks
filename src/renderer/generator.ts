@@ -30,6 +30,8 @@ export class Generator extends Blockly.Generator {
     public comparison = (block: Blockly.Block) => this._binary_operation(block);
     public logic_operation = (block: Blockly.Block) => this._binary_operation(block);
     public repeat_times = (block: Blockly.Block) => this._repeat_times(block);
+    public repeat_while = (block: Blockly.Block) => this._repeat_while(block);
+    public repeat_until = (block: Blockly.Block) => this._repeat_until(block);
 
     public definitions_!: { variables: string };
 
@@ -151,6 +153,18 @@ export class Generator extends Blockly.Generator {
         let times = this.valueToCode(block, 'times', this.ORDER_NORMAL);
         let statements = this.statementToCode(block, 'statements');
         return `{\n  let loopInfo = beginRepeatTimes(block, ${times});\n${statements}\n  endRepeatTimes(block, loopInfo);\n}`;
+    }
+
+    private _repeat_while(block: Blockly.Block) {
+        let condition = this.valueToCode(block, 'condition', this.ORDER_NORMAL);
+        let statements = this.statementToCode(block, 'statements');
+        return `{\n  let loopInfo = beginRepeatWhile(block, ${condition});\n${statements}\n  endRepeatWhile(block, loopInfo);\n}`;
+    }
+
+    private _repeat_until(block: Blockly.Block) {
+        let condition = this.valueToCode(block, 'condition', this.ORDER_NORMAL);
+        let statements = this.statementToCode(block, 'statements');
+        return `{\n  let loopInfo = beginRepeatUntil(block, ${condition});\n${statements}\n  endRepeatUntil(block, loopInfo);\n}`;
     }
 
     scrub_(block: Blockly.Block, code: string, thisOnly: boolean): string {

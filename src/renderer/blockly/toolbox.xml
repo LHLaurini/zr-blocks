@@ -17,6 +17,22 @@
         </shadow>
       </value>
     </block>
+    <sep gap="8"></sep>
+    <block type="repeat_while">
+      <value name="condition">
+        <shadow type="boolean">
+          <field name="value">FALSE</field>
+        </shadow>
+      </value>
+    </block>
+    <sep gap="8"></sep>
+    <block type="repeat_until">
+      <value name="condition">
+        <shadow type="boolean">
+          <field name="value">FALSE</field>
+        </shadow>
+      </value>
+    </block>
   </category>
   <category name="Entrada e saída" categorystyle="io_category">
     <block type="set_digital_pin">

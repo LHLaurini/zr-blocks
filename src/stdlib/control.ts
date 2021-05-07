@@ -5,25 +5,32 @@ import { Prog } from "../assembler/prog";
 import { Register } from "../assembler/register";
 import { push } from "./stack";
 
-type Cond = () => [Operand];
+type Condition = () => [Operand];
 type Code = () => void;
 
-interface RepeatInfo {
+interface RepeatTimesInfo {
     endLabel: Prog;
     loopLabel: Prog;
     numBytes: number;
 }
 
-function if_(block: Block, cond: Cond, thisLabel: Prog, endLabel: Prog, code: Code) {
+interface RepeatWhileInfo {
+    endLabel: Prog;
+    loopLabel: Prog;
+}
+
+type RepeatUntilInfo = RepeatWhileInfo;
+
+function if_(block: Block, condition: Condition, thisLabel: Prog, endLabel: Prog, code: Code) {
     block.here(thisLabel);
-    const result = cond()[0];
+    const result = condition()[0];
     block.or(result, result);
     const nextLabel = block.label(false);
     block.jz(nextLabel);
     code();
     block.jmp(endLabel);
     return {
-        if_: (nextCond: Cond, nextCode: Code) => { return if_(block, nextCond, nextLabel, endLabel, nextCode); },
+        if_: (nextCondition: Condition, nextCode: Code) => { return if_(block, nextCondition, nextLabel, endLabel, nextCode); },
         else_: (nextCode: Code) => { return else_(block, nextLabel, endLabel, nextCode); },
         end: () => { return end(block, nextLabel, endLabel); },
     };
@@ -47,11 +54,11 @@ function end(block: Block, thisLabel: Prog | null, endLabel: Prog) {
 
 export function beginIf(block: Block) {
     return {
-        if_: (cond: Cond, code: Code) => { return if_(block, cond, block.label(false), block.label(false), code); },
+        if_: (condition: Condition, code: Code) => { return if_(block, condition, block.label(false), block.label(false), code); },
     };
 }
 
-export function beginRepeatTimes(block: Block, times: () => Operand[]): RepeatInfo {
+export function beginRepeatTimes(block: Block, times: () => Operand[]): RepeatTimesInfo {
     let timesResult = times();
     let numBytes = timesResult.length;
 
@@ -90,9 +97,47 @@ export function beginRepeatTimes(block: Block, times: () => Operand[]): RepeatIn
     };
 }
 
-export function endRepeatTimes(block: Block, info: RepeatInfo) {
+export function endRepeatTimes(block: Block, info: RepeatTimesInfo) {
     block.jmp(info.loopLabel);
     block.here(info.endLabel);
     block.mov(Register.R0, Immediate.from(info.numBytes));
     block.add(Register.R12, Register.R0);
+}
+
+export function beginRepeatWhile(block: Block, condition: Condition): RepeatWhileInfo {
+    const loopLabel = block.label();
+    const endLabel = block.label(false);
+
+    let conditionResult = condition();
+    block.mov(Register.R0, conditionResult[0]);
+    block.jz(endLabel);
+
+    return {
+        loopLabel: loopLabel,
+        endLabel: endLabel,
+    };
+}
+
+export function endRepeatWhile(block: Block, info: RepeatWhileInfo) {
+    block.jmp(info.loopLabel);
+    block.here(info.endLabel);
+}
+
+export function beginRepeatUntil(block: Block, condition: Condition): RepeatUntilInfo {
+    const loopLabel = block.label();
+    const endLabel = block.label(false);
+
+    let conditionResult = condition();
+    block.mov(Register.R0, conditionResult[0]);
+    block.jnz(endLabel);
+
+    return {
+        loopLabel: loopLabel,
+        endLabel: endLabel,
+    };
+}
+
+export function endRepeatUntil(block: Block, info: RepeatUntilInfo) {
+    block.jmp(info.loopLabel);
+    block.here(info.endLabel);
 }

@@ -8,3 +8,7 @@
 - [ ] Implement loops
 - [ ] Override the if block (needed to enforce some restrictions)
 - [ ] Implement class for values and variables (instead of using Operand[])
+- [ ] Use JSON for toolbox (and maybe for everything)
+- [ ] Add unary operations (!, ~, -)
+- [ ] Add a CLI
+- [ ] Add a prefix to variable names

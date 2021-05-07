@@ -16,6 +16,8 @@ export function defineBlocks() {
 function enableCarry(block: Block) {
     block.mov(Register.R0, Immediate.from(0b00000100));
     block.or(Register.R15, Register.R0);
+    // Clear carry/borrow
+    block.shl(Register.R0, Register.R0);
 }
 
 function disableCarry(block: Block) {
@@ -41,8 +43,6 @@ export function add(block: Block, a: () => Operand[], b: () => Operand[]): Opera
     } else {
         let regs: Register[] = [];
         enableCarry(block);
-        // Clear carry
-        block.cmp(Register.R0, Register.R0);
         for (let i = 0; i < length; i++) {
             block.mov(Register.R0, aVal[i] ?? Immediate.from(0));
             block.add(Register.R0, bVal[i] ?? Immediate.from(0));
@@ -71,8 +71,6 @@ export function sub(block: Block, a: () => Operand[], b: () => Operand[]): Opera
     } else {
         let regs: Register[] = [];
         enableCarry(block);
-        // Clear carry (or borrow)
-        block.cmp(Register.R0, Register.R0);
         for (let i = 0; i < length; i++) {
             block.mov(Register.R0, aVal[i] ?? Immediate.from(0));
             block.sub(Register.R0, bVal[i] ?? Immediate.from(0));
@@ -165,7 +163,7 @@ export function eq(block: Block, a: () => Operand[], b: () => Operand[]): Operan
         disableCarry(block);
         const isFalse = block.label(false);
         block.mvs(Register.R1, Immediate7.from(0));
-        for (let i = length - 1; i >= 0; i++) {
+        for (let i = length - 1; i >= 0; i--) {
             block.mov(Register.R0, aVal[i] ?? Immediate.from(0));
             block.cmp(Register.R0, bVal[i] ?? Immediate.from(0));
             block.jne(isFalse);
@@ -189,7 +187,7 @@ export function ne(block: Block, a: () => Operand[], b: () => Operand[]): Operan
         disableCarry(block);
         const isFalse = block.label(false);
         block.mvs(Register.R1, Immediate7.from(0));
-        for (let i = length - 1; i >= 0; i++) {
+        for (let i = length - 1; i >= 0; i--) {
             block.mov(Register.R0, aVal[i] ?? Immediate.from(0));
             block.cmp(Register.R0, bVal[i] ?? Immediate.from(0));
             block.je(isFalse);
@@ -208,7 +206,7 @@ export function lt(block: Block, a: () => Operand[], b: () => Operand[]): Operan
     if (aVal.every(x => x instanceof Immediate) && bVal.every(x => x instanceof Immediate)) {
         const _aVal = aVal as Immediate[];
         const _bVal = bVal as Immediate[];
-        for (let i = length - 1; i >= 0; i++) {
+        for (let i = length - 1; i >= 0; i--) {
             if ((_aVal[i]?.immediate ?? 0) < (_bVal[i]?.immediate ?? 0)) {
                 return TRUE;
             } else if ((_aVal[i]?.immediate ?? 0) > (_bVal[i]?.immediate ?? 0)) {
@@ -220,7 +218,7 @@ export function lt(block: Block, a: () => Operand[], b: () => Operand[]): Operan
         disableCarry(block);
         const notEqual = block.label(false);
         const end = block.label(false);
-        for (let i = length - 1; i >= 0; i++) {
+        for (let i = length - 1; i >= 0; i--) {
             block.mov(Register.R0, aVal[i] ?? Immediate.from(0));
             block.cmp(Register.R0, bVal[i] ?? Immediate.from(0));
             block.jne(notEqual);
@@ -243,7 +241,7 @@ export function le(block: Block, a: () => Operand[], b: () => Operand[]): Operan
     if (aVal.every(x => x instanceof Immediate) && bVal.every(x => x instanceof Immediate)) {
         const _aVal = aVal as Immediate[];
         const _bVal = bVal as Immediate[];
-        for (let i = length - 1; i >= 0; i++) {
+        for (let i = length - 1; i >= 0; i--) {
             if ((_aVal[i]?.immediate ?? 0) < (_bVal[i]?.immediate ?? 0)) {
                 return TRUE;
             } else if ((_aVal[i]?.immediate ?? 0) > (_bVal[i]?.immediate ?? 0)) {
@@ -255,7 +253,7 @@ export function le(block: Block, a: () => Operand[], b: () => Operand[]): Operan
         disableCarry(block);
         const notEqual = block.label(false);
         const end = block.label(false);
-        for (let i = length - 1; i >= 0; i++) {
+        for (let i = length - 1; i >= 0; i--) {
             block.mov(Register.R0, aVal[i] ?? Immediate.from(0));
             block.cmp(Register.R0, bVal[i] ?? Immediate.from(0));
             block.jnz(notEqual);
@@ -279,7 +277,7 @@ export function gt(block: Block, a: () => Operand[], b: () => Operand[]): Operan
     if (aVal.every(x => x instanceof Immediate) && bVal.every(x => x instanceof Immediate)) {
         const _aVal = aVal as Immediate[];
         const _bVal = bVal as Immediate[];
-        for (let i = length - 1; i >= 0; i++) {
+        for (let i = length - 1; i >= 0; i--) {
             if ((_aVal[i]?.immediate ?? 0) < (_bVal[i]?.immediate ?? 0)) {
                 return FALSE;
             } else if ((_aVal[i]?.immediate ?? 0) > (_bVal[i]?.immediate ?? 0)) {
@@ -291,7 +289,7 @@ export function gt(block: Block, a: () => Operand[], b: () => Operand[]): Operan
         disableCarry(block);
         const notEqual = block.label(false);
         const end = block.label(false);
-        for (let i = length - 1; i >= 0; i++) {
+        for (let i = length - 1; i >= 0; i--) {
             block.mov(Register.R0, aVal[i] ?? Immediate.from(0));
             block.cmp(Register.R0, bVal[i] ?? Immediate.from(0));
             block.jne(notEqual);
@@ -315,7 +313,7 @@ export function ge(block: Block, a: () => Operand[], b: () => Operand[]): Operan
     if (aVal.every(x => x instanceof Immediate) && bVal.every(x => x instanceof Immediate)) {
         const _aVal = aVal as Immediate[];
         const _bVal = bVal as Immediate[];
-        for (let i = length - 1; i >= 0; i++) {
+        for (let i = length - 1; i >= 0; i--) {
             if ((_aVal[i]?.immediate ?? 0) < (_bVal[i]?.immediate ?? 0)) {
                 return FALSE;
             } else if ((_aVal[i]?.immediate ?? 0) > (_bVal[i]?.immediate ?? 0)) {
@@ -327,7 +325,7 @@ export function ge(block: Block, a: () => Operand[], b: () => Operand[]): Operan
         disableCarry(block);
         const notEqual = block.label(false);
         const end = block.label(false);
-        for (let i = length - 1; i >= 0; i++) {
+        for (let i = length - 1; i >= 0; i--) {
             block.mov(Register.R0, aVal[i] ?? Immediate.from(0));
             block.cmp(Register.R0, bVal[i] ?? Immediate.from(0));
             block.jnz(notEqual);

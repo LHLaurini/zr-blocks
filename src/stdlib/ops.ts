@@ -25,6 +25,53 @@ function disableCarry(block: Block) {
     block.and(Register.R15, Register.R0);
 }
 
+export function neg(block: Block, a: () => Operand[]): Operand[] {
+    const aVal = a();
+
+    if (aVal.every(x => x instanceof Immediate)) {
+        const _aVal = aVal as Immediate[];
+        let carry: number = 0;
+        // +1 makes sure we don't lose any extra carry
+        return [...Array(length + 1)].map((_, i) => {
+            let r = ((-_aVal[i]?.immediate) ?? 0) + carry;
+            carry = (r & 0b100000000) ? 1 : 0;
+            return Immediate.from(r & 0xff);
+        });
+    } else {
+        let regs: Register[] = [];
+        enableCarry(block);
+        for (let i = 0; i < length; i++) {
+            block.mov(Register.R0, aVal[i] ?? Immediate.from(0));
+            block.xor(Register.R0, Immediate.from(0xff));
+            block.add(Register.R0, Immediate.from(1));
+            block.mov(Register.r(i + 1), Register.R0);
+            regs.push(Register.r(i + 1));
+        }
+        return regs;
+    }
+}
+
+export function not(block: Block, a: () => Operand[]): Operand[] {
+    const aVal = a();
+
+    if (aVal.every(x => x instanceof Immediate)) {
+        const _aVal = aVal as Immediate[];
+        // +1 makes sure we don't lose any extra carry
+        return [...Array(length)].map((_, i) => {
+            return Immediate.from((~_aVal[i]?.immediate) & 0xff);
+        });
+    } else {
+        let regs: Register[] = [];
+        for (let i = 0; i < length; i++) {
+            block.mov(Register.R0, aVal[i] ?? Immediate.from(0));
+            block.xor(Register.R0, Immediate.from(0xff));
+            block.mov(Register.r(i + 1), Register.R0);
+            regs.push(Register.r(i + 1));
+        }
+        return regs;
+    }
+}
+
 export function add(block: Block, a: () => Operand[], b: () => Operand[]): Operand[] {
     const aVal = a();
     const bVal = b();
@@ -38,7 +85,7 @@ export function add(block: Block, a: () => Operand[], b: () => Operand[]): Opera
         return [...Array(length + 1)].map((_, i) => {
             let r = (_aVal[i]?.immediate ?? 0) + (_bVal[i]?.immediate ?? 0) + carry;
             carry = (r & 0b100000000) ? 1 : 0;
-            return Immediate.from(r % 256);
+            return Immediate.from(r & 0xff);
         });
     } else {
         let regs: Register[] = [];
@@ -66,7 +113,7 @@ export function sub(block: Block, a: () => Operand[], b: () => Operand[]): Opera
         return [...Array(length + 1)].map((_, i) => {
             let r = (_aVal[i]?.immediate ?? 0) - (_bVal[i]?.immediate ?? 0) - borrow;
             borrow = (r & 0b100000000) ? 1 : 0;
-            return Immediate.from(r % 256);
+            return Immediate.from(r & 0xff);
         });
     } else {
         let regs: Register[] = [];
@@ -89,7 +136,7 @@ export function and(block: Block, a: () => Operand[], b: () => Operand[]): Opera
     if (aVal.every(x => x instanceof Immediate) && bVal.every(x => x instanceof Immediate)) {
         const _aVal = aVal as Immediate[];
         const _bVal = bVal as Immediate[];
-        return [...Array(length + 1)].map((_, i) => {
+        return [...Array(length)].map((_, i) => {
             return Immediate.from((_aVal[i]?.immediate ?? 0) & (_bVal[i]?.immediate ?? 0));
         });
     } else {
@@ -112,7 +159,7 @@ export function or(block: Block, a: () => Operand[], b: () => Operand[]): Operan
     if (aVal.every(x => x instanceof Immediate) && bVal.every(x => x instanceof Immediate)) {
         const _aVal = aVal as Immediate[];
         const _bVal = bVal as Immediate[];
-        return [...Array(length + 1)].map((_, i) => {
+        return [...Array(length)].map((_, i) => {
             return Immediate.from((_aVal[i]?.immediate ?? 0) | (_bVal[i]?.immediate ?? 0));
         });
     } else {
@@ -135,7 +182,7 @@ export function xor(block: Block, a: () => Operand[], b: () => Operand[]): Opera
     if (aVal.every(x => x instanceof Immediate) && bVal.every(x => x instanceof Immediate)) {
         const _aVal = aVal as Immediate[];
         const _bVal = bVal as Immediate[];
-        return [...Array(length + 1)].map((_, i) => {
+        return [...Array(length)].map((_, i) => {
             return Immediate.from((_aVal[i]?.immediate ?? 0) ^ (_bVal[i]?.immediate ?? 0));
         });
     } else {
@@ -158,7 +205,7 @@ export function eq(block: Block, a: () => Operand[], b: () => Operand[]): Operan
     if (aVal.every(x => x instanceof Immediate) && bVal.every(x => x instanceof Immediate)) {
         const _aVal = aVal as Immediate[];
         const _bVal = bVal as Immediate[];
-        return [...Array(length + 1)].every((_, i) => (_aVal[i]?.immediate ?? 0) == (_bVal[i]?.immediate ?? 0)) ? TRUE : FALSE;
+        return [...Array(length)].every((_, i) => (_aVal[i]?.immediate ?? 0) == (_bVal[i]?.immediate ?? 0)) ? TRUE : FALSE;
     } else {
         disableCarry(block);
         const isFalse = block.label(false);
@@ -182,7 +229,7 @@ export function ne(block: Block, a: () => Operand[], b: () => Operand[]): Operan
     if (aVal.every(x => x instanceof Immediate) && bVal.every(x => x instanceof Immediate)) {
         const _aVal = aVal as Immediate[];
         const _bVal = bVal as Immediate[];
-        return [...Array(length + 1)].every((_, i) => (_aVal[i]?.immediate ?? 0) != (_bVal[i]?.immediate ?? 0)) ? TRUE : FALSE;
+        return [...Array(length)].every((_, i) => (_aVal[i]?.immediate ?? 0) != (_bVal[i]?.immediate ?? 0)) ? TRUE : FALSE;
     } else {
         disableCarry(block);
         const isFalse = block.label(false);
@@ -336,6 +383,23 @@ export function ge(block: Block, a: () => Operand[], b: () => Operand[]): Operan
         block.jl(end);
         block.mvs(Register.R1, Immediate7.from(1));
         block.here(end);
+        return [Register.R1];
+    }
+}
+
+export function not2(block: Block, a: () => Operand[]): Operand[] {
+    const aVal = a();
+
+    if (aVal.every(x => x instanceof Immediate)) {
+        const _aVal = aVal as Immediate[];
+        return _aVal[0].immediate ? TRUE : FALSE;
+    } else {
+        let skip = block.label(false);
+        block.mvs(Register.R1, Immediate.from(0));
+        block.mov(Register.R0, aVal[0]);
+        block.jnz(skip);
+        block.mvs(Register.R1, Immediate.from(1));
+        block.here(skip);
         return [Register.R1];
     }
 }

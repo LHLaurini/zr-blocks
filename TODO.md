@@ -5,10 +5,14 @@
 - [ ] Implement timer?
 - [ ] Improve error messages
 - [ ] See about getting rid of shiftLeft (maybe use a table?)
-- [ ] Implement loops
+- [x] Implement loops
 - [ ] Override the if block (needed to enforce some restrictions)
 - [ ] Implement class for values and variables (instead of using Operand[])
 - [ ] Use JSON for toolbox (and maybe for everything)
-- [ ] Add unary operations (!, ~, -)
+- [x] Add unary operations (!, ~, -)
 - [ ] Add a CLI
 - [ ] Add a prefix to variable names
+- [ ] Write tooltips and documentation
+- [ ] Implement increments and decrements
+- [ ] Implement signed integers
+- [ ] Fix restoring maximized window

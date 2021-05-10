@@ -368,6 +368,36 @@
         "helpUrl": ""
     },
     {
+        "type": "unary_operation",
+        "message0": "%1 %2",
+        "args0": [
+            {
+                "type": "field_dropdown",
+                "name": "operation",
+                "options": [
+                    [
+                        "−",
+                        "neg"
+                    ],
+                    [
+                        "~",
+                        "not"
+                    ]
+                ]
+            },
+            {
+                "type": "input_value",
+                "name": "operand",
+                "check": "int"
+            }
+        ],
+        "inputsInline": true,
+        "output": "int",
+        "style": "operation_blocks",
+        "tooltip": "",
+        "helpUrl": ""
+    },
+    {
         "type": "comparison",
         "message0": "%1 %2 %3",
         "args0": [
@@ -448,6 +478,22 @@
             {
                 "type": "input_value",
                 "name": "operand2",
+                "check": "Boolean"
+            }
+        ],
+        "inputsInline": true,
+        "output": "Boolean",
+        "style": "operation_blocks",
+        "tooltip": "",
+        "helpUrl": ""
+    },
+    {
+        "type": "negation",
+        "message0": "¬ %1",
+        "args0": [
+            {
+                "type": "input_value",
+                "name": "operand",
                 "check": "Boolean"
             }
         ],

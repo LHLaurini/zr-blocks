@@ -78,6 +78,22 @@
   </category>
   <category name="Variáveis e constantes" categorystyle="variable_category" custom="VARIABLES"></category>
   <category name="Operações" categorystyle="operation_category">
+    <block type="unary_operation">
+      <field name="operation">neg</field>
+      <value name="operand">
+        <shadow type="integer">
+          <field name="value">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="unary_operation">
+      <field name="operation">not</field>
+      <value name="operand">
+        <shadow type="integer">
+          <field name="value">0</field>
+        </shadow>
+      </value>
+    </block>
     <block type="binary_operation">
       <value name="operand1">
         <shadow type="integer">
@@ -140,6 +156,13 @@
       <value name="operand2">
         <shadow type="integer">
           <field name="value">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="negation">
+      <value name="operand">
+        <shadow type="boolean">
+          <field name="value">FALSE</field>
         </shadow>
       </value>
     </block>

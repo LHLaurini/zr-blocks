@@ -26,8 +26,10 @@ export class Generator extends Blockly.Generator {
     public variables_get_integer = (block: Blockly.Block) => this._variables_get_integer(block);
     public variables_set_integer = (block: Blockly.Block) => this._variables_set_integer(block);
     public constant_define_integer = (block: Blockly.Block) => this._constant_define_integer(block);
+    public unary_operation = (block: Blockly.Block) => this._unary_operation(block);
     public binary_operation = (block: Blockly.Block) => this._binary_operation(block);
     public comparison = (block: Blockly.Block) => this._binary_operation(block);
+    public negation = (block: Blockly.Block) => this._negation(block);
     public logic_operation = (block: Blockly.Block) => this._binary_operation(block);
     public repeat_times = (block: Blockly.Block) => this._repeat_times(block);
     public repeat_while = (block: Blockly.Block) => this._repeat_while(block);
@@ -142,6 +144,17 @@ export class Generator extends Blockly.Generator {
         return `const ${constant} = (${value})();`;
     }
 
+    private _unary_operation(block: Blockly.Block) {
+        let operation = block.getFieldValue('operation');
+        let operand = this.valueToCode(block, 'operand', this.ORDER_NORMAL);
+        return [`() => ${operation}(block, ${operand})`, this.ORDER_NORMAL];
+    }
+
+    private _negation(block: Blockly.Block) {
+        let operand = this.valueToCode(block, 'operand', this.ORDER_NORMAL);
+        return [`() => not2(block, ${operand})`, this.ORDER_NORMAL];
+    }
+
     private _binary_operation(block: Blockly.Block) {
         let operand1 = this.valueToCode(block, 'operand1', this.ORDER_NORMAL);
         let operation = block.getFieldValue('operation');
@@ -179,7 +192,7 @@ export class Generator extends Blockly.Generator {
     }
 
     finish(code: string): string {
-        const result = HEADER + this.definitions_.variables + code + FOOTER
+        const result = HEADER + this.definitions_.variables + code + FOOTER;
         delete (this as any).definitions_;
         return result;
     }

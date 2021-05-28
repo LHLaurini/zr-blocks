@@ -30,7 +30,7 @@
   "homepage": "https://github.com/Siga-IoT/zr-blocks#readme",
   "dependencies": {
     "blockly": "^5.20210325.1",
-    "electron": "^12.0.6",
+    "electron": "^12.0.7",
     "electron-settings": "^4.0.2",
     "vex-js": "^4.1.0",
     "vm2": "^3.9.3"
@@ -45,7 +45,7 @@
     "electron-packager": "^15.2.0",
     "expect": "^26.6.2",
     "lzma-native": "^6.0.1",
-    "mocha": "^8.3.2",
+    "mocha": "^8.4.0",
     "tar": "^6.1.0",
     "ts-mocha": "^8.0.0",
     "ts-node": "^9.1.1",

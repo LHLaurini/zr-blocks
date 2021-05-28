@@ -1,0 +1,27 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm test
+      - run: npm run package
+      - uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            packages/*
+          prerelease: ${{ contains(github.ref, 'rc') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

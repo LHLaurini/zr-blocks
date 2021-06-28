@@ -152,11 +152,14 @@ export function defineBlocks() {
         // R1 - pin, R2 - dutyCycle
         setPwmOutputBlock = new Block();
         setPwmOutputStart = setPwmOutputBlock.label();
+        push(setPwmOutputBlock, Register.R1);
         push(setPwmOutputBlock, Register.R2);
         shiftLeft(setPwmOutputBlock, () => [Immediate.from(1)], () => [Register.R1]);
         setPwmOutputBlock.mov(Register.R0, Register.R1);
         setPwmOutputBlock.or(outputEnable, Register.R0);
-        pop(setPwmOutputBlock, Register.R2)
+        setPwmOutputBlock.or(pwmEnable, Register.R0);
+        pop(setPwmOutputBlock, Register.R2);
+        pop(setPwmOutputBlock, Register.R1);
         setPwmOutputBlock.mov(Register.R0, Immediate.from(0xFD));
         setPwmOutputBlock.sub(Register.R0, Register.R1);
         setPwmOutputBlock.mov(Register.R0.memory, Register.R2);
@@ -229,6 +232,7 @@ export function initPwm(block: Block, iBlock: Block, frequency: () => Operand[] 
         // Turn on
         iBlock.mov(Register.R0, Immediate.from(1 << i));
         iBlock.or(outputControl, Register.R0);
+        iBlock.jmp(next);
 
         // Turn off
         iBlock.here(off);

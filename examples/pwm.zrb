@@ -1,0 +1,41 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="declare_pwm" id="8zwrJoy|[`nZE_f1fBQ+" x="52" y="44">
+    <value name="frequency">
+      <shadow type="integer" id=",4S;T4j*%%$5DGEwa:07">
+        <field name="value">100</field>
+      </shadow>
+    </value>
+    <value name="maxChannels">
+      <shadow type="integer" id="xOT20l=oB/W-Ldx)0r|8">
+        <field name="value">3</field>
+      </shadow>
+    </value>
+    <next>
+      <block type="always" id="DGr|aE|F{qQJOSq,pQX$" deletable="false">
+        <statement name="statements">
+          <block type="set_pwm_pin" id="sGEJpX8lPci||afZ:y1*">
+            <value name="pin">
+              <shadow type="digital_output" id=";nVg-Ej~u:|w1gfieuR}">
+                <field name="digital_output">SD0</field>
+              </shadow>
+            </value>
+            <value name="dutyCycle">
+              <shadow type="integer" id="?FrQO0}Lr/Xv)J%!Wl-J">
+                <field name="value">128</field>
+              </shadow>
+            </value>
+            <next>
+              <block type="repeat_while" id="ZQw[s|$_l%-udk8o/6{f">
+                <value name="condition">
+                  <shadow type="boolean" id="YW1#+F!gHfRd}DMme~ph">
+                    <field name="value">TRUE</field>
+                  </shadow>
+                </value>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </next>
+  </block>
+</xml>

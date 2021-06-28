@@ -1,0 +1,184 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable type="u16" id="ikF#%8ODzGUjR:HCp*RE">brightness</variable>
+    <variable type="u16" id="]*[gK5X8o=.p-WTEzW9J">decreasing</variable>
+  </variables>
+  <block type="declare_pwm" id="I1k,`Jwi!4YS1ur?/RvJ" x="49" y="29">
+    <value name="frequency">
+      <shadow type="integer" id="0FnW-U2(_Zec+41`!b,k">
+        <field name="value">100</field>
+      </shadow>
+    </value>
+    <value name="maxChannels">
+      <shadow type="integer" id="scymeK?YufQW|SD;diAM">
+        <field name="value">1</field>
+      </shadow>
+    </value>
+    <next>
+      <block type="always" id="vIw=7mx5b8gt`6GBJW(5" deletable="false">
+        <statement name="statements">
+          <block type="controls_if" id="o3BZ(Rr]9cX9CI:N=[^3">
+            <mutation else="1"></mutation>
+            <value name="IF0">
+              <block type="comparison" id="OB||E|NAyBE9-?hPti^B">
+                <field name="operation">ne</field>
+                <value name="operand1">
+                  <shadow type="integer" id="MD)oH@+Lif((o/+5cA0K">
+                    <field name="value">0</field>
+                  </shadow>
+                  <block type="variables_get_integer" id="?nJ!Yj0w^fz6d2:2V$=0">
+                    <field name="variable" id="]*[gK5X8o=.p-WTEzW9J" variabletype="u16">decreasing</field>
+                  </block>
+                </value>
+                <value name="operand2">
+                  <shadow type="integer" id="MzH1,!2#w_onTq~~EwVX">
+                    <field name="value">0</field>
+                  </shadow>
+                </value>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="variables_set_integer" id="hQ5vi|YN1hL)umKE)OdN">
+                <field name="variable" id="ikF#%8ODzGUjR:HCp*RE" variabletype="u16">brightness</field>
+                <value name="value">
+                  <shadow type="integer">
+                    <field name="value">0</field>
+                  </shadow>
+                  <block type="binary_operation" id="(+|$M~5h39/8XE:bVx3|">
+                    <field name="operation">sub</field>
+                    <value name="operand1">
+                      <shadow type="integer" id="^b2elsus.x_rxU[lWDxX">
+                        <field name="value">0</field>
+                      </shadow>
+                      <block type="variables_get_integer" id="K-sf@Txme8/1*EnmVshj">
+                        <field name="variable" id="ikF#%8ODzGUjR:HCp*RE" variabletype="u16">brightness</field>
+                      </block>
+                    </value>
+                    <value name="operand2">
+                      <shadow type="integer" id="z77]g7i|AFqaO33o4uGv">
+                        <field name="value">1</field>
+                      </shadow>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </statement>
+            <statement name="ELSE">
+              <block type="variables_set_integer" id="4^gO|5%CZc@VX/xs0MX8">
+                <field name="variable" id="ikF#%8ODzGUjR:HCp*RE" variabletype="u16">brightness</field>
+                <value name="value">
+                  <shadow type="integer" id="aQdi7aObY+QWRSQs.,;r">
+                    <field name="value">0</field>
+                  </shadow>
+                  <block type="binary_operation" id="$3!?gyJhhVqzJHShj~+~">
+                    <field name="operation">add</field>
+                    <value name="operand1">
+                      <shadow type="integer" id="bUpL{6SNilBH(3}xr)P-">
+                        <field name="value">0</field>
+                      </shadow>
+                      <block type="variables_get_integer" id="i8d70J{cTNKT@bw~YqYX">
+                        <field name="variable" id="ikF#%8ODzGUjR:HCp*RE" variabletype="u16">brightness</field>
+                      </block>
+                    </value>
+                    <value name="operand2">
+                      <shadow type="integer" id="v:|}=6agI+djsNNcipsJ">
+                        <field name="value">1</field>
+                      </shadow>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </statement>
+            <next>
+              <block type="set_pwm_pin" id="74.$hQ=R`xJ%+~:^nHEN">
+                <value name="pin">
+                  <shadow type="digital_output" id="QO:5wW!3;OAW9Gez:EP~">
+                    <field name="digital_output">SD0</field>
+                  </shadow>
+                </value>
+                <value name="dutyCycle">
+                  <shadow type="integer" id="1LL~d)]o8RKueH=,Eghl">
+                    <field name="value">0</field>
+                  </shadow>
+                  <block type="variables_get_integer" id="WEX!sj=,_G(_h!^|KhH;">
+                    <field name="variable" id="ikF#%8ODzGUjR:HCp*RE" variabletype="u16">brightness</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="delay" id="T2YHXAc@+`U]U3nl*C7V">
+                    <value name="milliseconds">
+                      <shadow type="integer" id="sc:cotUUi.ZJ4HXdq:/R">
+                        <field name="value">20</field>
+                      </shadow>
+                    </value>
+                    <next>
+                      <block type="controls_if" id="Y5OemA|5HCX,w41y*xzk">
+                        <mutation elseif="1"></mutation>
+                        <value name="IF0">
+                          <block type="comparison" id="`bYCn~x6MqhFQBp@mF0%">
+                            <field name="operation">eq</field>
+                            <value name="operand1">
+                              <shadow type="integer">
+                                <field name="value">0</field>
+                              </shadow>
+                              <block type="variables_get_integer" id="%?hY{t~3I%lD}~^fg~ia">
+                                <field name="variable" id="ikF#%8ODzGUjR:HCp*RE" variabletype="u16">brightness</field>
+                              </block>
+                            </value>
+                            <value name="operand2">
+                              <shadow type="integer" id=",p)5qBqHDZcy]edtGC[r">
+                                <field name="value">0</field>
+                              </shadow>
+                            </value>
+                          </block>
+                        </value>
+                        <statement name="DO0">
+                          <block type="variables_set_integer" id="C?zr@HRDbOZ8JYlA;f{J">
+                            <field name="variable" id="]*[gK5X8o=.p-WTEzW9J" variabletype="u16">decreasing</field>
+                            <value name="value">
+                              <shadow type="integer" id="j04=4v}ew#%v%Vc]BEEC">
+                                <field name="value">0</field>
+                              </shadow>
+                            </value>
+                          </block>
+                        </statement>
+                        <value name="IF1">
+                          <block type="comparison" id="sv]djZv,o@kv13_37`w/">
+                            <field name="operation">eq</field>
+                            <value name="operand1">
+                              <shadow type="integer">
+                                <field name="value">0</field>
+                              </shadow>
+                              <block type="variables_get_integer" id="7?`NTo3fn*~Te)X9zE{h">
+                                <field name="variable" id="ikF#%8ODzGUjR:HCp*RE" variabletype="u16">brightness</field>
+                              </block>
+                            </value>
+                            <value name="operand2">
+                              <shadow type="integer" id="P*trT]My64PyJP5wBa[+">
+                                <field name="value">255</field>
+                              </shadow>
+                            </value>
+                          </block>
+                        </value>
+                        <statement name="DO1">
+                          <block type="variables_set_integer" id="9$MXK@6zE78`sl3/nHoM">
+                            <field name="variable" id="]*[gK5X8o=.p-WTEzW9J" variabletype="u16">decreasing</field>
+                            <value name="value">
+                              <shadow type="integer" id="9Dw%7kas*ie)7OACLS-t">
+                                <field name="value">1</field>
+                              </shadow>
+                            </value>
+                          </block>
+                        </statement>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </next>
+  </block>
+</xml>

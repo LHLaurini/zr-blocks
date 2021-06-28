@@ -250,6 +250,50 @@
         "helpUrl": ""
     },
     {
+        "type": "set_pwm_pin",
+        "message0": "seta pino PWM %1 como %2/255",
+        "args0": [
+            {
+                "type": "input_value",
+                "name": "pin",
+                "check": "int"
+            },
+            {
+                "type": "input_value",
+                "name": "dutyCycle",
+                "check": "int"
+            }
+        ],
+        "inputsInline": true,
+        "previousStatement": "code",
+        "nextStatement": "code",
+        "style": "io_blocks",
+        "tooltip": "",
+        "helpUrl": ""
+    },
+    {
+        "type": "declare_pwm",
+        "message0": "usando frequência PWM %1 e até %2 canais",
+        "args0": [
+            {
+                "type": "input_value",
+                "name": "frequency",
+                "check": "int"
+            },
+            {
+                "type": "input_value",
+                "name": "maxChannels",
+                "check": "int"
+            }
+        ],
+        "inputsInline": true,
+        "previousStatement": "main",
+        "nextStatement": "main",
+        "style": "io_blocks",
+        "tooltip": "",
+        "helpUrl": ""
+    },
+    {
         "type": "variables_get_integer",
         "message0": "%1",
         "args0": [

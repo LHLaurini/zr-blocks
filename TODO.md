@@ -16,3 +16,4 @@
 - [ ] Implement increments and decrements
 - [ ] Implement signed integers
 - [ ] Fix restoring maximized window
+- [ ] Add UI tests (maybe use Xvfb+Xnee)

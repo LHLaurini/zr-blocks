@@ -48,6 +48,32 @@
       </value>
     </block>
     <sep gap="8"></sep>
+    <block type="set_pwm_pin">
+      <value name="pin">
+        <shadow type="digital_output">
+          <field name="digital_output">SD0</field>
+        </shadow>
+      </value>
+      <value name="dutyCycle">
+        <shadow type="integer">
+          <field name="value">0</field>
+        </shadow>
+      </value>
+    </block>
+    <sep gap="8"></sep>
+    <block type="declare_pwm">
+      <value name="frequency">
+        <shadow type="integer">
+          <field name="value">100</field>
+        </shadow>
+      </value>
+      <value name="maxChannels">
+        <shadow type="integer">
+          <field name="value">3</field>
+        </shadow>
+      </value>
+    </block>
+    <sep gap="8"></sep>
     <block type="analog_pin">
       <value name="pin">
         <shadow type="analog_input">

@@ -5,6 +5,7 @@ import { Linker } from "../assembler/linker";
 import { Operand } from "../assembler/operand";
 import { Prog } from "../assembler/prog";
 import { Register } from "../assembler/register";
+import { AssemblerError } from "../common/error";
 import { pop, push } from "./stack";
 
 let shiftLeftBlock: Block;
@@ -39,4 +40,14 @@ export function shiftLeft(block: Block, value: () => Operand[], shift: () => Ope
 
 export function addBlocks(linker: Linker) {
     linker.add(shiftLeftBlock);
+}
+
+export function bytesToNumber(value: () => Operand[]): number {
+    const arr = value();
+    return arr.reduce((accum, byte, i) => {
+        if (!byte.isImmediate()) {
+            throw new AssemblerError("valor deve ser literal");
+        }
+        return accum + Number(byte.toString()) << (8 * i);
+    }, 0);
 }

@@ -8,7 +8,16 @@ memInfo = new MemInfo;\n\
 let block;\n\
 \n';
 
-const FOOTER = '\nmainLoop;'
+function footer(x: string) {
+    return `\
+const start = new Block();\n\
+block = start;\n\
+${x}
+block.jmp(mainLoopStart);\n\
+[start, mainLoop, interrupt];\n\
+`;
+}
+
 
 export class Generator extends Blockly.Generator {
     // Blockly uses this=block when calling the block functions, so we have to fix it
@@ -20,6 +29,8 @@ export class Generator extends Blockly.Generator {
     public analog_pin = (block: Blockly.Block) => this._analog_pin(block);
     public digital_pin = (block: Blockly.Block) => this._digital_pin(block);
     public set_digital_pin = (block: Blockly.Block) => this._set_digital_pin(block);
+    public set_pwm_pin = (block: Blockly.Block) => this._set_pwm_pin(block);
+    public declare_pwm = (block: Blockly.Block) => this._declare_pwm(block);
     public delay = (block: Blockly.Block) => this._delay(block);
     public always = (block: Blockly.Block) => this._always(block);
     public controls_if = (block: Blockly.Block) => this._controls_if(block);
@@ -30,12 +41,15 @@ export class Generator extends Blockly.Generator {
     public binary_operation = (block: Blockly.Block) => this._binary_operation(block);
     public comparison = (block: Blockly.Block) => this._binary_operation(block);
     public negation = (block: Blockly.Block) => this._negation(block);
+    public boolean = (block: Blockly.Block) => this._boolean(block);
     public logic_operation = (block: Blockly.Block) => this._binary_operation(block);
     public repeat_times = (block: Blockly.Block) => this._repeat_times(block);
     public repeat_while = (block: Blockly.Block) => this._repeat_while(block);
     public repeat_until = (block: Blockly.Block) => this._repeat_until(block);
 
     public definitions_!: { variables: string };
+    public usesPwm!: boolean;
+    public pwmConfig!: { frequency: string, maxChannels: string };
 
     constructor() {
         super("ASM");
@@ -47,6 +61,8 @@ export class Generator extends Blockly.Generator {
         this.definitions_ = {
             variables: workspace.getAllVariables().filter(variable => !variable.type.endsWith('c')).reduce((accum, variable) => `${accum}const ${variable.name} = memInfo.allocVar(2);\n`, '// Variables\n') + '\n'
         };
+        this.usesPwm = false;
+        this.pwmConfig = { frequency: "undefined", maxChannels: "undefined" };
     }
 
     private _state(block: Blockly.Block) {
@@ -86,6 +102,20 @@ export class Generator extends Blockly.Generator {
         return `setDigitalOutput(block, ${pin}, ${state});`;
     }
 
+    private _set_pwm_pin(block: Blockly.Block) {
+        this.usesPwm = true;
+        let pin = this.valueToCode(block, 'pin', this.ORDER_NORMAL);
+        let dutyCycle = this.valueToCode(block, 'dutyCycle', this.ORDER_NORMAL);
+        return `setPwmOutput(block, ${pin}, ${dutyCycle});`;
+    }
+
+    private _declare_pwm(block: Blockly.Block) {
+        this.usesPwm = true;
+        this.pwmConfig.frequency = this.valueToCode(block, 'frequency', this.ORDER_NORMAL);
+        this.pwmConfig.maxChannels = this.valueToCode(block, 'maxChannels', this.ORDER_NORMAL);
+        return `// PWM configured: ${JSON.stringify(this.pwmConfig)}`;
+    }
+
     private _delay(block: Blockly.Block) {
         let milliseconds = this.valueToCode(block, 'milliseconds', this.ORDER_NORMAL);
         return `delayMs(block, ${milliseconds});`;
@@ -93,7 +123,14 @@ export class Generator extends Blockly.Generator {
 
     private _always(block: Blockly.Block) {
         let statements = this.statementToCode(block, 'statements');
-        return `const mainLoop = new Block();\nblock = mainLoop;\nsetup(block);\nconst start = block.label();\n${statements}\nblock.jmp(start);`;
+        return `\
+const mainLoop = new Block();\n\
+block = mainLoop;\n\
+setup(block);\n\
+const mainLoopStart = block.label();\n\
+${statements}\n\
+block.jmp(mainLoopStart);\
+`;
     }
 
     private _controls_if(block: Blockly.Block) {
@@ -155,6 +192,10 @@ export class Generator extends Blockly.Generator {
         return [`() => not2(block, ${operand})`, this.ORDER_NORMAL];
     }
 
+    private _boolean(block: Blockly.Block) {
+        return [block.getFieldValue('value'), this.ORDER_NORMAL];
+    }
+
     private _binary_operation(block: Blockly.Block) {
         let operand1 = this.valueToCode(block, 'operand1', this.ORDER_NORMAL);
         let operation = block.getFieldValue('operation');
@@ -192,7 +233,13 @@ export class Generator extends Blockly.Generator {
     }
 
     finish(code: string): string {
-        const result = HEADER + this.definitions_.variables + code + FOOTER;
+        const result = HEADER + this.definitions_.variables
+            + code + footer(this.usesPwm
+                ? `\
+const interrupt = new Block();\n\
+initPwm(block, interrupt, ${this.pwmConfig.frequency}, ${this.pwmConfig.maxChannels});\n\
+`
+                : "");
         delete (this as any).definitions_;
         return result;
     }

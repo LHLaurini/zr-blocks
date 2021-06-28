@@ -5,14 +5,16 @@ import { addBlocks as addBlocksIO, defineBlocks as defineBlocksIO } from './io';
 import { addBlocks as addBlocksHelper, defineBlocks as defineBlocksHelper } from './helper';
 import { addBlocks as addBlocksOps, defineBlocks as defineBlocksOps } from './ops';
 import { Block } from '../assembler/block';
-import { Register } from '../assembler/register';
-import { Immediate7 } from '../assembler/immediate7';
+import { Immediate } from '../assembler/immediate';
 
 export * from './control';
 export * from './io';
 export * from './delay';
 export * from './ops';
 export * from './variable';
+
+export const FALSE = () => [Immediate.from(0)];
+export const TRUE = () => [Immediate.from(1)];
 
 // R0 can't be used for passing or returning values
 // R0-R5 = caller-saved

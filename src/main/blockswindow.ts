@@ -445,15 +445,20 @@ export class BlocksWindow {
     }
 
     private async compile() {
+        // FIXME: Move this somewhere else
         let generated = await this.generate();
         if (generated != undefined && this.currentFile.filename != null) {
             try {
                 const vm = new VM({
                     sandbox: { ...assembler, ...stdlib },
                 });
-                const mainLoop: Block = vm.run(generated[0], generated[1]);
+                const [start, mainLoop, interrupt]: [Block, Block, Block | undefined] = vm.run(generated[0], generated[1]);
                 const linker = new Linker;
-                linker.add(mainLoop, 0x000);
+                linker.add(start, 0x000);
+                linker.add(mainLoop);
+                if (interrupt != undefined) {
+                    linker.add(interrupt, 0x3c0);
+                }
                 stdlib.addBlocks(linker);
                 const result = linker.link();
                 await writeFile(`${generated[1]}.zr16`, result.mne);

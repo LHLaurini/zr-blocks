@@ -7,4 +7,7 @@ export abstract class Operand {
     public isIO(): boolean {
         return false;
     }
+    public isImmediate(): boolean {
+        return false;
+    }
 }

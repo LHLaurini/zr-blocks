@@ -3,10 +3,11 @@ import { Immediate } from "../assembler/immediate";
 import { Immediate7 } from "../assembler/immediate7";
 import { IOAddress } from "../assembler/ioaddress";
 import { Linker } from "../assembler/linker";
+import { Memory } from "../assembler/memory";
 import { Operand } from "../assembler/operand";
 import { Prog } from "../assembler/prog";
 import { Register } from "../assembler/register";
-import { shiftLeft } from "./helper";
+import { bytesToNumber, shiftLeft } from "./helper";
 import { pop, push } from "./stack";
 
 export const LOW = () => [Immediate.from(0)];
@@ -57,6 +58,12 @@ let adcStatusHigh = IOAddress.at(0x05);
 let inputValues = IOAddress.at(0x08);
 let outputEnable = IOAddress.at(0x09);
 let outputControl = IOAddress.at(0x0a);
+let timerLoadLow = IOAddress.at(0x1c);
+let timerLoadHigh = IOAddress.at(0x1d);
+let timerControl = IOAddress.at(0x1e);
+
+let pwmCounter = Memory.at(0xfe);
+let pwmEnable = Memory.at(0xff);
 
 let setDigitalOutputBlock: Block;
 let setDigitalOutputStart: Prog;
@@ -66,6 +73,9 @@ let getDigitalInputStart: Prog;
 
 let getAnalogInputBlock: Block;
 let getAnalogInputStart: Prog;
+
+let setPwmOutputBlock: Block;
+let setPwmOutputStart: Prog;
 
 export function defineBlocks() {
     {
@@ -137,6 +147,21 @@ export function defineBlocks() {
         getAnalogInputBlock.and(Register.R2, Register.R0);  // R2 contains 9:8
         getAnalogInputBlock.ret();
     }
+
+    {
+        // R1 - pin, R2 - dutyCycle
+        setPwmOutputBlock = new Block();
+        setPwmOutputStart = setPwmOutputBlock.label();
+        push(setPwmOutputBlock, Register.R2);
+        shiftLeft(setPwmOutputBlock, () => [Immediate.from(1)], () => [Register.R1]);
+        setPwmOutputBlock.mov(Register.R0, Register.R1);
+        setPwmOutputBlock.or(outputEnable, Register.R0);
+        pop(setPwmOutputBlock, Register.R2)
+        setPwmOutputBlock.mov(Register.R0, Immediate.from(0xFD));
+        setPwmOutputBlock.sub(Register.R0, Register.R1);
+        setPwmOutputBlock.mov(Register.R0.memory, Register.R2);
+        setPwmOutputBlock.ret();
+    }
 }
 
 export function setDigitalOutput(block: Block, pin: () => Operand[], state: () => Operand[]) {
@@ -162,8 +187,78 @@ export function getAnalogInput(block: Block, pin: () => Operand[]) {
     return [Register.R1, Register.R2];
 };
 
+export function initPwm(block: Block, iBlock: Block, frequency: () => Operand[] = () => [Immediate.from(100)], maxChannels: () => Operand[] = () => [Immediate.from(3)]) {
+    let period = Math.round(1 / bytesToNumber(frequency) / 255 * 1000000);
+    // Set timer
+    block.mov(Register.R0, Immediate.from(period & 0xFF));
+    block.mov(timerLoadLow, Register.R0);
+    block.mov(Register.R0, Immediate.from(period >> 8));
+    block.mov(timerLoadHigh, Register.R0);
+    // Reserve memory for PWM data
+    block.mov(Register.R0, Immediate.from(bytesToNumber(maxChannels) + 2));
+    block.sub(Register.R12, Register.R0);
+    // Enable timer
+    block.mov(Register.R0, Immediate.from(0b10000111));
+    block.mov(timerControl, Register.R0);
+    // Enable interrupts
+    block.mov(Register.R0, Immediate.from(1));
+    block.or(Register.R15, Register.R0);
+
+    // Backup regs
+    iBlock.dec(Register.R12);
+    iBlock.mov(Register.R12.memory, Register.R0);
+
+    // Clear interrupt
+    iBlock.mov(Register.R0, Immediate.from(0b10000111));
+    iBlock.mov(timerControl, Register.R0);
+
+    for (let i of [...Array(maxChannels).keys()]) {
+        let next = iBlock.label(false);
+        let off = iBlock.label(false);
+
+        // Is enabled?
+        iBlock.mov(Register.R0, pwmEnable);
+        iBlock.and(Register.R0, Immediate.from(1 << i));
+        iBlock.jz(next);
+
+        // Check counter
+        iBlock.mov(Register.R0, pwmCounter);
+        iBlock.cmp(Memory.at(0xFD - i), Register.R0);   // C: ref < counter
+        iBlock.jc(off);
+
+        // Turn on
+        iBlock.mov(Register.R0, Immediate.from(1 << i));
+        iBlock.or(outputControl, Register.R0);
+
+        // Turn off
+        iBlock.here(off);
+        iBlock.mov(Register.R0, Immediate.from(0xff ^ (1 << i)));
+        iBlock.and(outputControl, Register.R0);
+
+        iBlock.here(next);
+    }
+
+    // Increment counter
+    iBlock.inc(pwmCounter);
+
+    // Restore regs
+    iBlock.mov(Register.R0, Register.R12.memory);
+    iBlock.inc(Register.R12);
+    iBlock.rets();
+};
+
+export function setPwmOutput(block: Block, pin: () => Operand[], dutyCycle: () => Operand[]) {
+    block.mov(Register.R0, dutyCycle()[0]);
+    push(block, Register.R0);
+    block.mov(Register.R0, pin()[0]);
+    block.mov(Register.R1, Register.R0);
+    pop(block, Register.R2);
+    block.call(setPwmOutputStart);
+};
+
 export function addBlocks(linker: Linker) {
     linker.add(setDigitalOutputBlock);
     linker.add(getDigitalInputBlock);
     linker.add(getAnalogInputBlock);
+    linker.add(setPwmOutputBlock);
 }

@@ -232,15 +232,15 @@ export function ne(block: Block, a: () => Operand[], b: () => Operand[]): Operan
         return [...Array(length)].every((_, i) => (_aVal[i]?.immediate ?? 0) != (_bVal[i]?.immediate ?? 0)) ? TRUE : FALSE;
     } else {
         disableCarry(block);
-        const isFalse = block.label(false);
-        block.mvs(Register.R1, Immediate7.from(0));
+        const isTrue = block.label(false);
+        block.mvs(Register.R1, Immediate7.from(1));
         for (let i = length - 1; i >= 0; i--) {
             block.mov(Register.R0, aVal[i] ?? Immediate.from(0));
             block.cmp(Register.R0, bVal[i] ?? Immediate.from(0));
-            block.je(isFalse);
+            block.jne(isTrue);
         }
-        block.mvs(Register.R1, Immediate7.from(1));
-        block.here(isFalse);
+        block.mvs(Register.R1, Immediate7.from(0));
+        block.here(isTrue);
         return [Register.R1];
     }
 }

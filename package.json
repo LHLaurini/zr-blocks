@@ -43,7 +43,7 @@
     "@types/tar": "^4.0.4",
     "copyfiles": "^2.4.1",
     "electron-packager": "^15.2.0",
-    "expect": "^26.6.2",
+    "expect": "^27.0.6",
     "lzma-native": "^6.0.1",
     "mocha": "^8.4.0",
     "tar": "^6.1.0",

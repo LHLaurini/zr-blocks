@@ -126,7 +126,6 @@ export class Generator extends Blockly.Generator {
         return `\
 const mainLoop = new Block();\n\
 block = mainLoop;\n\
-setup(block);\n\
 const mainLoopStart = block.label();\n\
 ${statements}\n\
 block.jmp(mainLoopStart);\
@@ -237,6 +236,7 @@ block.jmp(mainLoopStart);\
             + code + footer(this.usesPwm
                 ? `\
 const interrupt = new Block();\n\
+setup(block);\n\
 initPwm(block, interrupt, ${this.pwmConfig.frequency}, ${this.pwmConfig.maxChannels});\n\
 `
                 : "");

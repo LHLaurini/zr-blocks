@@ -6,6 +6,7 @@ import { addBlocks as addBlocksHelper, defineBlocks as defineBlocksHelper } from
 import { addBlocks as addBlocksOps, defineBlocks as defineBlocksOps } from './ops';
 import { Block } from '../assembler/block';
 import { Immediate } from '../assembler/immediate';
+import { Register } from '../assembler/register';
 
 export * from './control';
 export * from './io';
@@ -36,4 +37,7 @@ export function defineBlocks() {
 }
 
 export function setup(_block: Block) {
+    let loop = _block.label();
+    _block.mov(Register.R1.memory, Register.R0);
+    _block.djnz(Register.R1, loop);
 }

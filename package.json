@@ -36,7 +36,7 @@
     "vm2": "^3.9.3"
   },
   "devDependencies": {
-    "@types/copyfiles": "^2.4.0",
+    "@types/copyfiles": "^2.4.1",
     "@types/electron-packager": "^15.0.1",
     "@types/lzma-native": "^4.0.1",
     "@types/mocha": "^9.0.0",

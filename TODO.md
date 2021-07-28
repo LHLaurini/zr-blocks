@@ -1,19 +1,20 @@
-- [ ] Proper localization
-- [x] Rename blocks to use only English
+- [ ] Add a CLI
+- [ ] Add tests
+- [ ] Implement signed integers
 - [ ] Implement functions
+- [ ] Improve error messages
+- [ ] Override the if block (needed to enforce some restrictions)
+- [ ] Proper localization
+- [ ] Implement increments and decrements
+- [ ] Write tooltips and documentation
+- [ ] Implement class for values and variables (instead of using Operand[])
+- [x] Rename blocks to use only English
 - [x] Implement ADC
 - [ ] Implement timer?
-- [ ] Improve error messages
 - [ ] See about getting rid of shiftLeft (maybe use a table?)
 - [x] Implement loops
-- [ ] Override the if block (needed to enforce some restrictions)
-- [ ] Implement class for values and variables (instead of using Operand[])
 - [ ] Use JSON for toolbox (and maybe for everything)
 - [x] Add unary operations (!, ~, -)
-- [ ] Add a CLI
 - [ ] Add a prefix to variable names
-- [ ] Write tooltips and documentation
-- [ ] Implement increments and decrements
-- [ ] Implement signed integers
 - [ ] Fix restoring maximized window
 - [ ] Add UI tests (maybe use Xvfb+Xnee)

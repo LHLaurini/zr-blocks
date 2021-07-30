@@ -453,7 +453,7 @@ export class BlocksWindow {
                     await this.error("Ocorreu um erro ao salvar a saída", exceptionToString(e));
                 }
             } else {
-                await this.error("Ocorreu um erro ao compilar", error);
+                await this.error("Ocorreu um erro ao compilar", exceptionToString(error));
             }
         }
     }

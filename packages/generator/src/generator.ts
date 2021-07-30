@@ -12,6 +12,8 @@ function footer(x: string) {
     return `\
 const start = new Block();\n\
 block = start;\n\
+setup(block);\n\
+const interrupt = new Block();\n\
 ${x}
 block.jmp(mainLoopStart);\n\
 [start, mainLoop, interrupt];\n\
@@ -235,8 +237,6 @@ block.jmp(mainLoopStart);\
         const result = HEADER + this.definitions_.variables
             + code + footer(this.usesPwm
                 ? `\
-const interrupt = new Block();\n\
-setup(block);\n\
 initPwm(block, interrupt, ${this.pwmConfig.frequency}, ${this.pwmConfig.maxChannels});\n\
 `
                 : "");

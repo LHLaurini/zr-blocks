@@ -24,7 +24,11 @@ type RepeatUntilInfo = RepeatWhileInfo;
 function if_(block: Block, condition: Condition, thisLabel: Prog, endLabel: Prog, code: Code) {
     block.here(thisLabel);
     const result = condition()[0];
-    block.or(result, result);
+    if (result instanceof Immediate) {
+        block.mov(Register.R0, result);
+    } else {
+        block.or(result, result);
+    }
     const nextLabel = block.label(false);
     block.jz(nextLabel);
     code();

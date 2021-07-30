@@ -13,7 +13,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "postbuild": "ts-node copyfiles.ts"
+    "postbuild": "ts-node copyfiles.ts",
+    "test": "ts-mocha test.ts"
   },
   "bugs": {
     "url": "https://github.com/Siga-IoT/zr-blocks/issues"

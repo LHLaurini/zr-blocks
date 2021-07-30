@@ -29,7 +29,7 @@ export class Blocks {
     public onChange?: () => void;
     public onUndoAll?: () => void;
 
-    private workspace?: Blockly.WorkspaceSvg;
+    private workspace?: Blockly.Workspace | Blockly.WorkspaceSvg;
     private generator: Generator;
 
     public static get instance(): Blocks {
@@ -56,15 +56,22 @@ export class Blocks {
     }
 
     public async init() {
-        const blocklyArea = document.getElementById('blocklyArea');
         const blocks = Blocks.loadJson('blockly/blocks.json');
         const theme = Blocks.loadJson('blockly/theme.json');
         const toolbox = Blocks.loadXml('blockly/toolbox.xml');
         const variables = Blocks.loadXml('blockly/variables.xml');
 
-        if (blocklyArea === null) {
-            throw new IntializationError;
-        }
+        const blocklyArea = (() => {
+            if (typeof document != "undefined") {
+                const blocklyArea = document.getElementById('blocklyArea');
+                if (blocklyArea === null) {
+                    throw new IntializationError;
+                }
+                return blocklyArea;
+            } else {
+                return null;
+            }
+        })();
 
         Blockly.defineBlocksWithJsonArray(await blocks);
 
@@ -94,7 +101,11 @@ export class Blocks {
             theme: Blockly.Theme.defineTheme('default', await theme),
         };
 
-        this.workspace = Blockly.inject(blocklyArea, options);
+        if (blocklyArea !== null) {
+            this.workspace = Blockly.inject(blocklyArea, options);
+        } else {
+            this.workspace = new Blockly.Workspace();
+        }
 
         this.workspace.addChangeListener((event: any) => {
             if (!event.isUiEvent && this.workspace != undefined) {
@@ -106,78 +117,80 @@ export class Blocks {
             }
         });
 
-        const variableDom = await variables;
+        if (this.workspace instanceof Blockly.WorkspaceSvg) {
+            const variableDom = await variables;
 
-        this.workspace.registerToolboxCategoryCallback('VARIABLES', () => {
-            if (this.workspace != undefined) {
-                const buttons = variableDom.getElementsByTagName('buttons')[0].children;
-                let getters = Array.from(variableDom.getElementsByTagName('getters')[0].children);
-                let setters = Array.from(variableDom.getElementsByTagName('setters')[0].children);
+            this.workspace.registerToolboxCategoryCallback('VARIABLES', () => {
+                if (this.workspace != undefined) {
+                    const buttons = variableDom.getElementsByTagName('buttons')[0].children;
+                    let getters = Array.from(variableDom.getElementsByTagName('getters')[0].children);
+                    let setters = Array.from(variableDom.getElementsByTagName('setters')[0].children);
 
-                let elements: Element[] = [];
+                    let elements: Element[] = [];
 
-                elements.push(buttons[0]);
+                    elements.push(buttons[0]);
 
-                const populateVars = (getterTypes: { [type: string]: string }, setterType?: string) => {
-                    if (this.workspace != undefined && getters != undefined) {
-                        const findByType = (where: Element[], type?: string) => where.find((getter) => getter.getAttribute('type') === type);
-                        const variables = this.workspace.getAllVariables();
-                        const firstMatch = variables.find(variable => variable.type in getterTypes);
-                        if (firstMatch != undefined) {
-                            const block = findByType(setters, setterType);
-                            if (block != undefined) {
-                                block.getElementsByTagName('field')[0].textContent = firstMatch.name;
-                                elements.push(block.cloneNode(true) as Element);
+                    const populateVars = (getterTypes: { [type: string]: string }, setterType?: string) => {
+                        if (this.workspace != undefined && getters != undefined) {
+                            const findByType = (where: Element[], type?: string) => where.find((getter) => getter.getAttribute('type') === type);
+                            const variables = this.workspace.getAllVariables();
+                            const firstMatch = variables.find(variable => variable.type in getterTypes);
+                            if (firstMatch != undefined) {
+                                const block = findByType(setters, setterType);
+                                if (block != undefined) {
+                                    block.getElementsByTagName('field')[0].textContent = firstMatch.name;
+                                    elements.push(block.cloneNode(true) as Element);
+                                }
+                            }
+                            for (let variable of variables) {
+                                const block = findByType(getters, getterTypes[variable.type]);
+                                if (block != undefined) {
+                                    let field = block.getElementsByTagName('field')[0];
+                                    field.setAttribute("variabletype", variable.type);
+                                    field.textContent = variable.name;
+                                    elements.push(block.cloneNode(true) as Element);
+                                    elements.push(variableDom.getElementsByTagName('sep')[0]);
+                                }
+                            }
+                            if (firstMatch != undefined) {
+                                elements.pop();
                             }
                         }
-                        for (let variable of variables) {
-                            const block = findByType(getters, getterTypes[variable.type]);
-                            if (block != undefined) {
-                                let field = block.getElementsByTagName('field')[0];
-                                field.setAttribute("variabletype", variable.type);
-                                field.textContent = variable.name;
-                                elements.push(block.cloneNode(true) as Element);
-                                elements.push(variableDom.getElementsByTagName('sep')[0]);
-                            }
-                        }
-                        if (firstMatch != undefined) {
-                            elements.pop();
-                        }
-                    }
-                };
+                    };
 
-                populateVars({ u16: "variables_get_integer", }, "variables_set_integer");
+                    populateVars({ u16: "variables_get_integer", }, "variables_set_integer");
 
-                elements.push(buttons[1]);
+                    elements.push(buttons[1]);
 
-                populateVars({ u16c: "variables_get_integer", }, "constant_define_integer");
+                    populateVars({ u16c: "variables_get_integer", }, "constant_define_integer");
 
-                elements.push(...variableDom.getElementsByTagName('constants')[0].children)
+                    elements.push(...variableDom.getElementsByTagName('constants')[0].children)
 
-                return elements;
-            }
-            else {
-                return [];
-            }
-        });
+                    return elements;
+                }
+                else {
+                    return [];
+                }
+            });
 
-        this.workspace.registerButtonCallback('newVariablePressed', async () => {
-            if (this.workspace != undefined) {
-                Blockly.Variables.createVariableButtonHandler(this.workspace, undefined, 'u16');
-            }
-        });
+            this.workspace.registerButtonCallback('newVariablePressed', async () => {
+                if (this.workspace != undefined) {
+                    Blockly.Variables.createVariableButtonHandler(this.workspace, undefined, 'u16');
+                }
+            });
 
-        this.workspace.registerButtonCallback('newConstantPressed', async () => {
-            if (this.workspace != undefined) {
-                Blockly.Variables.createVariableButtonHandler(this.workspace, undefined, 'u16c');
-            }
-        });
+            this.workspace.registerButtonCallback('newConstantPressed', async () => {
+                if (this.workspace != undefined) {
+                    Blockly.Variables.createVariableButtonHandler(this.workspace, undefined, 'u16c');
+                }
+            });
 
-        Blockly.prompt = (a, b, c) => (this.onPrompt ?? (() => {
-            console.error("onPrompt undefined. This is a bug.");
-        }))(a, b, c);
+            Blockly.prompt = (a, b, c) => (this.onPrompt ?? (() => {
+                console.error("onPrompt undefined. This is a bug.");
+            }))(a, b, c);
 
-        Blockly.svgResize(this.workspace);
+            Blockly.svgResize(this.workspace);
+        }
     }
 
     public async newFile() {
@@ -192,7 +205,16 @@ export class Blocks {
         const workspace = this.assertInitialized();
 
         Blockly.Events.disable();
-        Blockly.Xml.clearWorkspaceAndLoadFromXml(await Blocks.loadXml(file), workspace);
+
+        const xml = await Blocks.loadXml(file);
+
+        if (workspace instanceof Blockly.WorkspaceSvg) {
+            Blockly.Xml.clearWorkspaceAndLoadFromXml(xml, workspace);
+        } else {
+            // clearWorkspaceAndLoadFromXml doesn't work with Workspace (signature is wrong)
+            workspace.clear();
+            Blockly.Xml.domToWorkspace(xml, workspace);
+        }
         Blockly.Events.enable();
     }
 
@@ -251,17 +273,29 @@ export class Blocks {
     public zoomIn() {
         const workspace = this.assertInitialized();
 
+        if (!(workspace instanceof Blockly.WorkspaceSvg)) {
+            return;
+        }
+
         workspace.zoomCenter(1);
     }
 
     public zoomOut() {
         const workspace = this.assertInitialized();
 
+        if (!(workspace instanceof Blockly.WorkspaceSvg)) {
+            return;
+        }
+
         workspace.zoomCenter(-1);
     }
 
     public zoomToFit() {
         const workspace = this.assertInitialized();
+
+        if (!(workspace instanceof Blockly.WorkspaceSvg)) {
+            return;
+        }
 
         workspace.zoomToFit();
     }

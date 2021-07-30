@@ -2,6 +2,18 @@
 import { Blocks } from 'zr-blocks-generator';
 import { MenuAction } from '../menuaction';
 import { ipcRenderer } from 'electron';
+import util from 'util';
+
+function makeErrorSerializable(error: any): any {
+    if (util.types.isProxy(error) && error instanceof Error) {
+        let newError = new Error(error.message);
+        newError.name = error.name;
+        newError.stack = error.stack;
+        return newError;
+    } else {
+        return error;
+    }
+}
 
 export async function onMenu(blocks: Blocks, ...args: any[]) {
     const action: MenuAction = args[0];
@@ -22,6 +34,7 @@ export async function onMenu(blocks: Blocks, ...args: any[]) {
             } catch (exception) {
                 error = exception.toString();
             }
+            error = makeErrorSerializable(error);
             ipcRenderer.send("menu_reply", action, error);
             break;
 
@@ -32,6 +45,7 @@ export async function onMenu(blocks: Blocks, ...args: any[]) {
             } catch (exception) {
                 error = exception.toString();
             }
+            error = makeErrorSerializable(error);
             ipcRenderer.send("menu_reply", action, error);
             break;
 
@@ -77,6 +91,7 @@ export async function onMenu(blocks: Blocks, ...args: any[]) {
             } catch (exception: unknown) {
                 error = exception;
             }
+            error = makeErrorSerializable(error);
             ipcRenderer.send("menu_reply", action, result, error);
             break;
 
@@ -86,6 +101,7 @@ export async function onMenu(blocks: Blocks, ...args: any[]) {
             } catch (exception: unknown) {
                 error = exception;
             }
+            error = makeErrorSerializable(error);
             ipcRenderer.send("menu_reply", action, result, error);
             break;
 

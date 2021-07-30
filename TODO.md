@@ -18,3 +18,4 @@
 - [ ] Add a prefix to variable names
 - [ ] Fix restoring maximized window
 - [ ] Add UI tests (maybe use Xvfb+Xnee)
+- [ ] Save a stack trace for each instruction (for throwing in case of invalid operands)

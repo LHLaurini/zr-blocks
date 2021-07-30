@@ -3,6 +3,8 @@
   "private": true,
   "main": "packages/editor/dist/main.js",
   "scripts": {
+    "build": "lerna run build",
+    "test": "lerna run test",
     "package": "ts-node package.ts"
   },
   "devDependencies": {

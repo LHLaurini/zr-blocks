@@ -1,0 +1,23 @@
+{
+  "name": "zr-stdlib",
+  "version": "0.1-rc2",
+  "description": "> TODO: description",
+  "author": "Luiz Henrique Laurini <luizhenriquelaurini@gmail.com>",
+  "homepage": "https://github.com/Siga-IoT/zr-blocks/tree/main/packages/zr-assembler#readme",
+  "license": "UNLICENSED",
+  "main": "dist/stdlib.js",
+  "types": "dist/stdlib.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Siga-IoT/zr-blocks.git"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "bugs": {
+    "url": "https://github.com/Siga-IoT/zr-blocks/issues"
+  },
+  "dependencies": {
+    "zr-assembler": "file:../assembler"
+  }
+}

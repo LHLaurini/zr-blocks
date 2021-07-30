@@ -1,0 +1,26 @@
+{
+  "name": "zr-blocks",
+  "version": "0.1-rc2",
+  "description": "> TODO: description",
+  "author": "Luiz Henrique Laurini <luizhenriquelaurini@gmail.com>",
+  "homepage": "https://github.com/Siga-IoT/zr-blocks/tree/main/packages/zr-assembler#readme",
+  "license": "UNLICENSED",
+  "main": "dist/main.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Siga-IoT/zr-blocks.git"
+  },
+  "scripts": {
+    "build": "tsc",
+    "postbuild": "ts-node copyfiles.ts",
+    "start": "electron ."
+  },
+  "bugs": {
+    "url": "https://github.com/Siga-IoT/zr-blocks/issues"
+  },
+  "dependencies": {
+    "electron-settings": "^4.0.2",
+    "vex-js": "^4.1.0",
+    "zr-blocks-generator": "file:../generator"
+  }
+}

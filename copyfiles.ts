@@ -6,12 +6,10 @@ function callback(error?: Error) {
     }
 }
 
-function copy(...args: string[]) {
+export function copy(...args: string[]) {
     copyfiles(Array.from(args), { error: true, up: 1, verbose: true }, callback);
 }
 
-copy("src/renderer/*.css", "dist");
-copy("src/renderer/*.html", "dist");
-copy("src/renderer/blockly/*", "dist");
-copy("node_modules/vex-js/dist/css/vex.css", "dist");
-copy("node_modules/vex-js/dist/css/vex-theme-top.css", "dist");
+export function copyFile(...args: string[]) {
+    copyfiles(Array.from(args), { error: true, up: true, verbose: true }, callback);
+}

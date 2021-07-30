@@ -7,7 +7,8 @@ import tar from 'tar';
 packager({
     arch: ['x64', 'armv7l', 'arm64'],
     dir: '.',
-    out: 'packages',
+    name: 'zr-blocks',
+    out: 'electron-packages',
     overwrite: true,
     platform: ['win32', 'linux'],
 }).then(async packages => {
@@ -17,7 +18,7 @@ packager({
         const output = fs.createWriteStream(`${pkg}.tar.xz`);
         await new Promise(resolve =>
             tar.c({
-                C: 'packages'
+                C: 'electron-packages'
             }, [
                 path.basename(pkg)
             ]).

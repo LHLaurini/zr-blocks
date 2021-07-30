@@ -1,0 +1,21 @@
+{
+  "name": "zr-assembler",
+  "version": "0.1-rc2",
+  "description": "> TODO: description",
+  "author": "Luiz Henrique Laurini <luizhenriquelaurini@gmail.com>",
+  "homepage": "https://github.com/Siga-IoT/zr-blocks/tree/main/packages/zr-assembler#readme",
+  "license": "UNLICENSED",
+  "main": "dist/assembler.js",
+  "types": "dist/assembler.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Siga-IoT/zr-blocks.git"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "ts-mocha -p tsconfig.json src/*.spec.ts"
+  },
+  "bugs": {
+    "url": "https://github.com/Siga-IoT/zr-blocks/issues"
+  }
+}

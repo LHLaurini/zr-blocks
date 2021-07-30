@@ -1,0 +1,9 @@
+{
+    "extends": "../../tsconfig.json",
+    "files": [
+        "src/blocks.ts"
+    ],
+    "compilerOptions": {
+        "outDir": "dist"
+    }
+}

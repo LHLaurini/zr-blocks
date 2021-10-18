@@ -7,6 +7,7 @@ import { Memory } from "zr-assembler";
 import { Operand } from "zr-assembler";
 import { Prog } from "zr-assembler";
 import { Register } from "zr-assembler";
+import { AssemblerError } from "zr-assembler";
 import { bytesToNumber, shiftLeft } from "./helper";
 import { pop, push } from "./stack";
 
@@ -215,7 +216,12 @@ export function initPwm(block: Block, iBlock: Block, frequency: () => Operand[] 
     iBlock.mov(Register.R0, Immediate.from(0b10000111));
     iBlock.mov(timerControl, Register.R0);
 
-    for (let i of [...Array(maxChannels).keys()]) {
+    if (!maxChannels()[0].isImmediate())
+    {
+        throw new AssemblerError("maxChannels deve ser literal");
+    }
+
+    for (let i of [...Array((maxChannels()[0] as Immediate).immediate).keys()]) {
         let next = iBlock.label(false);
         let off = iBlock.label(false);
 

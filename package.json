@@ -11,7 +11,7 @@
     "@types/copyfiles": "^2.4.1",
     "@types/lzma-native": "^4.0.1",
     "@types/mocha": "^9.0.0",
-    "@types/tar": "^4.0.5",
+    "@types/tar": "^6.1.2",
     "copyfiles": "^2.4.1",
     "electron": "^13.1.7",
     "electron-packager": "^15.3.0",

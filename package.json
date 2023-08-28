@@ -15,7 +15,7 @@
     "copyfiles": "^2.4.1",
     "electron": "^13.1.7",
     "electron-packager": "^15.3.0",
-    "expect": "^27.0.6",
+    "expect": "^29.6.4",
     "lerna": "^4.0.0",
     "lzma-native": "^6.0.1",
     "tar": "^6.1.2",

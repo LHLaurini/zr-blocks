@@ -153,17 +153,45 @@
                       </block>
                     </statement>
                     <next>
-                      <block type="set_digital_pin" id="pFR6mk]JS-$DrkZjD`fj">
-                        <value name="pin">
-                          <shadow type="digital_output" id="7t7O#mD3b{0dA!54IEe~">
-                            <field name="digital_output">SD0</field>
-                          </shadow>
+                      <block type="controls_if" id="31=VB+aMYGsf;zAG+!+(">
+                        <value name="IF0">
+                          <block type="comparison" id="7eM#Kwk9m3CHALVA!9%]">
+                            <field name="operation">ne</field>
+                            <value name="operand1">
+                              <shadow type="integer" id="BWf^Ea$6RfA.,fG=Y9J~">
+                                <field name="value">0</field>
+                              </shadow>
+                            </value>
+                            <value name="operand2">
+                              <shadow type="integer" id="eCB/gM6UR^E1,aaChH%U">
+                                <field name="value">0</field>
+                              </shadow>
+                            </value>
+                          </block>
                         </value>
-                        <value name="state">
-                          <shadow type="state" id="vV|Rt%EhBi+8fLu(nz]5">
-                            <field name="state">HIGH</field>
-                          </shadow>
-                        </value>
+                        <statement name="DO0">
+                          <block type="repeat_while" id="f!H$q2xeEf0uDYV(AtEy">
+                            <value name="condition">
+                              <shadow type="boolean" id="zIi2)s07O)%J~{9F!}3|">
+                                <field name="value">TRUE</field>
+                              </shadow>
+                            </value>
+                          </block>
+                        </statement>
+                        <next>
+                          <block type="set_digital_pin" id="pFR6mk]JS-$DrkZjD`fj">
+                            <value name="pin">
+                              <shadow type="digital_output" id="7t7O#mD3b{0dA!54IEe~">
+                                <field name="digital_output">SD0</field>
+                              </shadow>
+                            </value>
+                            <value name="state">
+                              <shadow type="state" id="vV|Rt%EhBi+8fLu(nz]5">
+                                <field name="state">HIGH</field>
+                              </shadow>
+                            </value>
+                          </block>
+                        </next>
                       </block>
                     </next>
                   </block>

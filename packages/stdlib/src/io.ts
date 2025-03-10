@@ -8,6 +8,7 @@ import { Operand } from "zr-assembler";
 import { Prog } from "zr-assembler";
 import { Register } from "zr-assembler";
 import { AssemblerError } from "zr-assembler";
+import { Action, ActionResultType } from "./action";
 import { bytesToNumber, shiftLeft } from "./helper";
 import { pop, push } from "./stack";
 
@@ -178,17 +179,21 @@ export function setDigitalOutput(block: Block, pin: () => Operand[], state: () =
 };
 
 export function getDigitalInput(block: Block, pin: () => Operand[]) {
-    block.mov(Register.R0, pin()[0]);
-    block.mov(Register.R1, Register.R0);
-    block.call(getDigitalInputStart);
-    return [Register.R1];
+    return new Action(() => {
+        block.mov(Register.R0, pin()[0]);
+        block.mov(Register.R1, Register.R0);
+        block.call(getDigitalInputStart);
+        return [Register.R1];
+    }, ActionResultType.REGISTERS, 1);
 };
 
 export function getAnalogInput(block: Block, pin: () => Operand[]) {
-    block.mov(Register.R0, pin()[0]);
-    block.mov(Register.R1, Register.R0);
-    block.call(getAnalogInputStart);
-    return [Register.R1, Register.R2];
+    return new Action(() => {
+        block.mov(Register.R0, pin()[0]);
+        block.mov(Register.R1, Register.R0);
+        block.call(getAnalogInputStart);
+        return [Register.R1, Register.R2];
+    }, ActionResultType.REGISTERS, 2);
 };
 
 export function initPwm(block: Block, iBlock: Block, frequency: () => Operand[] = () => [Immediate.from(100)], maxChannels: () => Operand[] = () => [Immediate.from(3)]) {

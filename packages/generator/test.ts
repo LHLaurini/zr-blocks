@@ -22,4 +22,6 @@ function doTest(test: string, maxCycles: number) {
 
 describe("Control", () => {
     doTest("if", 1000);
+    doTest("cond", 2000);
+    doTest("cond2", 10000);
 });

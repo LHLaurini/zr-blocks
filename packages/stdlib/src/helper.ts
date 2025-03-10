@@ -1,11 +1,11 @@
 import { Block } from "zr-assembler";
 import { Immediate } from "zr-assembler";
-import { Immediate7 } from "zr-assembler";
 import { Linker } from "zr-assembler";
 import { Operand } from "zr-assembler";
 import { Prog } from "zr-assembler";
 import { Register } from "zr-assembler";
 import { AssemblerError } from "zr-assembler";
+import { Action, ActionResultType } from "./action";
 import { pop, push } from "./stack";
 
 let shiftLeftBlock: Block;
@@ -29,13 +29,15 @@ export function defineBlocks() {
 }
 
 export function shiftLeft(block: Block, value: () => Operand[], shift: () => Operand[]) {
-    block.mov(Register.R0, shift()[0]);
-    push(block, Register.R0);
-    block.mov(Register.R0, value()[0]);
-    block.mov(Register.R1, Register.R0);
-    pop(block, Register.R2);
-    block.call(shiftLeftStart);
-    return [Register.R1];
+    return new Action(() => {
+        block.mov(Register.R0, shift()[0]);
+        push(block, Register.R0);
+        block.mov(Register.R0, value()[0]);
+        block.mov(Register.R1, Register.R0);
+        pop(block, Register.R2);
+        block.call(shiftLeftStart);
+        return [Register.R1];
+    }, ActionResultType.REGISTERS, 1);
 }
 
 export function addBlocks(linker: Linker) {
